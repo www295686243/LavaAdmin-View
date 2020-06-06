@@ -1,0 +1,94 @@
+<template>
+  <el-button
+    :type="type"
+    @click="handleSubmit"
+    :loading="loading"
+    :class="{long: long}"
+    :size="size"
+    :icon="icon">
+    <slot>提交</slot>
+  </el-button>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { IResult } from '@/interface/common'
+
+@Component
+export default class ButtonSubmit extends Vue {
+  @Prop({ default: () => () => Promise.resolve })
+  onClick!: Function
+
+  @Prop({ default: 'primary' })
+  type!: string
+
+  @Prop({ default: false })
+  long!: boolean
+
+  @Prop()
+  icon!: string
+
+  @Prop()
+  size!: string
+
+  private loading = false
+
+  private handleSubmit () {
+    if (this.loading) return
+    this.loading = true
+    const result = this.onClick()
+    if (result && typeof result.then === 'function') {
+      result
+        .then((res: IResult) => {
+          if (res && res.message) {
+            this.$message({
+              showClose: true,
+              message: res.message,
+              type: 'success'
+            })
+          }
+          this.loading = false
+        })
+        .catch((res: IResult) => {
+          if (res && res.message) {
+            if (res.code === 422) {
+              if (res.data.length > 0) {
+                const messageHTML = res.data.map((item: any) => item.text).join('<br>')
+                this.$message({
+                  showClose: true,
+                  dangerouslyUseHTMLString: true,
+                  duration: 5000,
+                  message: '<div style="line-height: 1.4">' + messageHTML + '</div>',
+                  type: 'error'
+                })
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  duration: 5000,
+                  type: 'error'
+                })
+              }
+            } else {
+              this.$message({
+                showClose: true,
+                message: res.message,
+                duration: 5000,
+                type: 'error'
+              })
+            }
+          }
+          this.loading = false
+        })
+    } else {
+      this.loading = false
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.long {
+  width: 100%
+}
+</style>
