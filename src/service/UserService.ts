@@ -23,6 +23,7 @@ class UserService {
         cache.user.setAll(res.data)
         this.updateData(res.data)
       })
+      .then(() => this.getUserConfig())
   }
 
   logout () {
@@ -35,6 +36,10 @@ class UserService {
 
   updateData (params: UserInfo) {
     Object.assign(this.info, params)
+  }
+
+  getUserConfig () {
+    return axios.get('user/getUserConfig')
   }
 }
 
