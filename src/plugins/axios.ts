@@ -12,8 +12,8 @@ function notLogin () {
 
 function ajax (data: object): Promise<any> {
   axios.defaults.baseURL = cache.getBaseConfig('baseHost')
-  if (cache.user.get('token')) {
-    axios.defaults.headers.common.Authorization = 'Bearer ' + cache.user.get('token')
+  if (cache.user.get('api_token')) {
+    axios.defaults.headers.common.Authorization = 'Bearer ' + cache.user.get('api_token')
   }
 
   return new Promise((resolve, reject) => {
