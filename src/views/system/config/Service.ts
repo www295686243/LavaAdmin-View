@@ -1,6 +1,7 @@
 import axios from '@/plugins/axios'
 
 class Service {
+  name = '配置'
   index (params: { page: number; guard_name: string }) {
     return axios.get('config', params)
   }

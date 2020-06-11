@@ -1,6 +1,8 @@
 <template>
   <PageContainer>
     <TableRender
+      :addBtnText="Service.name"
+      :searchFields="searchFields"
       :onLoad="handleLoad"
       :tableColumns="tableColumns">
     </TableRender>
@@ -10,7 +12,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
-import { ITableColumns, ITableIndexParams } from '@/interface/common'
+import { ITableColumns, ITableIndexParams, ISearchFields } from '@/interface/common'
 import RouterService from '@/service/RouterService'
 
 @Component
@@ -54,6 +56,19 @@ export default class ViewSystemConfigIndex extends Vue {
           onClick: (row: any) => Service.destroy(row.id)
         }
       ]
+    }
+  ]
+
+  private searchFields: ISearchFields[] = [
+    {
+      name: 'name',
+      display_name: '标识',
+      type: 'string'
+    },
+    {
+      name: 'display_name',
+      display_name: '名称',
+      type: 'string'
     }
   ]
 

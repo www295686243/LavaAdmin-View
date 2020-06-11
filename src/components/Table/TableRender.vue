@@ -1,5 +1,13 @@
 <template>
   <div class="TableRender">
+    <div class="function-container">
+      <div v-if="addBtnText"><ButtonSubmit :onClick="gotoAddForm">添加{{addBtnText}}</ButtonSubmit></div>
+      <InfoSearchContainer
+        @submit="search"
+        :fields="searchFields"
+        v-if="searchFields">
+      </InfoSearchContainer>
+    </div>
     <el-table
       ref="table"
       border
@@ -23,16 +31,19 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { IPagination, IResult, ITableColumns } from '@/interface/common'
+import { IPagination, IResult, ITableColumns, ISearchFields } from '@/interface/common'
 import TablePagination from '@/components/Table/TablePagination.vue'
 import TableText from './TableText.vue'
 import TableAction from './TableAction.vue'
+import InfoSearchContainer from '../InfoSearchContainer.vue'
+import RouterService from '@/service/RouterService'
 
 @Component({
   components: {
     TablePagination,
     TableText,
-    TableAction
+    TableAction,
+    InfoSearchContainer
   }
 })
 export default class TableRender extends Vue {
@@ -46,6 +57,12 @@ export default class TableRender extends Vue {
   @Prop({ default: () => [] })
   tableColumns!: ITableColumns[]
 
+  @Prop()
+  searchFields!: ISearchFields[]
+
+  @Prop()
+  addBtnText!: string
+
   private maxHeight = 500
   private isLoading = false
   private pagination: IPagination = {
@@ -57,13 +74,14 @@ export default class TableRender extends Vue {
   private isShowPagination = false
   private list: any[] = []
   private emptyText = '暂无数据'
+  private searchParams = {}
 
-  private initLoad (params?: any) {
+  private initLoad () {
     if (this.isLoading) return
     this.isLoading = true
     return this.onLoad({
-      ...params,
-      ...this.pagination
+      ...this.pagination,
+      ...this.searchParams
     })
       .then((res: IResult) => {
         if (Array.isArray(res.data)) {
@@ -87,10 +105,14 @@ export default class TableRender extends Vue {
   }
 
   private pageLoad () {
-    return this.initLoad()
+    this.initLoad()
   }
 
-  removeReload () {
+  private gotoAddForm () {
+    RouterService.pushForm()
+  }
+
+  private removeReload () {
     if (this.list.length === 1) {
       this.pagination.page = this.pagination.page > 1 ? --this.pagination.page : 1
     }
@@ -99,6 +121,13 @@ export default class TableRender extends Vue {
 
   reload () {
     this.list = []
+    this.initLoad()
+  }
+
+  private search (params: object) {
+    if (params) {
+      this.searchParams = params
+    }
     this.initLoad()
   }
 
@@ -112,5 +141,9 @@ export default class TableRender extends Vue {
 <style lang="scss">
 .TableRender {
   height: 100%;
+  .function-container {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 </style>

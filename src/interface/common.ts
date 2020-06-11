@@ -93,3 +93,16 @@ interface IRule {
 export interface IFormFields {
   [key: string]: IFormFieldItem
 }
+
+export interface ISearchFields {
+  name: string,
+  display_name: string,
+  type: string,
+  options?: IOptions[],
+  flatOptions?: IOptions[]
+}
+
+export interface IOptions {
+  label: string,
+  value: number|string
+}
