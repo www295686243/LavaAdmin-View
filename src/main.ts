@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import PageContainer from './components/PageContainer.vue'
 import ButtonSubmit from './components/Button/ButtonSubmit.vue'
 import ButtonDelete from './components/Button/ButtonDelete.vue'
+import TableRender from './components/Table/TableRender.vue'
 
 import RouterService from '@/service/RouterService'
 import UserService from '@/service/UserService'
@@ -15,6 +16,7 @@ import UserService from '@/service/UserService'
 Vue.component('ButtonSubmit', ButtonSubmit)
 Vue.component('ButtonDelete', ButtonDelete)
 Vue.component('PageContainer', PageContainer)
+Vue.component('TableRender', TableRender)
 
 RouterService.init(router)
 UserService.init()

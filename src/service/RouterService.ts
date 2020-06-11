@@ -27,8 +27,8 @@ class RouterSerivce {
     })
   }
 
-  pushForm (path: string, query: object = {}) {
-    this.push(this.router.app.$route.path + path, {
+  pushForm (query: object = {}) {
+    this.push(this.router.app.$route.path + '/form', {
       ...this.getUrlParams(),
       ...query
     })

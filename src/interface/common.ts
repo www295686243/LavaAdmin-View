@@ -1,6 +1,6 @@
 export interface IPagination {
-  page: number,
-  limit: number,
+  page: number
+  limit: number
   total: number
 }
 
@@ -30,4 +30,34 @@ export interface IResult {
   data: any,
   code: number,
   status: string
+}
+
+export interface ITableColumns {
+  prop?: string
+  label?: string
+  type?: string
+  width?: number
+  minWidth?: number
+  fixed?: string
+  element?: string
+  align?: string
+  options?: any[]
+  optionsList?: any[] // 一般用于级联组件,扁平化的树形列表
+  props?: {
+    label: string
+    value?: string
+  }
+  actions?: ITableColumnAction[]
+}
+
+interface ITableColumnAction {
+  name: string
+  type?: string
+  size?: string
+  onClick: Function
+}
+
+export interface ITableIndexParams {
+  page: number
+  limit?: number
 }

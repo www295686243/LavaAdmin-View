@@ -1,0 +1,68 @@
+<template>
+  <PageContainer>
+    <TableRender
+      ref="table"
+      :onLoad="handleLoad"
+      :tableColumns="tableColumns">
+    </TableRender>
+  </PageContainer>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import Service from './Service'
+import { ITableColumns, ITableIndexParams } from '@/interface/common'
+import RouterService from '@/service/RouterService'
+
+@Component
+export default class SystemConfigBaseIndex extends Vue {
+  private Service = Service
+
+  private tableColumns: ITableColumns[] = [
+    {
+      prop: 'id',
+      label: 'ID',
+      width: 120
+    },
+    {
+      prop: 'name',
+      label: '标识',
+      minWidth: 200
+    },
+    {
+      prop: 'display_name',
+      label: '名称',
+      minWidth: 200
+    },
+    {
+      prop: 'value',
+      label: '值',
+      minWidth: 160
+    },
+    {
+      prop: '_action',
+      label: '操作',
+      width: 160,
+      actions: [
+        {
+          name: '编辑',
+          onClick: (row: any) => {
+            RouterService.pushForm({ id: row.id })
+          }
+        },
+        {
+          name: '删除',
+          onClick: (row: any) => Service.destroy(row.id)
+        }
+      ]
+    }
+  ]
+
+  private handleLoad (params: ITableIndexParams) {
+    return Service.index({
+      ...params,
+      guard_name: 'system'
+    })
+  }
+}
+</script>

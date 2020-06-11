@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Login from '@/views/login.vue'
 import Main from '@/views/main/main.vue'
+import system from './system'
 
 Vue.use(VueRouter)
 
@@ -10,6 +11,7 @@ const routes: Array<RouteConfig> = [
     path: '/',
     component: Main,
     children: [
+      ...system
     ]
   },
   {

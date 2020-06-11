@@ -102,3 +102,23 @@ export function getDate (value?: Date, fmt = 'Y-m-d'): string {
     return `${year}-${month}-${day}`
   }
 }
+
+export function getDeepValue (field: string, row: any) {
+  // 例：field = price||set_meal.price
+  return field.split('||') // ['price', 'set_meal.price']
+    .filter((key: string) => key) // ['price', 'set_meal.price']
+    .map((field: string) => { // 返回 ['', '11.00']
+      // set_meal.price
+      return field.split('.') // ['set_meal', 'price']
+        .filter((key: string) => key)
+        .reduce((acc, key: string) => {
+          // 循环第一次：row['set_meal']，第二次：row['set_meal']['price']
+          if (acc && acc[key]) {
+            return acc[key]
+          } else {
+            return null
+          }
+        }, row)
+    })
+    .find((value) => value) // 找到有效的值返回
+}
