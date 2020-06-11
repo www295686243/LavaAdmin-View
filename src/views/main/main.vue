@@ -1,9 +1,11 @@
 <template>
   <el-container class="MainContainer">
     <el-header>
+      <HeaderContainer :routePaths="routePaths"></HeaderContainer>
     </el-header>
     <el-container class="view-container">
       <el-aside width="200px">
+        <SiderContainer :routePaths="routePaths"></SiderContainer>
       </el-aside>
       <el-container class="is-vertical view-main-container">
         <el-main class="main">
@@ -16,24 +18,46 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import cache from '@/plugins/cache'
+import HeaderContainer from './components/HeaderContainer.vue'
+import SiderContainer from './components/SiderContainer.vue'
+import { IMenu } from '@/interface/common'
+import { getAncestorsAndSelf } from '@/plugins/tools'
+
+const RouteList: IMenu[] = cache.layout.get('menus') || []
 
 @Component({
   components: {
+    HeaderContainer,
+    SiderContainer
   }
 })
 export default class Main extends Vue {
   private fullPath = ''
+  private routePaths: IMenu[] = []
 
   beforeRouteEnter (to: any, from: object, next: Function) {
-    console.log(cache.user.get('token'))
-    if (!cache.user.get('token')) {
+    if (!cache.user.get('api_token')) {
       next({
         path: '/login'
       })
     } else {
       next((vm: any) => {
         vm.fullPath = to.fullPath
+        vm.initRoutePaths(to.path)
       })
+    }
+  }
+
+  beforeRouteUpdate (to: any, from: any, next: Function) {
+    this.initRoutePaths(to.path)
+    next()
+  }
+
+  private initRoutePaths (path: string) {
+    path = path === '/' ? '/system' : path
+    const routeItem = RouteList.find((res) => res.route === path)
+    if (routeItem) {
+      this.routePaths = getAncestorsAndSelf(routeItem.id, RouteList)
     }
   }
 }

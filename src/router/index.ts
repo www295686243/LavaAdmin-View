@@ -15,6 +15,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '*',
+    component: Main
   }
 ]
 

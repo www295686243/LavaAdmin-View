@@ -10,12 +10,14 @@ import ButtonSubmit from './components/Button/ButtonSubmit.vue'
 import ButtonDelete from './components/Button/ButtonDelete.vue'
 
 import RouterService from '@/service/RouterService'
+import UserService from '@/service/UserService'
 
 Vue.component('ButtonSubmit', ButtonSubmit)
 Vue.component('ButtonDelete', ButtonDelete)
 Vue.component('PageContainer', PageContainer)
 
 RouterService.init(router)
+UserService.init()
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false

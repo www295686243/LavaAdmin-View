@@ -58,14 +58,14 @@ class RouterSerivce {
   }
 
   getNeedParams (path: string) {
-    const list: IMenu[] = cache.layout.get('layoutMenuFlat') || []
+    const list: IMenu[] = cache.layout.get('menus') || []
     const item = list.find((res) => res.route === path)
     let params = {}
     if (item) {
       const paths: IMenu[] = getAncestorsAndSelf(item.id, list)
       params = paths
         .reduce((acc: string[], row) => {
-          acc = acc.concat(row.params as string[])
+          acc = acc.concat(row.params as string[] || [])
           return acc
         }, [])
         .reduce((acc: { [key: string]: string | number }, key) => {

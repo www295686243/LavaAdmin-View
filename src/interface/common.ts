@@ -19,7 +19,7 @@ export interface IMenu {
   parent_id: number
   display_name: string
   icon?: string
-  route?: string
+  route: string
   depth: number
   params?: string[]
   children?: IMenu[]

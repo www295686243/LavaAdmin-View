@@ -7,14 +7,22 @@ interface LoginParams {
 }
 
 interface UserInfo {
+  id: number;
   username: string;
   nickname: string;
+  phone: string;
 }
 
 class UserService {
   info: UserInfo = {
+    id: 0,
     nickname: '',
-    username: ''
+    username: '',
+    phone: ''
+  }
+
+  init () {
+    Object.assign(this.info, cache.user.getAll())
   }
 
   login (params: LoginParams) {
@@ -40,6 +48,11 @@ class UserService {
 
   getUserConfig () {
     return axios.get('user/getUserConfig')
+      .then((res) => {
+        cache.user.setAll(res.data.user)
+        this.updateData(res.data.user)
+        cache.layout.set('menus', res.data.menus)
+      })
   }
 }
 
