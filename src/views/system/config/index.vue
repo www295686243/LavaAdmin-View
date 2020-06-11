@@ -1,7 +1,6 @@
 <template>
   <PageContainer>
     <TableRender
-      ref="table"
       :onLoad="handleLoad"
       :tableColumns="tableColumns">
     </TableRender>
@@ -15,7 +14,7 @@ import { ITableColumns, ITableIndexParams } from '@/interface/common'
 import RouterService from '@/service/RouterService'
 
 @Component
-export default class SystemConfigBaseIndex extends Vue {
+export default class ViewSystemConfigIndex extends Vue {
   private Service = Service
 
   private tableColumns: ITableColumns[] = [

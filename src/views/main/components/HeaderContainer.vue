@@ -88,6 +88,7 @@ export default class HeaderContainer extends Vue {
 
   created () {
     this.list = RouteList.filter((res: IMenu) => !res.parent_id)
+    this.routeActive = this.routePaths[0].route
   }
 }
 </script>

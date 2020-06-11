@@ -9,6 +9,7 @@ import PageContainer from './components/PageContainer.vue'
 import ButtonSubmit from './components/Button/ButtonSubmit.vue'
 import ButtonDelete from './components/Button/ButtonDelete.vue'
 import TableRender from './components/Table/TableRender.vue'
+import FormRender from './components/Form/FormRender.vue'
 
 import RouterService from '@/service/RouterService'
 import UserService from '@/service/UserService'
@@ -17,6 +18,7 @@ Vue.component('ButtonSubmit', ButtonSubmit)
 Vue.component('ButtonDelete', ButtonDelete)
 Vue.component('PageContainer', PageContainer)
 Vue.component('TableRender', TableRender)
+Vue.component('FormRender', FormRender)
 
 RouterService.init(router)
 UserService.init()

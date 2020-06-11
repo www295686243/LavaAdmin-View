@@ -1,7 +1,7 @@
 <template>
   <el-menu
     :route="true"
-    :default-active="$route.path"
+    :default-active="routeActive"
     @select="handleSelect"
     class="SiderContainer">
     <template v-for="v in list">
@@ -36,12 +36,14 @@ const RouteList: IMenu[] = cache.layout.get('menus') || []
 @Component
 export default class SiderContainer extends Vue {
   private list: IMenu[] = []
+  private routeActive = ''
 
   @Prop()
   routePaths!: IMenu[]
 
   @Watch('routePaths')
   onRoutePaths () {
+    this.routeActive = this.routeFilterForm(this.$route.path)
     this.initList()
   }
 
@@ -57,6 +59,16 @@ export default class SiderContainer extends Vue {
         route.children = RouteList.filter((row) => row.parent_id === route.id)
         return route
       })
+  }
+
+  private routeFilterForm (path: string) {
+    path = path.split('/').filter((str) => str && str !== 'form').join('/')
+    return '/' + path
+  }
+
+  created () {
+    this.routeActive = this.routeFilterForm(this.$route.path)
+    this.initList()
   }
 }
 </script>

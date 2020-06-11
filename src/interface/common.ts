@@ -61,3 +61,35 @@ export interface ITableIndexParams {
   page: number
   limit?: number
 }
+
+export interface IFormFieldItem {
+  prop?: string
+  label: string
+  options?: any[] // 下拉或多选的选项
+  optionsList?: any[] // 一般用于级联菜单，扁平化的树形列表
+  rule?: IRule[]
+  props?: {
+    checkStrictly?: boolean
+    value?: string // value字段名
+    label?: string // label字段名
+  }
+  width?: number // 元素宽度
+  defaultValue?: any
+  disabled?: boolean
+  placeholder?: string
+  tips?: string // 一般用于表单下方的提示性文字
+}
+
+interface IRule {
+  required?: boolean,
+  message?: string,
+  trigger: string,
+  max?: number,
+  min?: number,
+  validator?: Function
+  [key: string]: any
+}
+
+export interface IFormFields {
+  [key: string]: IFormFieldItem
+}

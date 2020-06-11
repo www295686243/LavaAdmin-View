@@ -1,5 +1,5 @@
 <template>
-  <el-container class="MainContainer">
+  <el-container class="MainContainer" v-if="isShowPage">
     <el-header>
       <HeaderContainer :routePaths="routePaths"></HeaderContainer>
     </el-header>
@@ -8,6 +8,7 @@
         <SiderContainer :routePaths="routePaths"></SiderContainer>
       </el-aside>
       <el-container class="is-vertical view-main-container">
+        <BreadcrumbContainer :routePaths="routePaths"></BreadcrumbContainer>
         <el-main class="main">
           <router-view :key="fullPath"></router-view>
         </el-main>
@@ -20,6 +21,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import cache from '@/plugins/cache'
 import HeaderContainer from './components/HeaderContainer.vue'
 import SiderContainer from './components/SiderContainer.vue'
+import BreadcrumbContainer from './components/BreadcrumbContainer.vue'
 import { IMenu } from '@/interface/common'
 import { getAncestorsAndSelf } from '@/plugins/tools'
 
@@ -28,12 +30,14 @@ const RouteList: IMenu[] = cache.layout.get('menus') || []
 @Component({
   components: {
     HeaderContainer,
-    SiderContainer
+    SiderContainer,
+    BreadcrumbContainer
   }
 })
 export default class Main extends Vue {
   private fullPath = ''
   private routePaths: IMenu[] = []
+  private isShowPage = false
 
   beforeRouteEnter (to: any, from: object, next: Function) {
     if (!cache.user.get('api_token')) {
@@ -44,6 +48,7 @@ export default class Main extends Vue {
       next((vm: any) => {
         vm.fullPath = to.fullPath
         vm.initRoutePaths(to.path)
+        vm.isShowPage = true
       })
     }
   }
@@ -55,10 +60,16 @@ export default class Main extends Vue {
 
   private initRoutePaths (path: string) {
     path = path === '/' ? '/system' : path
+    path = this.routeFilterForm(path)
     const routeItem = RouteList.find((res) => res.route === path)
     if (routeItem) {
       this.routePaths = getAncestorsAndSelf(routeItem.id, RouteList)
     }
+  }
+
+  private routeFilterForm (path: string) {
+    path = path.split('/').filter((str) => str && str !== 'form').join('/')
+    return '/' + path
   }
 }
 </script>
