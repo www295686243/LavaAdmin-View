@@ -31,8 +31,6 @@ import cache from '@/plugins/cache'
 import RouterService from '@/service/RouterService'
 import { IMenu } from '@/interface/common'
 
-const RouteList: IMenu[] = cache.layout.get('menus') || []
-
 @Component
 export default class SiderContainer extends Vue {
   private list: IMenu[] = []
@@ -52,6 +50,7 @@ export default class SiderContainer extends Vue {
   }
 
   private initList () {
+    const RouteList: IMenu[] = cache.layout.get('menus') || []
     const rootRouteItem = this.routePaths[0]
     this.list = RouteList
       .filter((res) => res.parent_id === rootRouteItem.id)

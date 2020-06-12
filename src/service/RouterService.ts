@@ -57,6 +57,16 @@ class RouterSerivce {
     }
   }
 
+  getPath () {
+    return this.router.app.$route.path
+  }
+
+  getControllerName () {
+    const path = this.getPath()
+    const model = path.split('/').pop() as string
+    return model.charAt(0).toUpperCase() + model.slice(1) + 'Controller'
+  }
+
   getNeedParams (path: string) {
     const list: IMenu[] = cache.layout.get('menus') || []
     const item = list.find((res) => res.route === path)

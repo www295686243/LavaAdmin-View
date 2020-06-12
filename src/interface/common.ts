@@ -50,10 +50,11 @@ export interface ITableColumns {
   actions?: ITableColumnAction[]
 }
 
-interface ITableColumnAction {
+export interface ITableColumnAction {
   name: string
   type?: string
   size?: string
+  permission?: string
   onClick: Function
 }
 

@@ -51,8 +51,14 @@ class UserService {
       .then((res) => {
         cache.user.setAll(res.data.user)
         this.updateData(res.data.user)
+        cache.user.set('interface', res.data.interface || [])
         cache.layout.set('menus', res.data.menus)
       })
+  }
+
+  hasPermission (name: string) {
+    const permissions: string[] = cache.user.get('interface') || []
+    return permissions.includes(name)
   }
 }
 

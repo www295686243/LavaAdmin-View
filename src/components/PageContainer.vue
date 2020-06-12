@@ -48,7 +48,6 @@ export default class PageContainer extends Vue {
     // position: relative; // 不要加这个属性，不然加载的遮罩不会覆盖到底部的按钮
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 15px 0;
     flex: 1 1 0;
   }
   .PageFooterContainer {

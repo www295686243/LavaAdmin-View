@@ -25,8 +25,6 @@ import BreadcrumbContainer from './components/BreadcrumbContainer.vue'
 import { IMenu } from '@/interface/common'
 import { getAncestorsAndSelf } from '@/plugins/tools'
 
-const RouteList: IMenu[] = cache.layout.get('menus') || []
-
 @Component({
   components: {
     HeaderContainer,
@@ -59,6 +57,7 @@ export default class Main extends Vue {
   }
 
   private initRoutePaths (path: string) {
+    const RouteList: IMenu[] = cache.layout.get('menus') || []
     path = path === '/' ? '/system' : path
     path = this.routeFilterForm(path)
     const routeItem = RouteList.find((res) => res.route === path)

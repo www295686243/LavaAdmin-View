@@ -1,7 +1,7 @@
 <template>
   <div class="TableRender">
     <div class="function-container">
-      <div v-if="addBtnText"><ButtonSubmit :onClick="gotoAddForm">添加{{addBtnText}}</ButtonSubmit></div>
+      <div v-if="addBtnText && isStorePermission"><ButtonSubmit :onClick="gotoAddForm">添加{{addBtnText}}</ButtonSubmit></div>
       <InfoSearchContainer
         @submit="search"
         :fields="searchFields"
@@ -37,6 +37,7 @@ import TableText from './TableText.vue'
 import TableAction from './TableAction.vue'
 import InfoSearchContainer from '../InfoSearchContainer.vue'
 import RouterService from '@/service/RouterService'
+import UserService from '@/service/UserService'
 
 @Component({
   components: {
@@ -75,6 +76,7 @@ export default class TableRender extends Vue {
   private list: any[] = []
   private emptyText = '暂无数据'
   private searchParams = {}
+  private isStorePermission = false
 
   private initLoad () {
     if (this.isLoading) return
@@ -134,6 +136,7 @@ export default class TableRender extends Vue {
   created () {
     this.maxHeight = document.body.clientHeight - 250
     this.initLoad()
+    this.isStorePermission = UserService.hasPermission(RouterService.getControllerName() + '@store')
   }
 }
 </script>
@@ -144,6 +147,7 @@ export default class TableRender extends Vue {
   .function-container {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 15px;
   }
 }
 </style>

@@ -34,8 +34,6 @@ import UserService from '@/service/UserService'
 import cache from '@/plugins/cache'
 import { IMenu } from '@/interface/common'
 
-const RouteList: IMenu[] = cache.layout.get('menus') || []
-
 @Component
 export default class HeaderContainer extends Vue {
   private UserService = UserService
@@ -47,7 +45,7 @@ export default class HeaderContainer extends Vue {
 
   @Watch('routePaths')
   onRoutePaths () {
-    this.routeActive = this.routePaths[0].route
+    this.initRouteActive()
   }
 
   private handleChangeMenu (path: string) {
@@ -86,9 +84,16 @@ export default class HeaderContainer extends Vue {
     alert('还没做')
   }
 
+  private initRouteActive () {
+    if (this.routePaths.length > 0) {
+      this.routeActive = this.routePaths[0].route
+    }
+  }
+
   created () {
+    const RouteList: IMenu[] = cache.layout.get('menus') || []
     this.list = RouteList.filter((res: IMenu) => !res.parent_id)
-    this.routeActive = this.routePaths[0].route
+    this.initRouteActive()
   }
 }
 </script>
