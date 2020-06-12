@@ -21,6 +21,14 @@ class Service {
   destroy (id: number) {
     return axios.delete(`position/${id}`)
   }
+
+  updatePermissions (id: number, params: { permissions: string[]; menus: number[] }) {
+    return axios.post(`position/updatePermissions/${id}`, params)
+  }
+
+  getPermissions (id: number) {
+    return axios.get(`position/getPermissions/${id}`)
+  }
 }
 
 export default new Service()

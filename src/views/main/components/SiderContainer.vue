@@ -41,7 +41,7 @@ export default class SiderContainer extends Vue {
 
   @Watch('routePaths')
   onRoutePaths () {
-    this.routeActive = this.routeFilterForm(this.$route.path)
+    this.routeActive = this.routeFilter(this.$route.path)
     this.initList()
   }
 
@@ -60,13 +60,17 @@ export default class SiderContainer extends Vue {
       })
   }
 
-  private routeFilterForm (path: string) {
-    path = path.split('/').filter((str) => str && str !== 'form').join('/')
+  private routeFilter (path: string) {
+    const paths = path.split('/').filter((str) => str && str !== 'form')
+    if (this.$route.meta.title) {
+      paths.pop()
+    }
+    path = paths.join('/')
     return '/' + path
   }
 
   created () {
-    this.routeActive = this.routeFilterForm(this.$route.path)
+    this.routeActive = this.routeFilter(this.$route.path)
     this.initList()
   }
 }

@@ -58,16 +58,20 @@ export default class Main extends Vue {
 
   private initRoutePaths (path: string) {
     const RouteList: IMenu[] = cache.layout.get('menus') || []
-    path = path === '/' ? '/system' : path
-    path = this.routeFilterForm(path)
+    path = path === '/' ? RouteList[0].route : path
+    path = this.routeFilter(path)
     const routeItem = RouteList.find((res) => res.route === path)
     if (routeItem) {
       this.routePaths = getAncestorsAndSelf(routeItem.id, RouteList)
     }
   }
 
-  private routeFilterForm (path: string) {
-    path = path.split('/').filter((str) => str && str !== 'form').join('/')
+  private routeFilter (path: string) {
+    const paths = path.split('/').filter((str) => str && str !== 'form')
+    if (this.$route.meta.title) {
+      paths.pop()
+    }
+    path = paths.join('/')
     return '/' + path
   }
 }

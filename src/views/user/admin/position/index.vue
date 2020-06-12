@@ -37,7 +37,7 @@ export default class ViewUserAdminPositionIndex extends Vue {
         {
           name: '权限管理',
           onClick: (row: any) => {
-            RouterService.pushForm({ id: row.id })
+            RouterService.push('/user/admin/position/permissions', { id: row.id })
           },
           permission: 'updatePermissions'
         },
