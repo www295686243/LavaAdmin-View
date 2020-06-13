@@ -26,7 +26,7 @@ class UserService {
   }
 
   login (params: LoginParams) {
-    return axios.post('user/login', params)
+    return axios.post('auth/login', params)
       .then((res) => {
         cache.user.setAll(res.data)
         this.updateData(res.data)
@@ -47,7 +47,7 @@ class UserService {
   }
 
   getUserConfig () {
-    return axios.get('user/getUserConfig')
+    return axios.get('auth/getUserConfig')
       .then((res) => {
         cache.user.setAll(res.data.user)
         this.updateData(res.data.user)
@@ -58,7 +58,12 @@ class UserService {
 
   hasPermission (name: string) {
     const permissions: string[] = cache.user.get('interface') || []
-    return permissions.includes(name)
+    return this.hasRoot() || permissions.includes(name)
+  }
+
+  hasRoot () {
+    const roles = cache.user.get('roles') || []
+    return roles.some((res: { name: string }) => res.name === 'root')
   }
 }
 

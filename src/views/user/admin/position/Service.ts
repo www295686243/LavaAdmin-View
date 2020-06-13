@@ -2,7 +2,7 @@ import axios from '@/plugins/axios'
 
 class Service {
   name = '职位'
-  index (params: { page: number; guard_name: string }) {
+  index (params: { guard_name: string }) {
     return axios.get('position', params)
   }
 

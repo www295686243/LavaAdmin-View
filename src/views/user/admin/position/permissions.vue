@@ -35,7 +35,7 @@ import FormTree from '@/components/Form/FormTree.vue'
     FormTree
   }
 })
-export default class MemberAdminRolePermissions extends Vue {
+export default class ViewUserAdminPositionPermission extends Vue {
   $refs!: {
     menuTreeElement: any;
     interfaceTreeElement: any;

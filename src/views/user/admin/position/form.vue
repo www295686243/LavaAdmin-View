@@ -18,7 +18,7 @@ import { IFormFields } from '@/interface/common'
     FormText
   }
 })
-export default class PlatformConfigBaseForm extends Vue {
+export default class ViewUserAdminPositionForm extends Vue {
   private data = {
     id: RouterService.query('id') as number,
     name: '',

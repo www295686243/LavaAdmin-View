@@ -78,6 +78,9 @@ export interface IFormFieldItem {
   defaultValue?: any
   disabled?: boolean
   placeholder?: string
+  multiple?: boolean // 一般用于select
+  min?: number // 一般用于FormCounter组件里
+  max?: number // 一般用于FormCounter组件里
   tips?: string // 一般用于表单下方的提示性文字
 }
 
