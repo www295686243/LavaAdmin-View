@@ -21,9 +21,7 @@ import { IFormFields } from '@/interface/common'
 export default class ViewUserAdminPositionForm extends Vue {
   private data = {
     id: RouterService.query('id') as number,
-    name: '',
     display_name: '',
-    value: '',
     guard_name: 'system'
   }
 
