@@ -2,7 +2,7 @@
   <PageContainer>
     <TableRender
       :addBtnText="Service.name"
-      :onLoad="() => Service.index()"
+      :onLoad="(params) => Service.index(params)"
       :tableColumns="tableColumns">
     </TableRender>
   </PageContainer>
@@ -15,48 +15,32 @@ import { ITableColumns } from '@/interface/common'
 import RouterService from '@/service/RouterService'
 
 @Component
-export default class ViewUserAdminEmployeeIndex extends Vue {
+export default class ViewUserMemberRoleIndex extends Vue {
   private Service = Service
 
   private tableColumns: ITableColumns[] = [
     {
       prop: 'id',
       label: 'ID',
-      width: 180
-    },
-    {
-      prop: 'username',
-      label: '用户名',
       width: 120
     },
     {
-      prop: 'nickname',
-      label: '姓名',
-      width: 120
-    },
-    {
-      prop: 'roles',
-      label: '角色',
-      props: {
-        label: 'display_name'
-      },
+      prop: 'display_name',
+      label: '名称',
       width: 200
-    },
-    {
-      prop: 'phone',
-      label: '手机号',
-      width: 120
-    },
-    {
-      prop: 'created_at',
-      label: '注册时间',
-      width: 180
     },
     {
       prop: '_action',
       label: '操作',
       minWidth: 160,
       actions: [
+        {
+          name: '权限管理',
+          onClick: (row: any) => {
+            RouterService.push('/user/member/role/permissions', { id: row.id })
+          },
+          permission: 'updatePermissions'
+        },
         {
           name: '编辑',
           onClick: (row: any) => {

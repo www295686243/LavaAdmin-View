@@ -2,8 +2,8 @@ import axios from '@/plugins/axios'
 
 class Service {
   name = '职位'
-  index (params: { guard_name: string }) {
-    return axios.get('position', params)
+  index () {
+    return axios.get('position')
   }
 
   store (params: object) {

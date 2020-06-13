@@ -17,7 +17,7 @@ import RouterService from '@/service/RouterService'
 import FormText from '@/components/Form/FormText.vue'
 import FormSelect from '@/components/Form/FormSelect.vue'
 import { IFormFields } from '@/interface/common'
-import PositionService from '../position/Service'
+import RoleService from '../role/Service'
 
 @Component({
   components: {
@@ -25,7 +25,7 @@ import PositionService from '../position/Service'
     FormSelect
   }
 })
-export default class ViewUserAdminEmployeeForm extends Vue {
+export default class ViewUserMemberUserForm extends Vue {
   private data = {
     id: RouterService.query('id') as number,
     role_names: [],
@@ -152,7 +152,7 @@ export default class ViewUserAdminEmployeeForm extends Vue {
   }
 
   private fetchRoleList () {
-    return PositionService.index()
+    return RoleService.index()
       .then((res) => {
         this.formFields.role_names.options = res.data
       })

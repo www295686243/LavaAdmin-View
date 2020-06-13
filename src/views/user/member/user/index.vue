@@ -1,8 +1,7 @@
 <template>
   <PageContainer>
     <TableRender
-      :addBtnText="Service.name"
-      :onLoad="() => Service.index()"
+      :onLoad="(params) => Service.index(params)"
       :tableColumns="tableColumns">
     </TableRender>
   </PageContainer>
@@ -15,7 +14,7 @@ import { ITableColumns } from '@/interface/common'
 import RouterService from '@/service/RouterService'
 
 @Component
-export default class ViewUserAdminEmployeeIndex extends Vue {
+export default class ViewUserMemberUserIndex extends Vue {
   private Service = Service
 
   private tableColumns: ITableColumns[] = [
@@ -25,14 +24,9 @@ export default class ViewUserAdminEmployeeIndex extends Vue {
       width: 180
     },
     {
-      prop: 'username',
-      label: '用户名',
-      width: 120
-    },
-    {
       prop: 'nickname',
       label: '姓名',
-      width: 120
+      width: 200
     },
     {
       prop: 'roles',
@@ -41,11 +35,6 @@ export default class ViewUserAdminEmployeeIndex extends Vue {
         label: 'display_name'
       },
       width: 200
-    },
-    {
-      prop: 'phone',
-      label: '手机号',
-      width: 120
     },
     {
       prop: 'created_at',
