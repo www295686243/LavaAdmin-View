@@ -115,11 +115,7 @@ export default class ViewInfoNewsForm extends Vue {
     },
     editor: {
       prop: 'editor',
-      label: 'editor',
-      uploadParams: {
-        model: 'news',
-        info_id: 1
-      }
+      label: 'editor'
     }
   }
 

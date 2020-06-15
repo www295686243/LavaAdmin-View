@@ -27,7 +27,10 @@ class RouterSerivce {
     })
   }
 
-  pushForm (query: object = {}) {
+  pushForm (query: { id?: number; marking?: number } = {}) {
+    if (!query.id) {
+      query.marking = (new Date()).valueOf()
+    }
     this.push(this.router.app.$route.path + '/form', {
       ...this.getUrlParams(),
       ...query
@@ -62,9 +65,13 @@ class RouterSerivce {
   }
 
   getControllerName () {
+    return this.getModelName() + 'Controller'
+  }
+
+  getModelName () {
     const path = this.getPath()
     const model = path.split('/').pop() as string
-    return studly(model) + 'Controller'
+    return studly(model)
   }
 
   getNeedParams (path: string) {

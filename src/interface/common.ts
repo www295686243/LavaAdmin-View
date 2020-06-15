@@ -88,9 +88,9 @@ export interface IFormFieldItem {
 }
 
 export interface IUploadParams {
-  model: string;
-  info_id?: number;
-  marking?: number;
+  type: string;
+  id?: number;
+  marking?: string | number;
 }
 
 interface IRule {
