@@ -28,23 +28,29 @@ export default class ViewSystemConfigIndex extends Vue {
     {
       prop: 'name',
       label: '标识',
-      minWidth: 200
+      width: 200
     },
     {
       prop: 'display_name',
       label: '名称',
-      minWidth: 200
+      width: 200
     },
     {
       prop: 'value',
       label: '值',
-      minWidth: 160
+      width: 160
     },
     {
       prop: '_action',
       label: '操作',
-      width: 160,
+      minWidth: 160,
       actions: [
+        {
+          name: '选项配置',
+          onClick: (row: any) => {
+            RouterService.push('/system/config/config-option', { config_id: row.id })
+          }
+        },
         {
           name: '编辑',
           onClick: (row: any) => {

@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router'
 import cache from '@/plugins/cache'
 import { IMenu } from '@/interface/common'
-import { getAncestorsAndSelf } from '@/plugins/tools'
+import { getAncestorsAndSelf, studly } from '@/plugins/tools'
 
 class RouterSerivce {
   router!: VueRouter
@@ -64,7 +64,7 @@ class RouterSerivce {
   getControllerName () {
     const path = this.getPath()
     const model = path.split('/').pop() as string
-    return model.charAt(0).toUpperCase() + model.slice(1) + 'Controller'
+    return studly(model) + 'Controller'
   }
 
   getNeedParams (path: string) {

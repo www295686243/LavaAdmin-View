@@ -46,10 +46,6 @@ export default class ViewUserAdminPositionIndex extends Vue {
           onClick: (row: any) => {
             RouterService.pushForm({ id: row.id })
           }
-        },
-        {
-          name: '删除',
-          onClick: (row: any) => Service.destroy(row.id)
         }
       ]
     }

@@ -15,7 +15,7 @@ import { ITableColumns } from '@/interface/common'
 import RouterService from '@/service/RouterService'
 
 @Component
-export default class ViewUserMemberRoleIndex extends Vue {
+export default class ViewSystemConfigIndex extends Vue {
   private Service = Service
 
   private tableColumns: ITableColumns[] = [
@@ -30,22 +30,24 @@ export default class ViewUserMemberRoleIndex extends Vue {
       width: 200
     },
     {
+      prop: 'sort',
+      label: '顺序',
+      width: 160
+    },
+    {
       prop: '_action',
       label: '操作',
       minWidth: 160,
       actions: [
         {
-          name: '权限管理',
-          onClick: (row: any) => {
-            RouterService.push('/user/member/role/permissions', { id: row.id })
-          },
-          permission: 'updatePermissions'
-        },
-        {
           name: '编辑',
           onClick: (row: any) => {
             RouterService.pushForm({ id: row.id })
           }
+        },
+        {
+          name: '删除',
+          onClick: (row: any) => Service.destroy(row.id)
         }
       ]
     }

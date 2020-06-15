@@ -7,7 +7,7 @@
       @size-change="changePageSize"
       @current-change="changePage"
       :current-page="pagination.page"
-      :page-size="pagination.limit"
+      :page-size="pagination.pageSize"
       :total="pagination.total">
     </el-pagination>
   </div>

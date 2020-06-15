@@ -122,3 +122,13 @@ export function getDeepValue (field: string, row: any) {
     })
     .find((value) => value) // 找到有效的值返回
 }
+
+// 将给定的字符串转换为 「变种驼峰命名」 ab-cd => AbCd
+export function studly (str: string) {
+  return str.split('-')
+    .filter((res) => res)
+    .reduce((acc, res) => {
+      acc += res.charAt(0).toUpperCase() + res.slice(1)
+      return acc
+    }, '')
+}

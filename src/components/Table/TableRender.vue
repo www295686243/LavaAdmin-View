@@ -69,7 +69,8 @@ export default class TableRender extends Vue {
   private pagination: IPagination = {
     page: 1,
     limit: 10,
-    total: 0
+    total: 0,
+    pageSize: 10
   }
 
   private isShowPagination = false
@@ -91,6 +92,7 @@ export default class TableRender extends Vue {
         } else if (res.data && res.data.data) {
           this.isShowPagination = true
           this.pagination.total = res.data.total
+          this.pagination.pageSize = res.data.per_page
           this.list = res.data.data
           return res.data.data
         }
