@@ -19,11 +19,6 @@ export default {
       }
     }
   },
-  getOptionsConfig (name: string) {
-    const list = this.config.get('optionsData') || []
-    const item = list.find((res: any) => res.name === name)
-    return item ? item.options : []
-  },
   clearAll () {
     store.clearAll()
   }

@@ -83,6 +83,14 @@ export interface IFormFieldItem {
   min?: number // 一般用于FormCounter组件里
   max?: number // 一般用于FormCounter组件里
   tips?: string // 一般用于表单下方的提示性文字
+  maxlength?: number // 一般用于textarea
+  uploadParams?: IUploadParams // 一般用于图片上传表单
+}
+
+export interface IUploadParams {
+  model: string;
+  info_id?: number;
+  marking?: number;
 }
 
 interface IRule {

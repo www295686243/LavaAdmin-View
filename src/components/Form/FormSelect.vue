@@ -13,8 +13,8 @@ import { Component, Mixins } from 'vue-property-decorator'
 @Component
 export default class FormSelect extends Mixins(FormMixins) {
   private props = {
-    value: 'value',
-    label: 'label'
+    value: 'id',
+    label: 'display_name'
   }
 
   private onChange (value: number) {

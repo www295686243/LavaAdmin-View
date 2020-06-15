@@ -2,7 +2,7 @@
   <el-form-item :label="field.label" :prop="field.prop" :rules="field.rule">
     <el-input
       type="textarea"
-      v-model="data"
+      v-model="innerValue"
       :autosize="{minRows: 5,maxRows: 10}"
       :placeholder="'请输入' + field.label"
       :disabled="field.disabled"

@@ -31,6 +31,7 @@ class UserService {
         cache.user.setAll(res.data)
         this.updateData(res.data)
       })
+      .then(() => this.getAppConfig())
       .then(() => this.getUserConfig())
   }
 
@@ -42,17 +43,24 @@ class UserService {
       })
   }
 
-  updateData (params: UserInfo) {
+  private updateData (params: UserInfo) {
     Object.assign(this.info, params)
   }
 
-  getUserConfig () {
+  private getUserConfig () {
     return axios.get('auth/getUserConfig')
       .then((res) => {
         cache.user.setAll(res.data.user)
         this.updateData(res.data.user)
         cache.user.set('interface', res.data.interface || [])
         cache.layout.set('menus', res.data.menus)
+      })
+  }
+
+  private getAppConfig () {
+    return axios.get('auth/getAppConfig')
+      .then((res) => {
+        cache.config.set('app', res.data)
       })
   }
 
