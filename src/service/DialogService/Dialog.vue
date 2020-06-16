@@ -3,7 +3,7 @@
     :visible.sync="isShowModal"
     :close-on-click-modal="false"
     @close="close"
-    custom-class="DialogService"
+    custom-class="ServiceDialog"
     :append-to-body="true"
     :width="width">
     <component :is="this.component" :data="data" @done="handleDone"></component>
@@ -14,15 +14,17 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
-export default class DialogService extends Vue {
+export default class ServiceDialog extends Vue {
   @Prop()
   component!: string
+
   @Prop()
   data!: any
+
   @Prop({ default: '500px' })
   width!: string
 
-  private isShowModal: boolean = false
+  private isShowModal = false
   private resolve!: Function
   private reject!: Function
 

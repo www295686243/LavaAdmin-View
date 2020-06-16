@@ -1,19 +1,19 @@
 import Vue from 'vue'
-import DialogService from './DialogService.vue'
+import ServiceDialog from './Dialog.vue'
 
-interface IStacks {
-  name: string
-  instance: any
+interface Stacks {
+  name: string;
+  instance: any;
 }
 
-class DialogServiceService {
-  stacks: IStacks[] = []
+class DialogService {
+  stacks: Stacks[] = []
 
   open (component: any, params: any) {
     let stack = this.find(component.options.name)
     if (!stack) {
       const el = document.body.appendChild(document.createElement('div'))
-      const Constructor = Vue.extend(DialogService)
+      const Constructor = Vue.extend(ServiceDialog)
       const instance = new Constructor({
         propsData: {
           component,
@@ -36,4 +36,4 @@ class DialogServiceService {
   }
 }
 
-export default new DialogServiceService()
+export default new DialogService()

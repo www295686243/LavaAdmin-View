@@ -11,6 +11,8 @@
       <FormCounter v-model="data.counter" :field="formFields.counter"></FormCounter>
       <FormCascader v-model="data.cascader" :field="formFields.cascader"></FormCascader>
       <FormEditor v-model="data.editor" :field="formFields.editor"></FormEditor>
+      <FormImage v-model="data.image" :field="formFields.image"></FormImage>
+      <FormImages v-model="data.images" :field="formFields.images"></FormImages>
     </FormRender>
   </PageContainer>
 </template>
@@ -30,6 +32,8 @@ import FormCheckbox from '@/components/Form/FormCheckbox.vue'
 import FormCounter from '@/components/Form/FormCounter.vue'
 import FormCascader from '@/components/Form/FormCascader.vue'
 import FormEditor from '@/components/Form/FormEditor.vue'
+import FormImage from '@/components/Form/FormImage.vue'
+import FormImages from '@/components/Form/FormImages.vue'
 import { IFormFields } from '@/interface/common'
 
 @Component({
@@ -43,7 +47,9 @@ import { IFormFields } from '@/interface/common'
     FormCheckbox,
     FormCounter,
     FormCascader,
-    FormEditor
+    FormEditor,
+    FormImage,
+    FormImages
   }
 })
 export default class ViewInfoNewsForm extends Vue {
@@ -116,6 +122,14 @@ export default class ViewInfoNewsForm extends Vue {
     editor: {
       prop: 'editor',
       label: 'editor'
+    },
+    image: {
+      prop: 'image',
+      label: 'image'
+    },
+    images: {
+      prop: 'images',
+      label: 'images'
     }
   }
 
