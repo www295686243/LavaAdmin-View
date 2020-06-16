@@ -89,7 +89,7 @@ export interface IFormFieldItem {
 
 export interface IUploadParams {
   type: string;
-  id?: number;
+  info_id?: number;
   marking?: string | number;
 }
 

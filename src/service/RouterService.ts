@@ -70,7 +70,7 @@ class RouterSerivce {
 
   getModelName () {
     const path = this.getPath()
-    const model = path.split('/').pop() as string
+    const model = path.split('/').filter((name: string) => name !== 'form').pop() as string
     return studly(model)
   }
 

@@ -11,7 +11,6 @@ import { Component, Mixins } from 'vue-property-decorator'
 // @ts-ignore
 import VueNeditorWrap from 'vue-neditor-wrap-wx'
 import ImageManageService from '@/service/ImageManageService/Service'
-import RouterService from '@/service/RouterService'
 
 @Component({
   components: {
@@ -70,6 +69,7 @@ export default class FormEditor extends Mixins(FormMixins) {
         'justifyright',
         'justifyjustify',
         'link',
+        'insertimage',
         'insertimages',
         'attachment',
         'horizontal'
@@ -95,7 +95,7 @@ export default class FormEditor extends Mixins(FormMixins) {
   private handleChangeModal () {
     return this.ImageManageService.open('multiple')
       .then((data: object[]) => {
-        const imgs = data.map((res: any) => res.url)
+        const imgs = data.map((res: any) => res.full_url)
           .map((img: string) => '<p><img src="' + img + '" /></p>')
           .join('')
         this.editor.execCommand('inserthtml', imgs)
@@ -117,11 +117,13 @@ export default class FormEditor extends Mixins(FormMixins) {
 
   created () {
     this.innerValue = this.innerValue || ''
-    this.ImageManageService = new ImageManageService({
-      type: RouterService.getModelName(),
-      id: RouterService.query('id') as number,
-      marking: RouterService.query('marking')
-    })
+    this.ImageManageService = new ImageManageService()
   }
 }
 </script>
+
+<style lang="scss">
+#edui107.edui-for-insertimage {
+  display: none !important;
+}
+</style>

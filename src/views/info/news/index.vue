@@ -22,7 +22,7 @@ export default class ViewInfoNewsIndex extends Vue {
     {
       prop: 'id',
       label: 'ID',
-      width: 120
+      width: 200
     },
     {
       prop: 'user_id',

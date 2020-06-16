@@ -24,7 +24,7 @@
             <MaskContainer v-if="v.active" @click.native="handleSelectImage(v)">
               <i class="el-icon-check"></i>
             </MaskContainer>
-            <el-image :src="v.url + '!200'" @click="handleSelectImage(v)" fit="cover"></el-image>
+            <el-image :src="v.full_url" @click="handleSelectImage(v)" fit="cover"></el-image>
           </div>
         </el-col>
       </el-row>
@@ -61,11 +61,14 @@ import cache from '@/plugins/cache'
 import { IPagination, IUploadParams } from '@/interface/common'
 import axios from '@/plugins/axios'
 import Pagination from '@/components/Table/TablePagination.vue'
-import ConstService from '../ConstService'
+import ConstService from '@/service/ConstService'
+import RouterService from '@/service/RouterService'
+import MaskContainer from '@/components/MaskContainer.vue'
 
 @Component({
   components: {
-    Pagination
+    Pagination,
+    MaskContainer
   }
 })
 export default class ImageManage extends Vue {
@@ -76,9 +79,6 @@ export default class ImageManage extends Vue {
   @Prop()
   type!: string
 
-  @Prop()
-  uploadParams!: IUploadParams
-
   private isDisableDeleteBtn = true
   private isShowModal = true
   private isLoading = false
@@ -87,6 +87,12 @@ export default class ImageManage extends Vue {
     limit: 12,
     total: 0,
     pageSize: 12
+  }
+
+  private uploadParams: IUploadParams = {
+    type: RouterService.getModelName(),
+    info_id: RouterService.query('id') as number,
+    marking: RouterService.query('marking')
   }
 
   private list: any[] = []
