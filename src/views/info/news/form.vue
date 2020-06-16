@@ -68,7 +68,8 @@ export default class ViewInfoNewsForm extends Vue {
     files: [],
     images: [],
     cascader: '',
-    editor: ''
+    editor: '',
+    marking: RouterService.query('marking')
   }
 
   private formFields: IFormFields = {

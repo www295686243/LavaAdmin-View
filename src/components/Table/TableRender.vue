@@ -18,6 +18,7 @@
       :empty-text="emptyText">
       <template v-for="(v, index) in tableColumns">
         <TableAction :key="index" :column="v" v-if="v.prop === '_action'" @remove="removeReload"></TableAction>
+        <TableImage :key="index" :column="v" v-else-if="v.element === 'image'"></TableImage>
         <TableText :key="index" :column="v" v-else></TableText>
       </template>
     </el-table>
@@ -35,6 +36,7 @@ import { IPagination, IResult, ITableColumns, ISearchFields } from '@/interface/
 import TablePagination from '@/components/Table/TablePagination.vue'
 import TableText from './TableText.vue'
 import TableAction from './TableAction.vue'
+import TableImage from './TableImage.vue'
 import InfoSearchContainer from '../InfoSearchContainer.vue'
 import RouterService from '@/service/RouterService'
 import UserService from '@/service/UserService'
@@ -44,7 +46,8 @@ import UserService from '@/service/UserService'
     TablePagination,
     TableText,
     TableAction,
-    InfoSearchContainer
+    InfoSearchContainer,
+    TableImage
   }
 })
 export default class TableRender extends Vue {

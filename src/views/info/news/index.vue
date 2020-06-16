@@ -67,7 +67,8 @@ export default class ViewInfoNewsIndex extends Vue {
     },
     {
       prop: 'image',
-      label: 'image'
+      label: 'image',
+      element: 'image'
     },
     {
       prop: 'files',
