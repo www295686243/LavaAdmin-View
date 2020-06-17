@@ -2,7 +2,7 @@
   <PageContainer :onLoad="handleLoad">
     <FormRender :data="data" :onSubmit="handleSubmit">
       <FormText v-model="data.display_name" :field="formFields.display_name"></FormText>
-      <FormText v-model="data.sort" :field="formFields.sort"></FormText>
+      <FormCounter v-model="data.sort" :field="formFields.sort"></FormCounter>
     </FormRender>
   </PageContainer>
 </template>
@@ -12,18 +12,21 @@ import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
 import RouterService from '@/service/RouterService'
 import FormText from '@/components/Form/FormText.vue'
+import FormCounter from '@/components/Form/FormCounter.vue'
 import { IFormFields } from '@/interface/common'
 
 @Component({
   components: {
-    FormText
+    FormText,
+    FormCounter
   }
 })
 export default class PlatformConfigBaseForm extends Vue {
   private data = {
     id: RouterService.query('id') as number,
     display_name: '',
-    config_id: RouterService.query('config_id') as number
+    config_id: RouterService.query('config_id') as number,
+    sort: ''
   }
 
   private formFields: IFormFields = {

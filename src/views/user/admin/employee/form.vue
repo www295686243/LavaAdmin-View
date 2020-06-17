@@ -65,8 +65,8 @@ export default class ViewUserAdminEmployeeForm extends Vue {
         {
           type: 'string',
           min: 6,
-          max: 20,
-          message: '用户名必须为6~20个字符之间',
+          max: 30,
+          message: '用户名必须为6~30个字符之间',
           trigger: 'blur'
         }
       ]
@@ -83,8 +83,8 @@ export default class ViewUserAdminEmployeeForm extends Vue {
         {
           type: 'string',
           min: 6,
-          max: 20,
-          message: '密码必须为6~20个字符之间',
+          max: 30,
+          message: '密码必须为6~30个字符之间',
           trigger: 'blur'
         }
       ]
@@ -96,8 +96,8 @@ export default class ViewUserAdminEmployeeForm extends Vue {
         {
           type: 'string',
           min: 2,
-          max: 20,
-          message: '昵称必须为2~20个字符之间',
+          max: 30,
+          message: '昵称必须为2~30个字符之间',
           trigger: 'blur'
         }
       ]
@@ -111,7 +111,8 @@ export default class ViewUserAdminEmployeeForm extends Vue {
           message: '请输入11位手机号',
           trigger: 'blur'
         }
-      ]
+      ],
+      maxlength: 11
     }
   }
 
