@@ -8,7 +8,7 @@
     :align="column.align"
   >
     <template slot-scope="scope">
-      <img :src="scope.row[column.prop]"  width="70" height="70" v-if="scope.row[column.prop]"/>
+      <el-button :disabled="!scope.row[column.prop]" size="small" @click="handleOpenImages(scope.row[column.prop])">总共{{scope.row[column.prop] ? scope.row[column.prop].length : 0}}张图</el-button>
     </template>
   </el-table-column>
 </template>
@@ -16,10 +16,17 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { ITableColumns } from '@/interface/common'
+import CarouselService from '@/service/CarouselService/Service'
 
 @Component
-export default class TableImage extends Vue {
+export default class TableImages extends Vue {
   @Prop()
   column!: ITableColumns
+
+  private handleOpenImages (images: string[]) {
+    if (images) {
+      CarouselService.open(images)
+    }
+  }
 }
 </script>

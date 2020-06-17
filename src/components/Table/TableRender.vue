@@ -19,6 +19,9 @@
       <template v-for="(v, index) in tableColumns">
         <TableAction :key="index" :column="v" v-if="v.prop === '_action'" @remove="removeReload"></TableAction>
         <TableImage :key="index" :column="v" v-else-if="v.element === 'image'"></TableImage>
+        <TableImages :key="index" :column="v" v-else-if="v.element === 'images'"></TableImages>
+        <TableOptions :key="index" :column="v" v-else-if="v.element === 'options'"></TableOptions>
+        <TableCheckbox :key="index" :column="v" v-else-if="v.element === 'checkbox'"></TableCheckbox>
         <TableText :key="index" :column="v" v-else></TableText>
       </template>
     </el-table>
@@ -37,6 +40,9 @@ import TablePagination from '@/components/Table/TablePagination.vue'
 import TableText from './TableText.vue'
 import TableAction from './TableAction.vue'
 import TableImage from './TableImage.vue'
+import TableImages from './TableImages.vue'
+import TableOptions from './TableOptions.vue'
+import TableCheckbox from './TableCheckbox.vue'
 import InfoSearchContainer from '../InfoSearchContainer.vue'
 import RouterService from '@/service/RouterService'
 import UserService from '@/service/UserService'
@@ -47,7 +53,10 @@ import UserService from '@/service/UserService'
     TableText,
     TableAction,
     InfoSearchContainer,
-    TableImage
+    TableImage,
+    TableImages,
+    TableOptions,
+    TableCheckbox
   }
 })
 export default class TableRender extends Vue {

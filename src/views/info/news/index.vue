@@ -13,6 +13,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
 import { ITableColumns } from '@/interface/common'
 import RouterService from '@/service/RouterService'
+import ConstService from '@/service/ConstService'
 
 @Component
 export default class ViewInfoNewsIndex extends Vue {
@@ -39,7 +40,9 @@ export default class ViewInfoNewsIndex extends Vue {
     },
     {
       prop: 'select',
-      label: 'select'
+      label: 'select',
+      element: 'options',
+      options: ConstService.getAppOptions('options')
     },
     {
       prop: 'radio',
@@ -55,7 +58,9 @@ export default class ViewInfoNewsIndex extends Vue {
     },
     {
       prop: 'checkbox',
-      label: 'checkbox'
+      label: 'checkbox',
+      element: 'checkbox',
+      options: ConstService.getAppOptions('options')
     },
     {
       prop: 'counter',
@@ -76,7 +81,8 @@ export default class ViewInfoNewsIndex extends Vue {
     },
     {
       prop: 'images',
-      label: 'images'
+      label: 'images',
+      element: 'images'
     },
     {
       prop: 'cascader',
