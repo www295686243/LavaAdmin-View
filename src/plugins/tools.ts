@@ -1,27 +1,3 @@
-function getCodeDeep (code: string | number) {
-  code = code.toString()
-  const len = code.length / 3
-  const groupValue = len === 2 ? '00' : '000'
-  const arr = []
-  for (let i = 0; i < 3; i++) {
-    arr.push(code.substr(i * len, len))
-  }
-  return arr.filter((res: string) => res !== groupValue).length
-}
-
-export function getCodeParents (code: string | number): number[] {
-  if (!code) return []
-  code = code.toString()
-  const len = code.length / 3
-  const deep = getCodeDeep(code)
-  const codes = []
-  for (let i = 1; i < deep; i++) {
-    codes.push(Number(code.substr(0, i * len).padEnd(len * 3, '0')))
-  }
-  codes.push(Number(code))
-  return codes
-}
-
 function recursiveGetAncestors (id: number, list: any[], paths: any[], field: string) {
   const item: any = list.find((res: any) => res[field] === id)
   if (item) {
@@ -43,22 +19,6 @@ function recursiveGetAncestors (id: number, list: any[], paths: any[], field: st
 export function getAncestorsAndSelf (currentId: number, list: any[], field = 'id'): any[] {
   if (currentId) {
     return recursiveGetAncestors(currentId, list, [], field)
-  } else {
-    return []
-  }
-}
-
-/**
- * 在一个树形结构中，给出一个id，递归获得出本对象外的先祖结果列表
- * @param currentId
- * @param list
- * @param field 索引的字段
- * @return [object(先祖), object(父级)]
- */
-export function getAncestors (currentId: number, list: any[], field = 'id'): any[] {
-  const parent = list.find((res: any) => res[field] === currentId)
-  if (currentId && parent) {
-    return recursiveGetAncestors(parent.parent_id, list, [], field)
   } else {
     return []
   }
