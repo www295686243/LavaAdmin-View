@@ -43,6 +43,11 @@ class UserService {
       })
   }
 
+  update () {
+    return this.getAppConfig()
+      .then(() => this.getUserConfig())
+  }
+
   private updateData (params: UserInfo) {
     Object.assign(this.info, params)
   }

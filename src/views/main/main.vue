@@ -1,7 +1,7 @@
 <template>
   <el-container class="MainContainer" v-if="isShowPage">
     <el-header>
-      <HeaderContainer :routePaths="routePaths"></HeaderContainer>
+      <HeaderContainer :routePaths="routePaths" @update="handleUpdate"></HeaderContainer>
     </el-header>
     <el-container class="view-container">
       <el-aside width="200px">
@@ -54,6 +54,10 @@ export default class Main extends Vue {
   beforeRouteUpdate (to: any, from: any, next: Function) {
     this.initRoutePaths(to.path)
     next()
+  }
+
+  private handleUpdate () {
+    this.initRoutePaths(this.$route.path)
   }
 
   private initRoutePaths (path: string) {

@@ -77,11 +77,20 @@ export default class HeaderContainer extends Vue {
   }
 
   private handleUpdateCache () {
-    alert('还没做')
+    const loading = this.$loading({
+      lock: true,
+      text: '更新中...'
+    })
+    UserService.update()
+      .then(() => {
+        loading.close()
+        this.init()
+        this.$emit('update')
+      })
   }
 
   private handleSetup () {
-    alert('还没做')
+    RouterService.push('/user/admin/employee/form', { id: UserService.info.id })
   }
 
   private initRouteActive () {
@@ -90,9 +99,13 @@ export default class HeaderContainer extends Vue {
     }
   }
 
-  created () {
+  private init () {
     const RouteList: IMenu[] = cache.layout.get('menus') || []
     this.list = RouteList.filter((res: IMenu) => !res.parent_id)
+  }
+
+  created () {
+    this.init()
     this.initRouteActive()
   }
 }

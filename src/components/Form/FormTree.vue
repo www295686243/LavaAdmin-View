@@ -6,6 +6,7 @@
     ref="tree"
     :props="{ label: 'display_name' }"
     class="FormTree"
+    check-strictly
     :class="[maxDeep > 3 ? 'deep4' : 'deep3']"
   ></el-tree>
 </template>
