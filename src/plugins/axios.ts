@@ -1,6 +1,7 @@
 import axios from 'axios'
 import cache from './cache'
 import router from '@/router'
+import VersionService from '@/service/VersionService'
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers.common.Accept = 'application/json'
@@ -21,7 +22,10 @@ function ajax (data: object): Promise<any> {
       .then(res => res.data)
       .then(res => {
         if (res.status === 'success') {
-          resolve(res)
+          VersionService.checkAllVersion(res.version)
+            .then(() => {
+              resolve(res)
+            })
         } else {
           if (res.code === 401) {
             notLogin()

@@ -1,5 +1,6 @@
 import cache from '@/plugins/cache'
 import axios from '@/plugins/axios'
+import VersionService from './VersionService'
 
 interface LoginParams {
   username: string;
@@ -31,7 +32,6 @@ class UserService {
         cache.user.setAll(res.data)
         this.updateData(res.data)
       })
-      .then(() => this.getAppConfig())
       .then(() => this.getUserConfig())
   }
 
@@ -39,13 +39,13 @@ class UserService {
     return Promise.resolve()
       .then(() => {
         cache.clearAll()
+        VersionService.clearAll()
         return '注销成功'
       })
   }
 
   update () {
-    return this.getAppConfig()
-      .then(() => this.getUserConfig())
+    return this.getUserConfig()
   }
 
   private updateData (params: UserInfo) {
@@ -59,13 +59,6 @@ class UserService {
         this.updateData(res.data.user)
         cache.user.set('interface', res.data.interface || [])
         cache.layout.set('menus', res.data.menus)
-      })
-  }
-
-  private getAppConfig () {
-    return axios.get('auth/getAppConfig')
-      .then((res) => {
-        cache.config.set('app', res.data)
       })
   }
 

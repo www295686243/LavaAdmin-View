@@ -10,6 +10,7 @@ export default {
   user: store.namespace(uniqueId + 'user'), // 会员缓存
   layout: store.namespace(uniqueId + 'layout'),
   config: store.namespace(uniqueId + 'config'),
+  version: store.namespace(uniqueId + 'version'),
   getBaseConfig (name: string) {
     if (name === 'baseHost') {
       if (process.env.NODE_ENV === 'development') {
