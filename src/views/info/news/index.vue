@@ -42,7 +42,10 @@ export default class ViewInfoNewsIndex extends Vue {
       prop: 'select',
       label: 'select',
       element: 'options',
-      options: ConstService.getAppOptions('options')
+      options: ConstService.getAppOptions('options'),
+      colors: {
+        1: 'success'
+      }
     },
     {
       prop: 'radio',

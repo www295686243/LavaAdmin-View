@@ -49,6 +49,7 @@ export interface ITableColumns {
     value?: string
   }
   actions?: ITableColumnAction[]
+  colors?: { [key: string]: string }
 }
 
 export interface ITableColumnAction {

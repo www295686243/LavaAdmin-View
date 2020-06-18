@@ -8,7 +8,7 @@
     :align="column.align"
   >
     <template slot-scope="scope">
-      {{getValue(scope.row)}}
+      <span :style="{ color: color }">{{getValue(scope.row)}}</span>
     </template>
   </el-table-column>
 </template>
@@ -17,6 +17,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { ITableColumns } from '@/interface/common'
 import { getDeepValue } from '@/plugins/tools'
+import ConstService from '@/service/ConstService'
 
 @Component
 export default class TableOptions extends Vue {
@@ -25,6 +26,8 @@ export default class TableOptions extends Vue {
     label: 'display_name'
   }
 
+  private color = ''
+
   @Prop()
   column!: ITableColumns
 
@@ -32,7 +35,16 @@ export default class TableOptions extends Vue {
     const value = getDeepValue(this.column.prop as string, row)
     if (Array.isArray(this.column.options)) {
       const item = this.column.options.find((res) => res[this.props.value] === value)
-      return item ? item[this.props.label] : '--'
+      if (item) {
+        if (item.color) {
+          this.color = ConstService.getColor(item.color)
+        } else if (this.column.colors && this.column.colors[item[this.props.value]]) {
+          this.color = ConstService.getColor(this.column.colors[item[this.props.value]])
+        }
+        return item[this.props.label]
+      } else {
+        return '--'
+      }
     } else {
       return '--'
     }

@@ -210,6 +210,19 @@ class ConstService {
       }]
     }]
   }
+
+  getColor (name: string) {
+    switch (name) {
+      case 'success':
+        return '#67C23A'
+      case 'warning':
+        return '#E6A23C'
+      case 'error':
+        return '#F56C6C'
+      default:
+        return name
+    }
+  }
 }
 
 export default new ConstService()

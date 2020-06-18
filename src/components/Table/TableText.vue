@@ -8,7 +8,7 @@
     :align="column.align"
   >
     <template slot-scope="scope">
-      {{ getValue(scope.row, column) || '--' }}
+      <span>{{ getValue(scope.row, column) || '--' }}</span>
     </template>
   </el-table-column>
 </template>
