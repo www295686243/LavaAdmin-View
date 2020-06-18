@@ -92,14 +92,7 @@ export default class PlatformConfigBaseForm extends Vue {
   }
 
   private handleSubmit () {
-    return Promise.resolve()
-      .then(() => {
-        if (this.data.id) {
-          return Service.update(this.data)
-        } else {
-          return Service.store(this.data)
-        }
-      })
+    return Service.update(this.data)
       .then(() => {
         RouterService.go()
       })
