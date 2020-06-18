@@ -21,7 +21,6 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
 import RouterService from '@/service/RouterService'
-import ConstService from '@/service/ConstService'
 import FormText from '@/components/Form/FormText.vue'
 import FormTextarea from '@/components/Form/FormTextarea.vue'
 import FormSelect from '@/components/Form/FormSelect.vue'
@@ -85,12 +84,12 @@ export default class ViewInfoNewsForm extends Vue {
     select: {
       prop: 'select',
       label: 'select',
-      options: ConstService.getAppOptions('options')
+      options: []
     },
     radio: {
       prop: 'radio',
       label: 'radio',
-      options: ConstService.getAppOptions('options')
+      options: []
     },
     switch: {
       prop: 'switch',
@@ -103,7 +102,7 @@ export default class ViewInfoNewsForm extends Vue {
     checkbox: {
       prop: 'checkbox',
       label: 'checkbox',
-      options: ConstService.getAppOptions('options')
+      options: []
     },
     counter: {
       prop: 'counter',
@@ -114,7 +113,7 @@ export default class ViewInfoNewsForm extends Vue {
     cascader: {
       prop: 'cascader',
       label: 'cascader',
-      options: ConstService.getCascader(),
+      options: [],
       props: {
         value: 'value',
         label: 'label'
