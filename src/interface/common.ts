@@ -49,7 +49,7 @@ export interface ITableColumns {
     value?: string
   }
   actions?: ITableColumnAction[]
-  colors?: { [key: string]: string }
+  colors?: { [key: string]: string } // 目前element为options才支持
 }
 
 export interface ITableColumnAction {

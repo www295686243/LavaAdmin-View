@@ -8,7 +8,7 @@
     :align="column.align"
   >
     <template slot-scope="scope">
-      <span :style="{ color: color }">{{getValue(scope.row)}}</span>
+      <span :style="{ color: getColor(scope.row) }">{{getValue(scope.row)}}</span>
     </template>
   </el-table-column>
 </template>
@@ -26,8 +26,6 @@ export default class TableOptions extends Vue {
     label: 'display_name'
   }
 
-  private color = ''
-
   @Prop()
   column!: ITableColumns
 
@@ -35,19 +33,24 @@ export default class TableOptions extends Vue {
     const value = getDeepValue(this.column.prop as string, row)
     if (Array.isArray(this.column.options)) {
       const item = this.column.options.find((res) => res[this.props.value] === value)
-      if (item) {
-        if (item.color) {
-          this.color = ConstService.getColor(item.color)
-        } else if (this.column.colors && this.column.colors[item[this.props.value]]) {
-          this.color = ConstService.getColor(this.column.colors[item[this.props.value]])
-        }
-        return item[this.props.label]
-      } else {
-        return '--'
-      }
+      return item ? item[this.props.label] : '--'
     } else {
       return '--'
     }
+  }
+
+  private getColor (row: any) {
+    const value = getDeepValue(this.column.prop as string, row)
+    if (Array.isArray(this.column.options)) {
+      const item = this.column.options.find((res) => res[this.props.value] === value)
+      if (item && item.color) {
+        return ConstService.getColor(item.color)
+      }
+    }
+    if (this.column.colors && this.column.colors[value]) {
+      return ConstService.getColor(this.column.colors[value])
+    }
+    return ConstService.getColor('')
   }
 
   created () {

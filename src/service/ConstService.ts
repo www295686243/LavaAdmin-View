@@ -220,7 +220,11 @@ class ConstService {
       case 'error':
         return '#F56C6C'
       default:
-        return name
+        if (name.includes('#')) {
+          return name
+        } else {
+          return '#303133'
+        }
     }
   }
 }
