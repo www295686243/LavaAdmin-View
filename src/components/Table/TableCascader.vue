@@ -1,11 +1,10 @@
 <template>
   <el-table-column
-    :prop="column.prop"
-    :type="column.type"
-    :label="column.label"
-    :width="column.width"
-    :min-width="column.minWidth"
-    :align="column.align"
+    :prop="prop"
+    :label="label"
+    :width="width"
+    :min-width="minWidth"
+    :align="align"
   >
     <template slot-scope="scope">
       {{getValue(scope.row)}}
@@ -14,32 +13,33 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import { ITableColumns } from '@/interface/common'
+import TableMixins from './TableMixins'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 import { getAncestorsAndSelf, getDeepValue } from '@/plugins/tools'
 
 @Component
-export default class TableImages extends Vue {
-  private props = {
-    label: 'display_name',
-    value: 'id'
-  }
+export default class TableImages extends Mixins(TableMixins) {
+  @Prop({
+    default: () => {
+      return {
+        value: 'id',
+        label: 'display_name'
+      }
+    }
+  })
+  props!: { label: string; value: any }
 
   @Prop()
-  column!: ITableColumns
+  options!: any[]
 
   private getValue (row: any) {
-    const value = getDeepValue(this.column.prop as string, row)
+    const value = getDeepValue(this.prop, row)
     if (value) {
-      const paths = getAncestorsAndSelf(value, this.column.options as any[], this.props.value)
+      const paths = getAncestorsAndSelf(value, this.options as any[], this.props.value)
       return paths.map((res: any) => res[this.props.label]).join('/')
     } else {
       return '--'
     }
-  }
-
-  created () {
-    Object.assign(this.props, this.column.props)
   }
 }
 </script>

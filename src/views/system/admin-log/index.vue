@@ -1,9 +1,15 @@
 <template>
   <PageContainer>
-    <TableRender
-      :searchFields="searchFields"
-      :onLoad="handleLoad"
-      :tableColumns="tableColumns">
+    <TableRender :Service="Service">
+      <TableText prop="id" label="ID" :width="100"></TableText>
+      <TableText prop="nickname" label="操作人" :width="120"></TableText>
+      <TableText prop="method" label="模式" :width="100"></TableText>
+      <TableText prop="path" label="路径" :width="200"></TableText>
+      <TableText prop="ip" label="IP" :width="120"></TableText>
+      <TableText prop="status" label="状态" :width="80"></TableText>
+      <TableText prop="code" label="状态码" :width="80"></TableText>
+      <TableText prop="created_at" label="操作时间" :width="180"></TableText>
+      <TableText prop="desc" label="描述"></TableText>
     </TableRender>
   </PageContainer>
 </template>
@@ -11,58 +17,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
-import { ITableColumns, ITableIndexParams, ISearchFields } from '@/interface/common'
+import { ITableIndexParams, ISearchFields } from '@/interface/common'
 
 @Component
 export default class ViewSystemAdminLogIndex extends Vue {
   private Service = Service
-
-  private tableColumns: ITableColumns[] = [
-    {
-      label: 'ID',
-      prop: 'id',
-      width: 100
-    },
-    {
-      label: '操作人',
-      prop: 'nickname',
-      width: 120
-    },
-    {
-      label: '模式',
-      prop: 'method',
-      width: 100
-    },
-    {
-      label: '路径',
-      prop: 'path',
-      width: 200
-    },
-    {
-      label: 'IP',
-      prop: 'ip',
-      width: 120
-    },
-    {
-      label: '状态',
-      prop: 'status',
-      width: 80
-    },
-    {
-      label: '状态码',
-      prop: 'code',
-      width: 80
-    },
-    {
-      label: '操作时间',
-      prop: 'created_at',
-      width: 180
-    },
-    {
-      label: '描述',
-      prop: 'desc'
-    }
-  ]
 
   private searchFields: ISearchFields[] = [
     {

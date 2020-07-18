@@ -1,11 +1,10 @@
 <template>
   <el-table-column
-    :prop="column.prop"
-    :type="column.type"
-    :label="column.label"
-    :width="column.width"
-    :min-width="column.minWidth"
-    :align="column.align"
+    :prop="prop"
+    :label="label"
+    :width="width"
+    :min-width="minWidth"
+    :align="align"
   >
     <template slot-scope="scope">
       <span :style="{ color: getColor(scope.row) }">{{getValue(scope.row)}}</span>
@@ -14,25 +13,33 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import { ITableColumns } from '@/interface/common'
+import TableMixins from './TableMixins'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 import { getDeepValue } from '@/plugins/tools'
 import ConstService from '@/service/ConstService'
 
 @Component
-export default class TableOptions extends Vue {
-  private props = {
-    value: 'id',
-    label: 'display_name'
-  }
+export default class TableOptions extends Mixins(TableMixins) {
+  @Prop({
+    default: () => {
+      return {
+        value: 'id',
+        label: 'display_name'
+      }
+    }
+  })
+  props!: { label: string; value: any }
 
   @Prop()
-  column!: ITableColumns
+  options!: any[]
+
+  @Prop()
+  colors!: { [key: string]: string }
 
   private getValue (row: any) {
-    const value = getDeepValue(this.column.prop as string, row)
-    if (Array.isArray(this.column.options)) {
-      const item = this.column.options.find((res) => res[this.props.value] === value)
+    const value = getDeepValue(this.prop, row)
+    if (Array.isArray(this.options)) {
+      const item = this.options.find((res) => res[this.props.value] === value)
       return item ? item[this.props.label] : '--'
     } else {
       return '--'
@@ -40,21 +47,17 @@ export default class TableOptions extends Vue {
   }
 
   private getColor (row: any) {
-    const value = getDeepValue(this.column.prop as string, row)
-    if (Array.isArray(this.column.options)) {
-      const item = this.column.options.find((res) => res[this.props.value] === value)
+    const value = getDeepValue(this.prop, row)
+    if (Array.isArray(this.options)) {
+      const item = this.options.find((res) => res[this.props.value] === value)
       if (item && item.color) {
         return ConstService.getColor(item.color)
       }
     }
-    if (this.column.colors && this.column.colors[value]) {
-      return ConstService.getColor(this.column.colors[value])
+    if (this.colors && this.colors[value]) {
+      return ConstService.getColor(this.colors[value])
     }
     return ConstService.getColor('')
-  }
-
-  created () {
-    Object.assign(this.props, this.column.props)
   }
 }
 </script>

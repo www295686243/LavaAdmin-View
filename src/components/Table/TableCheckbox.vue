@@ -1,11 +1,10 @@
 <template>
   <el-table-column
-    :prop="column.prop"
-    :type="column.type"
-    :label="column.label"
-    :width="column.width"
-    :min-width="column.minWidth"
-    :align="column.align"
+    :prop="prop"
+    :label="label"
+    :width="width"
+    :min-width="minWidth"
+    :align="align"
   >
     <template slot-scope="scope">
       {{getValue(scope.row)}}
@@ -14,25 +13,30 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import { ITableColumns } from '@/interface/common'
+import TableMixins from './TableMixins'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 import { getDeepValue } from '@/plugins/tools'
 
 @Component
-export default class TableImage extends Vue {
-  private props = {
-    value: 'id',
-    label: 'display_name'
-  }
+export default class TableImage extends Mixins(TableMixins) {
+  @Prop({
+    default: () => {
+      return {
+        value: 'id',
+        label: 'display_name'
+      }
+    }
+  })
+  props!: { label: string; value: any }
 
   @Prop()
-  column!: ITableColumns
+  options!: any[]
 
   private getValue (row: any) {
-    const values = getDeepValue(this.column.prop as string, row)
+    const values = getDeepValue(this.prop as string, row)
     if (Array.isArray(values)) {
-      if (Array.isArray(this.column.options)) {
-        return this.column.options.filter((res) => values.includes(res[this.props.value]))
+      if (Array.isArray(this.options)) {
+        return this.options.filter((res) => values.includes(res[this.props.value]))
           .map((res) => res[this.props.label])
           .join('、')
       } else {

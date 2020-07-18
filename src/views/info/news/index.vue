@@ -1,9 +1,24 @@
 <template>
   <PageContainer>
-    <TableRender
-      :addBtnText="Service.name"
-      :onLoad="(params) => Service.index(params)"
-      :tableColumns="tableColumns">
+    <TableRender :Service="Service">
+      <TableText prop="id" label="ID" :width="200"></TableText>
+      <TableText prop="user_id" label="userid" :width="200"></TableText>
+      <TableText prop="text" label="text" :width="200"></TableText>
+      <TableText prop="textarea" label="textarea" :width="200"></TableText>
+      <TableOptions prop="select" label="select" :colors="{ 1: 'success', 2: 'error' }" :options="getOptions()" :props="{ label: 'label', value: 'value' }"></TableOptions>
+      <TableOptions prop="radio" label="radio" :colors="{ 1: 'success', 2: 'error' }" :options="getOptions()" :props="{ label: 'label', value: 'value' }"></TableOptions>
+      <TableOptions prop="switch" label="switch" :options="[{label: '开', value: 1}, {label: '关', value: 0}]" :props="{ label: 'label', value: 'value' }"></TableOptions>
+      <TableText prop="datetime" label="datetime"></TableText>
+      <TableCheckbox prop="checkbox" label="checkbox" :options="getOptions()" :props="{ label: 'label', value: 'value' }"></TableCheckbox>
+      <TableText prop="file" label="file"></TableText>
+      <TableImage prop="image" label="image"></TableImage>
+      <TableText prop="files" label="files"></TableText>
+      <TableImages prop="images" label="images"></TableImages>
+      <TableCascader prop="cascader" label="cascader"></TableCascader>
+      <TableAction :buttons="[
+        { name: '编辑' },
+        { name: '删除' }
+      ]" :minWidth="160" />
     </TableRender>
   </PageContainer>
 </template>
@@ -11,102 +26,14 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
-import { ITableColumns } from '@/interface/common'
-import RouterService from '@/service/RouterService'
+import ConstService from '@/service/ConstService'
 
 @Component
 export default class ViewInfoNewsIndex extends Vue {
   private Service = Service
 
-  private tableColumns: ITableColumns[] = [
-    {
-      prop: 'id',
-      label: 'ID',
-      width: 200
-    },
-    {
-      prop: 'user_id',
-      label: 'userid',
-      width: 200
-    },
-    {
-      prop: 'text',
-      label: 'text'
-    },
-    {
-      prop: 'textarea',
-      label: 'textarea'
-    },
-    {
-      prop: 'select',
-      label: 'select',
-      element: 'options',
-      options: [],
-      colors: {
-        1: 'success'
-      }
-    },
-    {
-      prop: 'radio',
-      label: 'radio'
-    },
-    {
-      prop: 'switch',
-      label: 'switch'
-    },
-    {
-      prop: 'datetime',
-      label: 'datetime'
-    },
-    {
-      prop: 'checkbox',
-      label: 'checkbox',
-      element: 'checkbox',
-      options: []
-    },
-    {
-      prop: 'counter',
-      label: 'counter'
-    },
-    {
-      prop: 'file',
-      label: 'file'
-    },
-    {
-      prop: 'image',
-      label: 'image',
-      element: 'image'
-    },
-    {
-      prop: 'files',
-      label: 'files'
-    },
-    {
-      prop: 'images',
-      label: 'images',
-      element: 'images'
-    },
-    {
-      prop: 'cascader',
-      label: 'cascader'
-    },
-    {
-      prop: '_action',
-      label: '操作',
-      minWidth: 160,
-      actions: [
-        {
-          name: '编辑',
-          onClick: (row: any) => {
-            RouterService.pushForm({ id: row.id })
-          }
-        },
-        {
-          name: '删除',
-          onClick: (row: any) => Service.destroy(row.id)
-        }
-      ]
-    }
-  ]
+  private getOptions () {
+    return ConstService.getOptions()
+  }
 }
 </script>

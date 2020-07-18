@@ -1,19 +1,17 @@
 <template>
   <el-table-column
-    :prop="column.prop"
-    :type="column.type"
-    :label="column.label"
-    :width="column.width"
-    :min-width="column.minWidth"
-    :align="column.align"
+    prop="_action"
+    label="操作"
+    :width="width"
+    :min-width="minWidth"
   >
     <template slot-scope="scope">
-      <template v-for="(v, key) in innerActions">
+      <template v-for="(v, key) in innerButtons">
         <ButtonDelete
           :key="key"
           type="danger"
           :size="v.size || 'small'"
-          :onClick="() => handleClickAfter(scope, v)"
+          :onClick="() => handleDestroy(scope, v)"
           style="margin-left: 10px;"
           v-if="v.name === '删除'">
           {{v.name}}
@@ -22,7 +20,7 @@
           :key="key"
           :type="v.type || 'primary'"
           :size="v.size || 'small'"
-          :onClick="() => v.onClick(scope.row, scope.$index)"
+          :onClick="() => handleEdit(scope, v)"
           v-else-if="v.name === '编辑'">
           {{v.name}}
         </ButtonSubmit>
@@ -40,42 +38,63 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import { ITableColumns, ITableColumnAction } from '@/interface/common'
+import TableMixins from './TableMixins'
+import { Component, Prop, Inject, Mixins } from 'vue-property-decorator'
+import { ITableColumnAction } from '@/interface/common'
 import RouterService from '@/service/RouterService'
 import UserService from '@/service/UserService'
+import { InterfaceService } from './TableRender.vue'
 
 @Component
-export default class TableAction extends Vue {
+export default class TableAction extends Mixins(TableMixins) {
   @Prop()
-  column!: ITableColumns
+  buttons!: ITableColumnAction[]
 
-  private innerActions: ITableColumnAction[] = []
+  @Inject('tableService')
+  tableService!: InterfaceService
 
-  private handleClickAfter (scope: { row: any; $index: number }, v: { onClick: Function }) {
-    return v.onClick(scope.row, scope.$index)
+  private innerButtons: ITableColumnAction[] = []
+
+  private handleDestroy (scope: { row: any; $index: number }, v: { onClick: Function }) {
+    return Promise.resolve()
       .then(() => {
-        this.$emit('remove')
+        if (v.onClick) {
+          return v.onClick(scope.row, scope.$index)
+        } else {
+          return this.tableService.destroy(scope.row.id)
+        }
+      })
+      .then(() => {
+        this.tableService.refresh()
+      })
+  }
+
+  private handleEdit (scope: { row: any; $index: number }, v: { onClick: Function }) {
+    return Promise.resolve()
+      .then(() => {
+        if (v.onClick) {
+          return v.onClick(scope.row, scope.$index)
+        } else {
+          return RouterService.pushForm({ id: scope.row.id })
+        }
       })
   }
 
   created () {
-    if (this.column.actions && this.column.actions.length > 0) {
-      const controllerName = RouterService.getControllerName()
-      this.innerActions = this.column.actions.filter((res) => {
-        if (res.name === '编辑') {
-          res.permission = 'update'
-        } else if (res.name === '删除') {
-          res.permission = 'destroy'
-        }
-        if (res.permission) {
-          const permissionName = controllerName + '@' + res.permission
-          return UserService.hasPermission(permissionName)
-        } else {
-          return true
-        }
-      })
-    }
+    const controllerName = RouterService.getControllerName()
+    this.innerButtons = this.buttons.filter((res) => {
+      if (res.name === '编辑') {
+        res.permission = 'update'
+      } else if (res.name === '删除') {
+        res.permission = 'destroy'
+      }
+      if (res.permission) {
+        const permissionName = controllerName + '@' + res.permission
+        return UserService.hasPermission(permissionName)
+      } else {
+        return true
+      }
+    })
   }
 }
 </script>

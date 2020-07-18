@@ -1,30 +1,26 @@
 <template>
   <el-table-column
-    :prop="column.prop"
-    :type="column.type"
-    :label="column.label"
-    :width="column.width"
-    :min-width="column.minWidth"
-    :align="column.align"
+    :prop="prop"
+    :label="label"
+    :width="width"
+    :min-width="minWidth"
+    :align="align"
   >
     <template slot-scope="scope">
-      {{ getValue(scope.row, column) || '--' }}
+      {{ getValue(scope.row) || '--' }}
     </template>
   </el-table-column>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import { ITableColumns } from '@/interface/common'
+import TableMixins from './TableMixins'
+import { Component, Mixins } from 'vue-property-decorator'
 import { getDeepValue } from '@/plugins/tools'
 
 @Component
-export default class TableText extends Vue {
-  @Prop()
-  column!: ITableColumns
-
+export default class TableText extends Mixins(TableMixins) {
   private getValue (row: any) {
-    const field = this.column.prop as string
+    const field = this.prop as string
     if (Array.isArray(row[field])) {
       return this.getArrayValue(row)
     } else {
@@ -38,8 +34,8 @@ export default class TableText extends Vue {
   }
 
   private getArrayValue (row: any) {
-    const field = this.column.prop as string
-    const label = (this.column.props && this.column.props.label) || 'display_name'
+    const field = this.prop as string
+    const label = this.props.label || 'display_name'
     return row[field].map((item: any) => {
       if (typeof item === 'string') {
         return item

@@ -1,25 +1,22 @@
 <template>
   <el-table-column
-    :prop="column.prop"
-    :type="column.type"
-    :label="column.label"
-    :width="column.width"
-    :min-width="column.minWidth"
-    :align="column.align"
+    :prop="prop"
+    :label="label"
+    :width="width"
+    :min-width="minWidth || 91"
+    :align="align"
   >
     <template slot-scope="scope">
-      <img :src="scope.row[column.prop]"  width="70" height="70" v-if="scope.row[column.prop]"/>
+      <img :src="scope.row[prop]"  width="70" height="70" v-if="scope.row[prop]"/>
     </template>
   </el-table-column>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import { ITableColumns } from '@/interface/common'
+import TableMixins from './TableMixins'
+import { Component, Mixins } from 'vue-property-decorator'
 
 @Component
-export default class TableImage extends Vue {
-  @Prop()
-  column!: ITableColumns
+export default class TableImage extends Mixins(TableMixins) {
 }
 </script>

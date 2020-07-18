@@ -34,7 +34,7 @@ class VersionService {
   configVersion () {
     return axios.get('auth/getAppConfig')
       .then((res) => {
-        cache.config.set('config', res.data)
+        cache.config.set('app', res.data)
       })
   }
 

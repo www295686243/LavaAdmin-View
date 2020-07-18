@@ -1,7 +1,7 @@
 <template>
   <div class="TableRender">
     <div class="function-container">
-      <div v-if="addBtnText && isStorePermission"><ButtonSubmit :onClick="gotoAddForm">添加{{addBtnText}}</ButtonSubmit></div>
+      <div v-permission="'store'" v-if="!!Service.store"><ButtonSubmit :onClick="() => RouterService.pushForm()">添加{{Service.name}}</ButtonSubmit></div>
       <InfoSearchContainer
         @submit="search"
         :fields="searchFields"
@@ -16,14 +16,7 @@
       row-key="id"
       :max-height="maxHeight"
       :empty-text="emptyText">
-      <template v-for="(v, index) in tableColumns">
-        <TableAction :key="index" :column="v" v-if="v.prop === '_action'" @remove="removeReload"></TableAction>
-        <TableImage :key="index" :column="v" v-else-if="v.element === 'image'"></TableImage>
-        <TableImages :key="index" :column="v" v-else-if="v.element === 'images'"></TableImages>
-        <TableOptions :key="index" :column="v" v-else-if="v.element === 'options'"></TableOptions>
-        <TableCheckbox :key="index" :column="v" v-else-if="v.element === 'checkbox'"></TableCheckbox>
-        <TableText :key="index" :column="v" v-else></TableText>
-      </template>
+      <slot></slot>
     </el-table>
     <TablePagination
       @changePage="pageLoad"
@@ -34,29 +27,24 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import { IPagination, IResult, ITableColumns, ISearchFields } from '@/interface/common'
+import { Component, Vue, Prop, Provide } from 'vue-property-decorator'
+import { IPagination, IResult, ISearchFields } from '@/interface/common'
 import TablePagination from '@/components/Table/TablePagination.vue'
-import TableText from './TableText.vue'
-import TableAction from './TableAction.vue'
-import TableImage from './TableImage.vue'
-import TableImages from './TableImages.vue'
-import TableOptions from './TableOptions.vue'
-import TableCheckbox from './TableCheckbox.vue'
 import InfoSearchContainer from '../InfoSearchContainer.vue'
-import RouterService from '@/service/RouterService'
-import UserService from '@/service/UserService'
+
+export interface InterfaceService {
+  index: Function;
+  show: Function;
+  store: Function;
+  update: Function;
+  destroy: Function;
+  refresh: Function;
+}
 
 @Component({
   components: {
     TablePagination,
-    TableText,
-    TableAction,
-    InfoSearchContainer,
-    TableImage,
-    TableImages,
-    TableOptions,
-    TableCheckbox
+    InfoSearchContainer
   }
 })
 export default class TableRender extends Vue {
@@ -64,17 +52,17 @@ export default class TableRender extends Vue {
     table: any;
   }
 
-  @Prop({ default: () => () => Promise.resolve() })
+  @Prop()
   onLoad!: Function
-
-  @Prop({ default: () => [] })
-  tableColumns!: ITableColumns[]
 
   @Prop()
   searchFields!: ISearchFields[]
 
   @Prop()
-  addBtnText!: string
+  Service!: InterfaceService
+
+  @Provide()
+  tableService = this.Service
 
   private maxHeight = 500
   private isLoading = false
@@ -89,15 +77,24 @@ export default class TableRender extends Vue {
   private list: any[] = []
   private emptyText = '暂无数据'
   private searchParams = {}
-  private isStorePermission = false
 
   private initLoad () {
     if (this.isLoading) return
     this.isLoading = true
-    return this.onLoad({
-      ...this.pagination,
-      ...this.searchParams
-    })
+    return Promise.resolve()
+      .then(() => {
+        if (this.onLoad) {
+          return this.onLoad({
+            ...this.pagination,
+            ...this.searchParams
+          })
+        } else {
+          return this.Service.index({
+            ...this.pagination,
+            ...this.searchParams
+          })
+        }
+      })
       .then((res: IResult) => {
         if (Array.isArray(res.data)) {
           this.list = res.data
@@ -124,10 +121,6 @@ export default class TableRender extends Vue {
     this.initLoad()
   }
 
-  private gotoAddForm () {
-    RouterService.pushForm()
-  }
-
   private removeReload () {
     if (this.list.length === 1) {
       this.pagination.page = this.pagination.page > 1 ? --this.pagination.page : 1
@@ -150,7 +143,9 @@ export default class TableRender extends Vue {
   created () {
     this.maxHeight = document.body.clientHeight - 250
     this.initLoad()
-    this.isStorePermission = UserService.hasPermission(RouterService.getControllerName() + '@store')
+    if (this.Service) {
+      this.tableService.refresh = this.removeReload
+    }
   }
 }
 </script>

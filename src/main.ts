@@ -8,8 +8,16 @@ import 'element-ui/lib/theme-chalk/index.css'
 import PageContainer from './components/PageContainer.vue'
 import ButtonSubmit from './components/Button/ButtonSubmit.vue'
 import ButtonDelete from './components/Button/ButtonDelete.vue'
-import TableRender from './components/Table/TableRender.vue'
 import FormRender from './components/Form/FormRender.vue'
+
+import TableRender from './components/Table/TableRender.vue'
+import TableText from './components/Table/TableText.vue'
+import TableOptions from './components/Table/TableOptions.vue'
+import TableCheckbox from './components/Table/TableCheckbox.vue'
+import TableImage from './components/Table/TableImage.vue'
+import TableImages from './components/Table/TableImages.vue'
+import TableCascader from './components/Table/TableCascader.vue'
+import TableAction from './components/Table/TableAction.vue'
 
 import RouterService from '@/service/RouterService'
 import UserService from '@/service/UserService'
@@ -17,14 +25,29 @@ import UserService from '@/service/UserService'
 Vue.component('ButtonSubmit', ButtonSubmit)
 Vue.component('ButtonDelete', ButtonDelete)
 Vue.component('PageContainer', PageContainer)
-Vue.component('TableRender', TableRender)
 Vue.component('FormRender', FormRender)
+
+Vue.component('TableRender', TableRender)
+Vue.component('TableText', TableText)
+Vue.component('TableOptions', TableOptions)
+Vue.component('TableCheckbox', TableCheckbox)
+Vue.component('TableImage', TableImage)
+Vue.component('TableImages', TableImages)
+Vue.component('TableCascader', TableCascader)
+Vue.component('TableAction', TableAction)
 
 RouterService.init(router)
 UserService.init()
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
+
+Vue.directive('permission', (el, params) => {
+  const result = UserService.hasPermission(RouterService.getControllerName() + '@' + params.value)
+  if (!result) {
+    el.style.display = 'none'
+  }
+})
 
 new Vue({
   router,
