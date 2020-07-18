@@ -1,5 +1,5 @@
 <template>
-  <div class="FormRender">
+  <DataRender class="FormRender" :onLoad="handleLoad">
     <div class="FormMainContainer">
       <el-form :model="data" label-width="90px" ref="FormElement" class="FormContentContainer">
         <slot></slot>
@@ -11,23 +11,52 @@
         <ButtonSubmit :onClick="handleReset" type="" style="margin-left: 8px">重置</ButtonSubmit>
       </slot>
     </div>
-  </div>
+  </DataRender>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
+import { IService, IResult } from '@/interface/common'
+import RouterService from '@/service/RouterService'
+import DataRender from '@/components/DataRender.vue'
 
-@Component
+@Component({
+  components: {
+    DataRender
+  }
+})
 export default class FormRender extends Vue {
   readonly $refs!: {
     FormElement: any;
   }
 
   @Prop()
-  data!: object
+  data!: any
 
   @Prop()
   onSubmit!: Function
+
+  @Prop()
+  onLoad!: Function
+
+  @Prop()
+  Service!: IService
+
+  private handleLoad () {
+    return Promise.resolve()
+      .then(() => {
+        if (this.onLoad) {
+          return this.onLoad()
+        } else {
+          if (this.data.id && this.Service.show) {
+            return this.Service.show(this.data.id)
+              .then((res: IResult) => {
+                Object.assign(this.data, res.data)
+              })
+          }
+        }
+      })
+  }
 
   private handleSubmit () {
     return Promise.resolve()
@@ -35,6 +64,18 @@ export default class FormRender extends Vue {
       .then(() => {
         if (this.onSubmit) {
           return this.onSubmit()
+        } else {
+          return Promise.resolve()
+            .then(() => {
+              if (this.data.id) {
+                return this.Service.update(this.data)
+              } else {
+                return this.Service.store(this.data)
+              }
+            })
+            .then(() => {
+              RouterService.go()
+            })
         }
       })
   }

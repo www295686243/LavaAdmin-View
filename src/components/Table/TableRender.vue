@@ -28,18 +28,10 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Provide } from 'vue-property-decorator'
-import { IPagination, IResult, ISearchFields } from '@/interface/common'
+import { IPagination, IResult, ISearchFields, IService } from '@/interface/common'
 import TablePagination from '@/components/Table/TablePagination.vue'
 import InfoSearchContainer from '../InfoSearchContainer.vue'
-
-export interface InterfaceService {
-  index: Function;
-  show: Function;
-  store: Function;
-  update: Function;
-  destroy: Function;
-  refresh: Function;
-}
+import RouterService from '@/service/RouterService'
 
 @Component({
   components: {
@@ -59,7 +51,7 @@ export default class TableRender extends Vue {
   searchFields!: ISearchFields[]
 
   @Prop()
-  Service!: InterfaceService
+  Service!: IService
 
   @Provide()
   tableService = this.Service
@@ -77,6 +69,7 @@ export default class TableRender extends Vue {
   private list: any[] = []
   private emptyText = '暂无数据'
   private searchParams = {}
+  private RouterService = RouterService
 
   private initLoad () {
     if (this.isLoading) return

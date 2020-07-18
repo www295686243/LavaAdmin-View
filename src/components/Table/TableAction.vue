@@ -40,10 +40,9 @@
 <script lang="ts">
 import TableMixins from './TableMixins'
 import { Component, Prop, Inject, Mixins } from 'vue-property-decorator'
-import { ITableColumnAction } from '@/interface/common'
+import { ITableColumnAction, IService } from '@/interface/common'
 import RouterService from '@/service/RouterService'
 import UserService from '@/service/UserService'
-import { InterfaceService } from './TableRender.vue'
 
 @Component
 export default class TableAction extends Mixins(TableMixins) {
@@ -51,7 +50,7 @@ export default class TableAction extends Mixins(TableMixins) {
   buttons!: ITableColumnAction[]
 
   @Inject('tableService')
-  tableService!: InterfaceService
+  tableService!: IService
 
   private innerButtons: ITableColumnAction[] = []
 

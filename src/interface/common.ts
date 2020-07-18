@@ -33,25 +33,6 @@ export interface IResult {
   status: string
 }
 
-export interface ITableColumns {
-  prop?: string
-  label?: string
-  type?: string
-  width?: number
-  minWidth?: number
-  fixed?: string
-  element?: string
-  align?: string
-  options?: any[]
-  optionsList?: any[] // 一般用于级联组件,扁平化的树形列表
-  props?: {
-    label: string
-    value?: string
-  }
-  actions?: ITableColumnAction[]
-  colors?: { [key: string]: string } // 目前element为options才支持
-}
-
 export interface ITableColumnAction {
   name: string
   type?: string
@@ -70,7 +51,7 @@ export interface IFormFieldItem {
   label: string
   options?: any[] // 下拉或多选的选项
   optionsList?: any[] // 一般用于级联菜单，扁平化的树形列表
-  rule?: IRule[]
+  rule?: any[]
   props?: {
     checkStrictly?: boolean
     value?: string // value字段名
@@ -94,16 +75,6 @@ export interface IUploadParams {
   marking?: string | number;
 }
 
-interface IRule {
-  required?: boolean,
-  message?: string,
-  trigger: string,
-  max?: number,
-  min?: number,
-  validator?: Function
-  [key: string]: any
-}
-
 export interface IFormFields {
   [key: string]: IFormFieldItem
 }
@@ -119,4 +90,13 @@ export interface ISearchFields {
 export interface IOptions {
   label: string,
   value: number|string
+}
+
+export interface IService {
+  index: Function;
+  show: Function;
+  store: Function;
+  update: Function;
+  destroy: Function;
+  refresh: Function;
 }

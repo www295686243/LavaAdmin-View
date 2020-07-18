@@ -6,9 +6,9 @@
       :type="autosize ? 'textarea' : 'text'"
       :placeholder="field.placeholder ? field.placeholder : '请输入' + field.label"
       :disabled="field.disabled"
-      :show-word-limit="field.maxlength > 0"
+      :show-word-limit="maxLength > 0"
       :autosize="autosize ? { minRows: 1.2 } : false"
-      :maxlength="field.maxlength">
+      :maxlength="maxLength">
     </el-input>
     <p class="tips" v-if="field.tips">{{field.tips}}</p>
   </el-form-item>
@@ -22,6 +22,15 @@ import { Component, Mixins, Prop } from 'vue-property-decorator'
 export default class FormText extends Mixins(FormMixins) {
   @Prop({ default: false })
   autosize!: boolean
+
+  private maxLength = null
+
+  created () {
+    const rule = (this.field.rule || []).find((res) => res.max || res.len)
+    if (rule) {
+      this.maxLength = rule.max || rule.len
+    }
+  }
 }
 </script>
 

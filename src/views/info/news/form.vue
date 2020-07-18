@@ -1,58 +1,40 @@
 <template>
-  <PageContainer :onLoad="handleLoad">
-    <FormRender :data="data" :onSubmit="handleSubmit">
-      <FormText v-model="data.text" :field="formFields.text"></FormText>
-      <FormTextarea v-model="data.textarea" :field="formFields.textarea"></FormTextarea>
-      <FormSelect v-model="data.select" :field="formFields.select"></FormSelect>
-      <FormRadio v-model="data.radio" :field="formFields.radio"></FormRadio>
-      <FormSwitch v-model="data.switch" :field="formFields.switch"></FormSwitch>
-      <FormDate v-model="data.datetime" :field="formFields.datetime"></FormDate>
-      <FormCheckbox v-model="data.checkbox" :field="formFields.checkbox"></FormCheckbox>
-      <FormCounter v-model="data.counter" :field="formFields.counter"></FormCounter>
-      <FormCascader v-model="data.cascader" :field="formFields.cascader"></FormCascader>
-      <FormEditor v-model="data.editor" :field="formFields.editor"></FormEditor>
-      <FormImage v-model="data.image" :field="formFields.image"></FormImage>
-      <FormImages v-model="data.images" :field="formFields.images"></FormImages>
-    </FormRender>
-  </PageContainer>
+  <FormRender :data="data" :Service="Service">
+    <FormText v-model="data.text" :field="formFields.text"></FormText>
+    <FormTextarea v-model="data.textarea" :field="formFields.textarea"></FormTextarea>
+    <FormSelect v-model="data.select" :field="formFields.select"></FormSelect>
+    <FormRadio v-model="data.radio" :field="formFields.radio"></FormRadio>
+    <FormSwitch v-model="data.switch" :field="formFields.switch"></FormSwitch>
+    <FormDate v-model="data.datetime" :field="formFields.datetime"></FormDate>
+    <FormCheckbox v-model="data.checkbox" :field="formFields.checkbox"></FormCheckbox>
+    <FormCounter v-model="data.counter" :field="formFields.counter"></FormCounter>
+    <FormCascader v-model="data.cascader" :field="formFields.cascader"></FormCascader>
+    <FormEditor v-model="data.editor" :field="formFields.editor"></FormEditor>
+    <FormImage v-model="data.image" :field="formFields.image"></FormImage>
+    <FormImages v-model="data.images" :field="formFields.images"></FormImages>
+  </FormRender>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
 import RouterService from '@/service/RouterService'
-import FormText from '@/components/Form/FormText.vue'
-import FormTextarea from '@/components/Form/FormTextarea.vue'
-import FormSelect from '@/components/Form/FormSelect.vue'
-import FormRadio from '@/components/Form/FormRadio.vue'
-import FormSwitch from '@/components/Form/FormSwitch.vue'
-import FormDate from '@/components/Form/FormDate.vue'
-import FormCheckbox from '@/components/Form/FormCheckbox.vue'
-import FormCounter from '@/components/Form/FormCounter.vue'
-import FormCascader from '@/components/Form/FormCascader.vue'
 import FormEditor from '@/components/Form/FormEditor.vue'
 import FormImage from '@/components/Form/FormImage.vue'
 import FormImages from '@/components/Form/FormImages.vue'
 import { IFormFields } from '@/interface/common'
 import ConstService from '@/service/ConstService'
+import ValidateService from '@/service/ValidateService'
 
 @Component({
   components: {
-    FormText,
-    FormTextarea,
-    FormSelect,
-    FormRadio,
-    FormSwitch,
-    FormDate,
-    FormCheckbox,
-    FormCounter,
-    FormCascader,
     FormEditor,
     FormImage,
     FormImages
   }
 })
 export default class ViewInfoNewsForm extends Vue {
+  private Service = Service
   private data = {
     id: RouterService.query('id') as number,
     text: '',
@@ -77,11 +59,11 @@ export default class ViewInfoNewsForm extends Vue {
       prop: 'text',
       label: 'text'
     },
-    textarea: {
+    textarea: ValidateService.genRule({
       prop: 'textarea',
       label: 'textarea',
-      maxlength: 255
-    },
+      rule: [ValidateService.max(255)]
+    }),
     select: {
       prop: 'select',
       label: 'select',
@@ -149,32 +131,6 @@ export default class ViewInfoNewsForm extends Vue {
       prop: 'images',
       label: 'images'
     }
-  }
-
-  private handleLoad () {
-    return Promise.resolve()
-      .then(() => {
-        if (this.data.id) {
-          return Service.show(this.data.id)
-            .then((res) => {
-              Object.assign(this.data, res.data)
-            })
-        }
-      })
-  }
-
-  private handleSubmit () {
-    return Promise.resolve()
-      .then(() => {
-        if (this.data.id) {
-          return Service.update(this.data)
-        } else {
-          return Service.store(this.data)
-        }
-      })
-      .then(() => {
-        RouterService.go()
-      })
   }
 }
 </script>

@@ -8,7 +8,17 @@ import 'element-ui/lib/theme-chalk/index.css'
 import PageContainer from './components/PageContainer.vue'
 import ButtonSubmit from './components/Button/ButtonSubmit.vue'
 import ButtonDelete from './components/Button/ButtonDelete.vue'
+
 import FormRender from './components/Form/FormRender.vue'
+import FormText from './components/Form/FormText.vue'
+import FormTextarea from './components/Form/FormTextarea.vue'
+import FormSelect from './components/Form/FormSelect.vue'
+import FormCounter from './components/Form/FormCounter.vue'
+import FormRadio from './components/Form/FormRadio.vue'
+import FormSwitch from './components/Form/FormSwitch.vue'
+import FormDate from './components/Form/FormDate.vue'
+import FormCheckbox from './components/Form/FormCheckbox.vue'
+import FormCascader from './components/Form/FormCascader.vue'
 
 import TableRender from './components/Table/TableRender.vue'
 import TableText from './components/Table/TableText.vue'
@@ -25,7 +35,17 @@ import UserService from '@/service/UserService'
 Vue.component('ButtonSubmit', ButtonSubmit)
 Vue.component('ButtonDelete', ButtonDelete)
 Vue.component('PageContainer', PageContainer)
+
 Vue.component('FormRender', FormRender)
+Vue.component('FormText', FormText)
+Vue.component('FormTextarea', FormTextarea)
+Vue.component('FormSelect', FormSelect)
+Vue.component('FormCounter', FormCounter)
+Vue.component('FormRadio', FormRadio)
+Vue.component('FormSwitch', FormSwitch)
+Vue.component('FormDate', FormDate)
+Vue.component('FormCheckbox', FormCheckbox)
+Vue.component('FormCascader', FormCascader)
 
 Vue.component('TableRender', TableRender)
 Vue.component('TableText', TableText)

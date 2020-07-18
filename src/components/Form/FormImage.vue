@@ -2,10 +2,11 @@
   <el-form-item :label="field.label" :prop="field.prop" :rules="field.rule" class="FormImage">
     <div class="cover-controller" v-if="innerValue">
       <div class="cover-img">
-        <el-image :src="innerValue" fit="cover"></el-image>
-        <div class="cover-action">
+        <MaskContainer>
           <i class="el-icon-close" @click="handleRemove"></i>
-        </div>
+          <i class="el-icon-view" @click="handleViewImages"></i>
+        </MaskContainer>
+        <el-image :src="innerValue" fit="cover"></el-image>
       </div>
     </div>
     <div>
@@ -18,8 +19,14 @@
 import FormMixins from './FormMixins'
 import { Component, Mixins } from 'vue-property-decorator'
 import ImageManageService from '@/service/ImageManageService/Service'
+import MaskContainer from '@/components/MaskContainer.vue'
+import CarouselService from '@/service/CarouselService/Service'
 
-@Component
+@Component({
+  components: {
+    MaskContainer
+  }
+})
 export default class FormImage extends Mixins(FormMixins) {
   private ImageManageService!: ImageManageService
 
@@ -35,6 +42,12 @@ export default class FormImage extends Mixins(FormMixins) {
     this.innerValue = ''
   }
 
+  private handleViewImages () {
+    CarouselService.open([this.innerValue], {
+      autoplay: false
+    })
+  }
+
   created () {
     this.ImageManageService = new ImageManageService()
   }
@@ -47,35 +60,32 @@ export default class FormImage extends Mixins(FormMixins) {
     margin-bottom: 5px;
     .cover-img {
       position: relative;
+      cursor: pointer;
       width: 150px;
       height: 150px;
       .el-image {
         width: 100%;
         height: 100%;
+        position: absolute;
+        z-index: 11;
       }
-      &:hover {
-        .cover-action {
-          display: block;
-        }
-      }
-    }
-    .cover-action {
-      display: none;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, .6);
-      text-align: center;
       i {
         position: absolute;
         left: 50%;
         top: 50%;
-        transform: translate(-50%, -50%);
-        color: #fff;
-        font-size: 50px;
-        cursor: pointer;
+        color: #ffffff;
+        font-size: 30px;
+      }
+      .el-icon-close {
+        transform: translate(-150%, -50%);
+      }
+      .el-icon-view {
+        transform: translate(50%, -50%);
+      }
+      &:hover {
+        .el-image {
+          z-index: 9;
+        }
       }
     }
   }

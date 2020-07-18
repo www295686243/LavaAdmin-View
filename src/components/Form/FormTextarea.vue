@@ -6,7 +6,7 @@
       :autosize="{minRows: 5,maxRows: 10}"
       :placeholder="'请输入' + field.label"
       :disabled="field.disabled"
-      :maxlength="field.maxlength"
+      :maxlength="maxLength"
       show-word-limit
       ></el-input>
   </el-form-item>
@@ -18,5 +18,13 @@ import { Component, Mixins } from 'vue-property-decorator'
 
 @Component
 export default class FormTextarea extends Mixins(FormMixins) {
+  private maxLength = null
+
+  created () {
+    const rule = (this.field.rule || []).find((res) => res.max || res.len)
+    if (rule) {
+      this.maxLength = rule.max || rule.len
+    }
+  }
 }
 </script>

@@ -1,31 +1,24 @@
 <template>
-  <PageContainer :onLoad="handleLoad">
-    <FormRender :data="data" :onSubmit="handleSubmit">
-      <FormSelect v-model="data.role_names" :field="formFields.role_names"></FormSelect>
-      <FormText v-model="data.username" :field="formFields.username"></FormText>
-      <FormText v-model="data.password" :field="formFields.password"></FormText>
-      <FormText v-model="data.nickname" :field="formFields.nickname"></FormText>
-      <FormText v-model="data.phone" :field="formFields.phone"></FormText>
-    </FormRender>
-  </PageContainer>
+  <FormRender :onLoad="handleLoad" :data="data" :Service="Service">
+    <FormSelect v-model="data.role_names" :field="formFields.role_names"></FormSelect>
+    <FormText v-model="data.username" :field="formFields.username"></FormText>
+    <FormText v-model="data.password" :field="formFields.password"></FormText>
+    <FormText v-model="data.nickname" :field="formFields.nickname"></FormText>
+    <FormText v-model="data.phone" :field="formFields.phone"></FormText>
+  </FormRender>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
 import RouterService from '@/service/RouterService'
-import FormText from '@/components/Form/FormText.vue'
-import FormSelect from '@/components/Form/FormSelect.vue'
 import { IFormFields } from '@/interface/common'
 import RoleService from '../role/Service'
+import ValidateService from '@/service/ValidateService'
 
-@Component({
-  components: {
-    FormText,
-    FormSelect
-  }
-})
+@Component
 export default class ViewUserMemberUserForm extends Vue {
+  private Service = Service
   private data = {
     id: RouterService.query('id') as number,
     role_names: [],
@@ -36,7 +29,7 @@ export default class ViewUserMemberUserForm extends Vue {
   }
 
   private formFields: IFormFields = {
-    role_names: {
+    role_names: ValidateService.genRule({
       prop: 'role_names',
       label: '角色',
       options: [],
@@ -45,110 +38,40 @@ export default class ViewUserMemberUserForm extends Vue {
         value: 'name',
         label: 'display_name'
       },
-      rule: [
-        {
-          required: true,
-          message: '请设置角色',
-          trigger: 'change'
-        }
-      ]
-    },
-    username: {
+      rule: [ValidateService.required({ trigger: 'change', type: 'array' })]
+    }),
+    username: ValidateService.genRule({
       prop: 'username',
       label: '用户名',
-      rule: [
-        {
-          required: true,
-          message: '用户名必填',
-          trigger: 'blur'
-        },
-        {
-          type: 'string',
-          min: 6,
-          max: 30,
-          message: '用户名必须为6~30个字符之间',
-          trigger: 'blur'
-        }
-      ]
-    },
-    password: {
+      rule: [ValidateService.username]
+    }),
+    password: ValidateService.genRule({
       prop: 'password',
       label: '密码',
-      rule: [
-        {
-          required: true,
-          message: '密码必填',
-          trigger: 'blur'
-        },
-        {
-          type: 'string',
-          min: 6,
-          max: 30,
-          message: '密码必须为6~30个字符之间',
-          trigger: 'blur'
-        }
-      ]
-    },
-    nickname: {
+      rule: [ValidateService.loginPassword, this.data.id ? ValidateService.optional : ValidateService.required]
+    }),
+    nickname: ValidateService.genRule({
       prop: 'nickname',
       label: '昵称',
-      rule: [
-        {
-          type: 'string',
-          min: 2,
-          max: 30,
-          message: '昵称必须为2~30个字符之间',
-          trigger: 'blur'
-        }
-      ]
-    },
-    phone: {
+      rule: [ValidateService.nickname]
+    }),
+    phone: ValidateService.genRule({
       prop: 'phone',
       label: '手机号',
-      rule: [
-        {
-          pattern: /^1\d{10}$/,
-          message: '请输入11位手机号',
-          trigger: 'blur'
-        }
-      ],
-      maxlength: 11
-    }
+      rule: [ValidateService.phone]
+    })
   }
 
   private handleLoad () {
     return this.fetchRoleList()
       .then(() => {
         if (this.data.id) {
-          this.formFields.password.rule = [
-            {
-              type: 'string',
-              min: 6,
-              max: 20,
-              message: '密码必须为6~20个字符之间',
-              trigger: 'blur'
-            }
-          ]
           return Service.show(this.data.id)
             .then((res) => {
               res.data.role_names = res.data.roles.map((res: { name: string }) => res.name)
               Object.assign(this.data, res.data)
             })
         }
-      })
-  }
-
-  private handleSubmit () {
-    return Promise.resolve()
-      .then(() => {
-        if (this.data.id) {
-          return Service.update(this.data)
-        } else {
-          return Service.store(this.data)
-        }
-      })
-      .then(() => {
-        RouterService.go()
       })
   }
 

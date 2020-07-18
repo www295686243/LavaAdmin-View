@@ -1,26 +1,21 @@
 <template>
-  <PageContainer :onLoad="handleLoad">
-    <FormRender :data="data" :onSubmit="handleSubmit">
-      <FormText v-model="data.name" :field="formFields.name"></FormText>
-      <FormText v-model="data.display_name" :field="formFields.display_name"></FormText>
-      <FormText v-model="data.value" :field="formFields.value"></FormText>
-    </FormRender>
-  </PageContainer>
+  <FormRender :data="data" :Service="Service">
+    <FormText v-model="data.name" :field="formFields.name"></FormText>
+    <FormText v-model="data.display_name" :field="formFields.display_name"></FormText>
+    <FormText v-model="data.value" :field="formFields.value"></FormText>
+  </FormRender>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
 import RouterService from '@/service/RouterService'
-import FormText from '@/components/Form/FormText.vue'
 import { IFormFields } from '@/interface/common'
+import ValidateService from '@/service/ValidateService'
 
-@Component({
-  components: {
-    FormText
-  }
-})
+@Component
 export default class PlatformConfigBaseForm extends Vue {
+  private Service = Service
   private data = {
     id: RouterService.query('id') as number,
     name: '',
@@ -30,84 +25,22 @@ export default class PlatformConfigBaseForm extends Vue {
   }
 
   private formFields: IFormFields = {
-    name: {
+    name: ValidateService.genRule({
       prop: 'name',
       label: '标识',
       disabled: this.data.id > 0,
-      rule: [
-        {
-          required: true,
-          message: '标识必填',
-          trigger: 'blur'
-        },
-        {
-          type: 'string',
-          max: 60,
-          message: '标识最大60个字符',
-          trigger: 'blur'
-        }
-      ]
-    },
-    display_name: {
+      rule: [ValidateService.required, ValidateService.max(60)]
+    }),
+    display_name: ValidateService.genRule({
       prop: 'display_name',
       label: '名称',
-      rule: [
-        {
-          required: true,
-          message: '名称必填',
-          trigger: 'blur'
-        },
-        {
-          type: 'string',
-          max: 60,
-          message: '名称最大60个字符',
-          trigger: 'blur'
-        }
-      ]
-    },
-    value: {
+      rule: [ValidateService.required, ValidateService.max(60)]
+    }),
+    value: ValidateService.genRule({
       prop: 'value',
       label: '值',
-      rule: [
-        {
-          required: true,
-          message: '值必填',
-          trigger: 'blur'
-        },
-        {
-          type: 'string',
-          max: 120,
-          message: '值最大120个字符',
-          trigger: 'blur'
-        }
-      ]
-    }
-  }
-
-  private handleLoad () {
-    return Promise.resolve()
-      .then(() => {
-        if (this.data.id) {
-          return Service.show(this.data.id)
-            .then((res) => {
-              Object.assign(this.data, res.data)
-            })
-        }
-      })
-  }
-
-  private handleSubmit () {
-    return Promise.resolve()
-      .then(() => {
-        if (this.data.id) {
-          return Service.update(this.data)
-        } else {
-          return Service.store(this.data)
-        }
-      })
-      .then(() => {
-        RouterService.go()
-      })
+      rule: [ValidateService.required, ValidateService.max(120)]
+    })
   }
 }
 </script>
