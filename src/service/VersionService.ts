@@ -3,14 +3,13 @@ import axios from '@/plugins/axios'
 
 interface Version {
   app: number;
-  config: number;
+  [key: string]: number;
 }
 
 class VersionService {
   [key: string]: any
   private version: Version = {
-    app: 0,
-    config: 0
+    app: 0
   }
 
   init () {
@@ -18,28 +17,34 @@ class VersionService {
   }
 
   checkAllVersion (version: Version) {
-    return Object.keys(version).reduce((acc, key) => {
-      return acc.then(() => {
-        if (this.version[key as keyof Version] !== version[key as keyof Version]) {
-          this.version[key as keyof Version] = version[key as keyof Version]
-          return this[`${key}Version`]()
+    return Promise.resolve()
+      .then(() => {
+        if (this.version.app !== version.app) {
+          return this.getAppConfig()
+        } else {
+          return Object.keys(version).reduce((acc, key) => {
+            return acc.then(() => {
+              if (this.version[key as keyof Version] !== version[key as keyof Version]) {
+                this.version[key as keyof Version] = version[key as keyof Version]
+                return this.getAppConfig(key)
+              }
+            })
+          }, Promise.resolve())
         }
       })
-    }, Promise.resolve())
       .then(() => {
         cache.version.setAll(version)
+        Object.assign(this.version, version)
       })
   }
 
-  configVersion () {
-    return axios.get('auth/getAppConfig')
+  getAppConfig (gurad_name = '') {
+    return axios.get('auth/getAppConfig', { gurad_name })
       .then((res) => {
-        cache.config.set('app', res.data)
+        Object.keys(res.data).forEach((key: string) => {
+          cache.config.set(key, res.data[key])
+        })
       })
-  }
-
-  appVersion () {
-    return Promise.resolve()
   }
 
   clearAll () {

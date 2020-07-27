@@ -11,7 +11,7 @@ function notLogin () {
   router.push({ path: '/login' })
 }
 
-function ajax (data: object): Promise<any> {
+function ajax (data: any): Promise<any> {
   axios.defaults.baseURL = cache.getBaseConfig('baseHost')
   if (cache.user.get('api_token')) {
     axios.defaults.headers.common.Authorization = 'Bearer ' + cache.user.get('api_token')
@@ -22,10 +22,14 @@ function ajax (data: object): Promise<any> {
       .then(res => res.data)
       .then(res => {
         if (res.status === 'success') {
-          VersionService.checkAllVersion(res.version)
-            .then(() => {
-              resolve(res)
-            })
+          if (data.url !== 'auth/getAppConfig') {
+            VersionService.checkAllVersion(res.version)
+              .then(() => {
+                resolve(res)
+              })
+          } else {
+            resolve(res)
+          }
         } else {
           if (res.code === 401) {
             notLogin()
