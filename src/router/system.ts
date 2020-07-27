@@ -1,8 +1,5 @@
-import config from '@/views/system/config/config/index.vue'
-import configForm from '@/views/system/config/config/form.vue'
-
-import configOption from '@/views/system/config/config-options/index.vue'
-import configOptionForm from '@/views/system/config/config-options/form.vue'
+import ParamsConfig from '@/views/params-config/index.vue'
+import ParamsConfigForm from '@/views/params-config/form.vue'
 
 import adminLog from '@/views/system/admin-log/index.vue'
 
@@ -11,20 +8,12 @@ import versionForm from '@/views/system/version/form.vue'
 
 export default [
   {
-    path: '/system/config/config',
-    component: config
+    path: '/system/config',
+    component: ParamsConfig
   },
   {
-    path: '/system/config/config/form',
-    component: configForm
-  },
-  {
-    path: '/system/config/config-option',
-    component: configOption
-  },
-  {
-    path: '/system/config/config-option/form',
-    component: configOptionForm
+    path: '/system/config/form',
+    component: ParamsConfigForm
   },
   {
     path: '/system/admin-log',

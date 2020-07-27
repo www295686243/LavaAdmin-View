@@ -23,6 +23,7 @@ export interface IMenu {
   route: string
   depth: number
   params?: string[]
+  default_params?: { [key: string]: string | number };
   children?: IMenu[]
 }
 

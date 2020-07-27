@@ -52,6 +52,7 @@ export default class Main extends Vue {
   }
 
   beforeRouteUpdate (to: any, from: any, next: Function) {
+    this.fullPath = to.fullPath
     this.initRoutePaths(to.path)
     next()
   }

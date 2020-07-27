@@ -18,6 +18,9 @@ class RouterSerivce {
       console.warn('RouterService.push：path参数不存在')
       return false
     }
+    if (path.substr(0, 1) !== '/') {
+      path = this.getPath() + '/' + path
+    }
     this.router.push({
       path,
       query: {
@@ -38,6 +41,9 @@ class RouterSerivce {
   }
 
   replace (path: string, query?: object) {
+    if (path.substr(0, 1) !== '/') {
+      path = this.getPath() + '/' + path
+    }
     this.router.replace({
       path,
       query: {
@@ -78,6 +84,7 @@ class RouterSerivce {
     const list: IMenu[] = cache.layout.get('menus') || []
     const item = list.find((res) => res.route === path)
     let params = {}
+    let defaultParams = {}
     if (item) {
       const paths: IMenu[] = getAncestorsAndSelf(item.id, list)
       params = paths
@@ -89,8 +96,13 @@ class RouterSerivce {
           acc[key] = this.query(key)
           return acc
         }, {})
+
+      defaultParams = paths
+        .reduce((acc: { [key: string]: string | number }, row) => {
+          return Object.assign({}, acc, row.default_params)
+        }, {})
     }
-    return params
+    return Object.assign({}, params, defaultParams)
   }
 
   getUrlParams () {

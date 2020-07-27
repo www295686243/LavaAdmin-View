@@ -38,9 +38,12 @@ class VersionService {
       })
   }
 
-  getAppConfig (gurad_name = '') {
-    return axios.get('auth/getAppConfig', { gurad_name })
+  getAppConfig (guard_name = '') {
+    return axios.get('auth/getAppConfig', { guard_name })
       .then((res) => {
+        if (Array.isArray(res.data) && res.data.length === 0) {
+          res.data[guard_name] = []
+        }
         Object.keys(res.data).forEach((key: string) => {
           cache.config.set(key, res.data[key])
         })
