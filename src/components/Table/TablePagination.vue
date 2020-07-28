@@ -3,11 +3,11 @@
     <br />
     <el-pagination
       background
-      layout="prev, pager, next, total"
+      layout="prev, pager, next, sizes, total"
       @size-change="changePageSize"
       @current-change="changePage"
       :current-page="pagination.page"
-      :page-size="pagination.pageSize"
+      :page-size="pagination.limit"
       :total="pagination.total">
     </el-pagination>
   </div>
