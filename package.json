@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
+    "qs": "^6.9.4",
     "store2": "^2.11.2",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
@@ -19,6 +20,7 @@
     "vue-router": "^3.3.4"
   },
   "devDependencies": {
+    "@types/qs": "^6.9.4",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "^4.4.6",

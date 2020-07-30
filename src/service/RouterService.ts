@@ -41,15 +41,20 @@ class RouterSerivce {
   }
 
   replace (path: string, query?: object) {
+    const urlQuery = this.router.app.$route.query
+    const currentQuery = {
+      ...this.getUrlParams(),
+      ...query
+    }
+    if (path === this.router.app.$route.path && JSON.stringify(urlQuery) === JSON.stringify(currentQuery)) {
+      return
+    }
     if (path.substr(0, 1) !== '/') {
       path = this.getPath() + '/' + path
     }
     this.router.replace({
       path,
-      query: {
-        ...this.getUrlParams(),
-        ...query
-      }
+      query: currentQuery
     })
   }
 

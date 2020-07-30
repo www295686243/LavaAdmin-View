@@ -83,13 +83,13 @@ export interface ISearchFields {
   name: string,
   display_name: string,
   type: string,
-  options?: IOptions[],
-  flatOptions?: IOptions[]
+  options?: IOptions[]
 }
 
 export interface IOptions {
-  label: string,
-  value: number|string
+  display_name: string;
+  id: number;
+  children?: IOptions[];
 }
 
 export interface IService {

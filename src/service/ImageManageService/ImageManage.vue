@@ -85,8 +85,7 @@ export default class ImageManage extends Vue {
   private pagination: IPagination = {
     page: 1,
     limit: 12,
-    total: 0,
-    pageSize: 12
+    total: 0
   }
 
   private uploadParams: IUploadParams = {

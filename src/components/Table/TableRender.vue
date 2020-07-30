@@ -2,11 +2,10 @@
   <div class="TableRender">
     <div class="function-container">
       <div v-permission="'store'" v-if="!!Service.store"><ButtonSubmit :onClick="() => RouterService.pushForm()">添加{{Service.name}}</ButtonSubmit></div>
-      <InfoSearchContainer
-        @submit="search"
+      <TableToolSearch
         :fields="searchFields"
         v-if="searchFields">
-      </InfoSearchContainer>
+      </TableToolSearch>
     </div>
     <el-table
       ref="table"
@@ -30,13 +29,14 @@
 import { Component, Vue, Prop, Provide } from 'vue-property-decorator'
 import { IPagination, IResult, ISearchFields, IService } from '@/interface/common'
 import TablePagination from '@/components/Table/TablePagination.vue'
-import InfoSearchContainer from '../InfoSearchContainer.vue'
+import TableToolSearch from './TableToolSearch.vue'
 import RouterService from '@/service/RouterService'
+import QueryString from 'qs'
 
 @Component({
   components: {
     TablePagination,
-    InfoSearchContainer
+    TableToolSearch
   }
 })
 export default class TableRender extends Vue {
@@ -67,7 +67,7 @@ export default class TableRender extends Vue {
   private isShowPagination = false
   private list: any[] = []
   private emptyText = '暂无数据'
-  private searchParams = {}
+  private searchParams = { _search: Object.values(QueryString.parse(RouterService.query('_search') as string)) }
   private RouterService = RouterService
 
   private initLoad () {
@@ -121,13 +121,6 @@ export default class TableRender extends Vue {
 
   reload () {
     this.list = []
-    this.initLoad()
-  }
-
-  private search (params: object) {
-    if (params) {
-      this.searchParams = params
-    }
     this.initLoad()
   }
 
