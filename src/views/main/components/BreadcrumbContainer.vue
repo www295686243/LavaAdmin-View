@@ -28,7 +28,7 @@ export default class BreadcrumbContainer extends Vue {
   @Prop()
   routePaths!: IMenu[]
 
-  @Watch('routePaths')
+  @Watch('$route')
   onRoutePaths () {
     this.isBack = false
     this.optimizeData()

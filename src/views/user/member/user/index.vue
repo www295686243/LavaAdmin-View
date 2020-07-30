@@ -1,6 +1,6 @@
 <template>
   <PageContainer>
-    <TableRender :Service="Service">
+    <TableRender :Service="Service" :searchFields="searchFields">
       <TableText prop="id" label="ID" :width="180"></TableText>
       <TableText prop="nickname" label="昵称" :width="200"></TableText>
       <TableText prop="roles" label="角色" :width="200" :props="{label: 'display_name'}"></TableText>
@@ -16,9 +16,18 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
+import { ISearchFields } from '@/interface/common'
 
 @Component
 export default class ViewUserMemberUserIndex extends Vue {
   private Service = Service
+
+  private searchFields: ISearchFields[] = [
+    {
+      name: 'nickname',
+      display_name: '昵称',
+      type: 'string'
+    }
+  ]
 }
 </script>
