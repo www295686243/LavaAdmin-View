@@ -1,7 +1,9 @@
 <template>
   <div class="TableRender">
     <div class="function-container">
-      <div v-permission="'store'" v-if="!!Service.store"><ButtonSubmit :onClick="() => RouterService.pushForm()">添加{{Service.name}}</ButtonSubmit></div>
+      <div v-permission="'store'" v-if="!!Service.store" class="store-btn">
+        <ButtonSubmit :onClick="() => RouterService.pushForm()">添加{{Service.name}}</ButtonSubmit>
+      </div>
       <TableToolSearch
         :fields="searchFields"
         v-if="searchFields">
@@ -59,7 +61,7 @@ export default class TableRender extends Vue {
   private maxHeight = 500
   private isLoading = false
   private pagination: IPagination = {
-    page: 1,
+    page: Number(RouterService.query('page')) || 1,
     limit: this.Service.limit || 10,
     total: 0
   }
@@ -109,14 +111,16 @@ export default class TableRender extends Vue {
   }
 
   private pageLoad () {
-    this.initLoad()
+    RouterService.replace(RouterService.getPath(), { page: this.pagination.page })
   }
 
   private removeReload () {
     if (this.list.length === 1) {
       this.pagination.page = this.pagination.page > 1 ? --this.pagination.page : 1
+      RouterService.replace(RouterService.getPath(), { page: this.pagination.page })
+    } else {
+      this.reload()
     }
-    this.reload()
   }
 
   reload () {
@@ -139,8 +143,13 @@ export default class TableRender extends Vue {
   height: 100%;
   .function-container {
     display: flex;
-    justify-content: space-between;
     padding-bottom: 15px;
+    .store-btn {
+      flex: 0 0 auto;
+    }
+    .TableToolSearch {
+      flex: 1 1 0;
+    }
   }
 }
 </style>

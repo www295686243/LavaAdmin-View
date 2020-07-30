@@ -1,6 +1,6 @@
 <template>
   <PageContainer>
-    <TableRender :Service="Service">
+    <TableRender :Service="Service" :searchFields="searchFields">
       <TableText prop="id" label="ID" :width="100"></TableText>
       <TableText prop="nickname" label="操作人" :width="120"></TableText>
       <TableText prop="method" label="模式" :width="100"></TableText>

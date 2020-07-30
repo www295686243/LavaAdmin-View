@@ -35,15 +35,15 @@ class RouterSerivce {
       query.marking = (new Date()).valueOf()
     }
     this.push(this.router.app.$route.path + '/form', {
-      ...this.getUrlParams(),
+      ...this.router.app.$route.query,
       ...query
     })
   }
 
   replace (path: string, query?: object) {
     const urlQuery = this.router.app.$route.query
-    const currentQuery = {
-      ...this.getUrlParams(),
+    const currentQuery: { [key: string]: any } = {
+      ...this.router.app.$route.query,
       ...query
     }
     if (path === this.router.app.$route.path && JSON.stringify(urlQuery) === JSON.stringify(currentQuery)) {
@@ -108,22 +108,6 @@ class RouterSerivce {
         }, {})
     }
     return Object.assign({}, params, defaultParams)
-  }
-
-  getUrlParams () {
-    let params = {}
-    const urlParams = location.search.replace('?', '')
-    if (urlParams) {
-      params = urlParams
-        .split('&')
-        .filter((res) => res)
-        .reduce((acc: { [key: string]: string }, arg) => {
-          const args = arg.split('=')
-          acc[args[0]] = args[1]
-          return acc
-        }, {})
-    }
-    return params
   }
 }
 
