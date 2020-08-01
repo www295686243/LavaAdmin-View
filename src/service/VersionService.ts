@@ -42,7 +42,9 @@ class VersionService {
     return axios.get('app/getAppConfig', { guard_name })
       .then((res) => {
         if (Array.isArray(res.data) && res.data.length === 0) {
-          res.data[guard_name] = []
+          res.data = {
+            guard_name: []
+          }
         }
         Object.keys(res.data).forEach((key: string) => {
           cache.config.set(key, res.data[key])

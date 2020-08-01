@@ -22,7 +22,7 @@ function ajax (data: any): Promise<any> {
       .then(res => res.data)
       .then(res => {
         if (res.status === 'success') {
-          if (data.url !== 'auth/getAppConfig') {
+          if (data.url !== 'app/getAppConfig') {
             VersionService.checkAllVersion(res.version)
               .then(() => {
                 resolve(res)
