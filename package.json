@@ -14,7 +14,7 @@
     "qs": "^6.9.4",
     "store2": "^2.11.2",
     "vue": "^2.6.11",
-    "vue-class-component": "^7.2.3",
+    "vue-class-component": "^7.2.5",
     "vue-neditor-wrap-wx": "^1.0.6",
     "vue-property-decorator": "^8.5.1",
     "vue-router": "^3.3.4"
