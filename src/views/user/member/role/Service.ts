@@ -10,7 +10,7 @@ class Service {
     return axios.post('role', params)
   }
 
-  show (id: number) {
+  show (id: number | string) {
     return axios.get(`role/${id}`)
   }
 
@@ -18,15 +18,15 @@ class Service {
     return axios.put(`role/${params.id}`, params)
   }
 
-  destroy (id: number) {
+  destroy (id: number | string) {
     return axios.delete(`role/${id}`)
   }
 
-  updatePermissions (id: number, params: { permissions: string[] }) {
+  updatePermissions (id: number | string, params: { permissions: string[] }) {
     return axios.post(`role/updatePermissions/${id}`, params)
   }
 
-  getPermissions (id: number) {
+  getPermissions (id: number | string) {
     return axios.get(`role/getPermissions/${id}`)
   }
 }

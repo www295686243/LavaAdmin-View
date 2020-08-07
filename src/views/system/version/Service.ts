@@ -5,7 +5,7 @@ class Service {
     return axios.get('version', params)
   }
 
-  show (id: number) {
+  show (id: number | string) {
     return axios.get(`version/${id}`)
   }
 

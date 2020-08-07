@@ -16,7 +16,7 @@ import ValidateService from '@/service/ValidateService'
 export default class PlatformConfigBaseForm extends Vue {
   private Service = Service
   private data = {
-    id: RouterService.query('id') as number,
+    id: RouterService.query('id'),
     name: '',
     display_name: '',
     guard_name: RouterService.query('guard_name')
@@ -26,7 +26,7 @@ export default class PlatformConfigBaseForm extends Vue {
     name: ValidateService.genRule({
       prop: 'name',
       label: '标识',
-      disabled: this.data.id > 0,
+      disabled: !!this.data.id,
       rule: [ValidateService.required, ValidateService.max(60)]
     }),
     display_name: ValidateService.genRule({

@@ -16,9 +16,9 @@ import ValidateService from '@/service/ValidateService'
 export default class PlatformConfigBaseForm extends Vue {
   private Service = Service
   private data = {
-    id: RouterService.query('id') as number,
+    id: RouterService.query('id'),
     display_name: '',
-    config_id: RouterService.query('config_id') as number,
+    config_id: RouterService.query('config_id'),
     sort: ''
   }
 

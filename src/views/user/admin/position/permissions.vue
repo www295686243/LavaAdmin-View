@@ -46,7 +46,7 @@ export default class ViewUserAdminPositionPermission extends Vue {
   private menus: any[] = []
   private menuPermissions: number[] = []
   private handleLoad () {
-    return Service.getPermissions(RouterService.query('id') as number)
+    return Service.getPermissions(RouterService.query('id'))
       .then((res) => {
         this.interface = res.data.interface
         this.interfacePermissions = res.data.interface_permissions
@@ -58,7 +58,7 @@ export default class ViewUserAdminPositionPermission extends Vue {
   private handleSubmit () {
     const menus = this.$refs.menuTreeElement.getCheckedNodeIds()
     const permissions = this.$refs.interfaceTreeElement.getCheckedNodeIds()
-    return Service.updatePermissions(RouterService.query('id') as number, {
+    return Service.updatePermissions(RouterService.query('id'), {
       permissions,
       menus
     })

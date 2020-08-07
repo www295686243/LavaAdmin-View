@@ -15,7 +15,7 @@ import ValidateService from '@/service/ValidateService'
 export default class ViewUserMemberRoleForm extends Vue {
   private Service = Service
   private data = {
-    id: RouterService.query('id') as number,
+    id: RouterService.query('id'),
     display_name: ''
   }
 

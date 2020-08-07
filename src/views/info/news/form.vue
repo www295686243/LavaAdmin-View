@@ -36,7 +36,7 @@ import ValidateService from '@/service/ValidateService'
 export default class ViewInfoNewsForm extends Vue {
   private Service = Service
   private data = {
-    id: RouterService.query('id') as number,
+    id: RouterService.query('id'),
     text: '',
     textarea: '',
     select: '',

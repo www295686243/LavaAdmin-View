@@ -20,7 +20,7 @@ import ValidateService from '@/service/ValidateService'
 export default class ViewUserAdminEmployeeForm extends Vue {
   private Service = Service
   private data = {
-    id: RouterService.query('id') as number,
+    id: RouterService.query('id'),
     role_names: [],
     username: '',
     password: '',

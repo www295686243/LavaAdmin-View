@@ -14,7 +14,7 @@ class Service {
     return axios.post('config', params)
   }
 
-  show (id: number) {
+  show (id: number | string) {
     return axios.get(`config/${id}`)
   }
 
@@ -22,7 +22,7 @@ class Service {
     return axios.put(`config/${params.id}`, params)
   }
 
-  destroy (id: number) {
+  destroy (id: number | string) {
     return axios.delete(`config/${id}`)
   }
 }

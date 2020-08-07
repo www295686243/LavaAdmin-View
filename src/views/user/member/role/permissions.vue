@@ -36,7 +36,7 @@ export default class ViewUserMemberRolePermission extends Vue {
   private interface: any[] = []
   private interfacePermissions: any[] = []
   private handleLoad () {
-    return Service.getPermissions(RouterService.query('id') as number)
+    return Service.getPermissions(RouterService.query('id'))
       .then((res) => {
         this.interface = res.data.interface
         this.interfacePermissions = res.data.interface_permissions
@@ -45,7 +45,7 @@ export default class ViewUserMemberRolePermission extends Vue {
 
   private handleSubmit () {
     const permissions = this.$refs.interfaceTreeElement.getCheckedNodeIds()
-    return Service.updatePermissions(RouterService.query('id') as number, {
+    return Service.updatePermissions(RouterService.query('id'), {
       permissions
     })
       .then(() => {

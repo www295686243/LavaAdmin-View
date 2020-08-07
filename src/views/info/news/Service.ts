@@ -10,7 +10,7 @@ class Service {
     return axios.post('news', params)
   }
 
-  show (id: number) {
+  show (id: number | string) {
     return axios.get(`news/${id}`)
   }
 
@@ -18,7 +18,7 @@ class Service {
     return axios.put(`news/${params.id}`, params)
   }
 
-  destroy (id: number) {
+  destroy (id: number | string) {
     return axios.delete(`news/${id}`)
   }
 }

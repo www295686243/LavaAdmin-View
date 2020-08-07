@@ -16,7 +16,7 @@ export default class ViewUserAdminPositionForm extends Vue {
   private Service = Service
 
   private data = {
-    id: RouterService.query('id') as number,
+    id: RouterService.query('id'),
     display_name: ''
   }
 
