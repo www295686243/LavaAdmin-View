@@ -50,25 +50,17 @@ export default class ButtonSubmit extends Vue {
           this.loading = false
         })
         .catch((res: IResult) => {
-          if (res && res.message) {
+          if (res) {
             if (res.code === 422) {
-              if (res.data.length > 0) {
-                const messageHTML = res.data.map((item: any) => item.text).join('<br>')
-                this.$message({
-                  showClose: true,
-                  dangerouslyUseHTMLString: true,
-                  duration: 5000,
-                  message: '<div style="line-height: 1.4">' + messageHTML + '</div>',
-                  type: 'error'
-                })
-              } else {
-                this.$message({
-                  showClose: true,
-                  message: res.message,
-                  duration: 5000,
-                  type: 'error'
-                })
-              }
+              const errList = Object.values(res.data) as string[][]
+              const messageHTML = errList.map((item) => item.join('<br>')).join('<br>')
+              this.$message({
+                showClose: true,
+                dangerouslyUseHTMLString: true,
+                duration: 5000,
+                message: '<div style="line-height: 1.4">' + messageHTML + '</div>',
+                type: 'error'
+              })
             } else {
               this.$message({
                 showClose: true,

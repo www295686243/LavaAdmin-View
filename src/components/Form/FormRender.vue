@@ -73,8 +73,9 @@ export default class FormRender extends Vue {
                 return this.Service.store(this.data)
               }
             })
-            .then(() => {
+            .then((res) => {
               RouterService.go()
+              return res
             })
         }
       })
