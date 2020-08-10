@@ -45,10 +45,10 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
-import RouterService from '@/service/RouterService'
 import { IFormFields } from '@/interface/common'
 import ValidateService from '@/service/ValidateService'
 import ConstService from '@/service/ConstService'
+import RouterService from '@/service/RouterService'
 
 @Component
 export default class ViewUserMemberUserPersonalForm extends Vue {

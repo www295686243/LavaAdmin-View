@@ -1,85 +1,106 @@
 <template>
-  <FormRender :onLoad="handleLoad" :data="data" :Service="Service">
-    <FormSelect v-model="data.role_names" :field="formFields.role_names"></FormSelect>
-    <FormText v-model="data.username" :field="formFields.username"></FormText>
-    <FormText v-model="data.password" :field="formFields.password"></FormText>
-    <FormText v-model="data.nickname" :field="formFields.nickname"></FormText>
-    <FormText v-model="data.phone" :field="formFields.phone"></FormText>
+  <FormRender :data="form" :Service="Service">
+    <FormText v-model="form.company" :field="formFields.company"></FormText>
+    <FormText v-model="form.business_license" :field="formFields.business_license"></FormText>
+    <FormCascader v-model="form.city" :field="formFields.city"></FormCascader>
+    <FormText v-model="form.address" :field="formFields.address"></FormText>
+    <FormTextarea v-model="form.intro" :field="formFields.intro"></FormTextarea>
+    <FormCheckbox v-model="form.tags" :field="formFields.tags"></FormCheckbox>
+    <FormImages v-model="form.company_images" :field="formFields.company_images"></FormImages>
+    <FormSelect v-model="form.company_scale" :field="formFields.company_scale"></FormSelect>
+    <el-divider>运营人信息</el-divider>
+    <FormText v-model="form.name" :field="formFields.name"></FormText>
+    <FormText v-model="form.id_card" :field="formFields.id_card"></FormText>
+    <FormText v-model="form.position" :field="formFields.position"></FormText>
   </FormRender>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
-import RouterService from '@/service/RouterService'
 import { IFormFields } from '@/interface/common'
-import RoleService from '@/views/user/member/role/Service'
 import ValidateService from '@/service/ValidateService'
+import ConstService from '@/service/ConstService'
+import RouterService from '@/service/RouterService'
 
 @Component
 export default class ViewUserMemberUserEnterpriseForm extends Vue {
   private Service = Service
-  private data = {
+  private form = {
     id: RouterService.query('id'),
-    role_names: [],
-    username: '',
-    password: '',
-    nickname: '',
-    phone: ''
+    company: '',
+    business_license: '',
+    city: 0,
+    address: '',
+    intro: '',
+    tags: [],
+    company_images: [],
+    company_scale: 0,
+    name: '',
+    id_card: '',
+    position: ''
   }
 
-  private formFields: IFormFields = {
-    role_names: ValidateService.genRule({
-      prop: 'role_names',
-      label: '角色',
-      options: [],
-      multiple: true,
+  private formFields: IFormFields = ValidateService.genRules({
+    company: {
+      prop: 'company',
+      label: '公司名',
+      rule: [ValidateService.max(60)]
+    },
+    business_license: {
+      prop: 'business_license',
+      label: '身份证',
+      rule: [ValidateService.len(18)]
+    },
+    city: {
+      prop: 'city',
+      label: '公司地区',
+      options: ConstService.getAreaOptions(),
       props: {
-        value: 'name',
-        label: 'display_name'
+        label: 'name',
+        value: 'id'
       },
-      rule: [ValidateService.required({ trigger: 'change', type: 'array' })]
-    }),
-    username: ValidateService.genRule({
-      prop: 'username',
-      label: '用户名',
-      rule: [ValidateService.username]
-    }),
-    password: ValidateService.genRule({
-      prop: 'password',
-      label: '密码',
-      rule: [ValidateService.loginPassword, this.data.id ? ValidateService.optional : ValidateService.required]
-    }),
-    nickname: ValidateService.genRule({
-      prop: 'nickname',
-      label: '昵称',
-      rule: [ValidateService.nickname]
-    }),
-    phone: ValidateService.genRule({
-      prop: 'phone',
-      label: '手机号',
-      rule: [ValidateService.phone]
-    })
-  }
-
-  private handleLoad () {
-    return this.fetchRoleList()
-      .then(() => {
-        if (this.data.id) {
-          return Service.show(this.data.id)
-            .then((res) => {
-              res.data.role_names = res.data.roles.map((res: { name: string }) => res.name)
-              Object.assign(this.data, res.data)
-            })
-        }
-      })
-  }
-
-  private fetchRoleList () {
-    return RoleService.index()
-      .then((res) => {
-        this.formFields.role_names.options = res.data
-      })
-  }
+      filterable: true
+    },
+    address: {
+      prop: 'address',
+      label: '街道地址',
+      rule: [ValidateService.max(60)]
+    },
+    intro: {
+      prop: 'intro',
+      label: '公司简介',
+      rule: [ValidateService.max(255)]
+    },
+    tags: {
+      prop: 'tags',
+      label: '公司标签',
+      options: ConstService.getUserOptions('enterprise_tags')
+    },
+    company_images: {
+      prop: 'company_images',
+      label: '公司图片'
+    },
+    company_scale: {
+      prop: 'company_scale',
+      label: '企业规模',
+      options: ConstService.getUserOptions('company_scale')
+    },
+    name: {
+      prop: 'name',
+      label: '姓名',
+      rule: [ValidateService.fullname, ValidateService.optional]
+    },
+    id_card: {
+      prop: 'id_card',
+      label: '身份证',
+      rule: [ValidateService.idcard, ValidateService.optional]
+    },
+    position: {
+      prop: 'position',
+      label: '职位',
+      rule: [ValidateService.max(60)]
+    }
+  })
 }
 </script>

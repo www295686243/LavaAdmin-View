@@ -1,7 +1,7 @@
 <template>
   <DataRender class="FormRender" :onLoad="handleLoad">
     <div class="FormMainContainer">
-      <el-form :model="data" label-width="90px" ref="FormElement" class="FormContentContainer">
+      <el-form :model="data" label-width="100px" ref="FormElement" class="FormContentContainer">
         <slot></slot>
       </el-form>
     </div>
