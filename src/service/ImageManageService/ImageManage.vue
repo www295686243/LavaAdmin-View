@@ -61,7 +61,6 @@ import cache from '@/plugins/cache'
 import { IPagination, IUploadParams } from '@/interface/common'
 import axios from '@/plugins/axios'
 import Pagination from '@/components/Table/TablePagination.vue'
-import ConstService from '@/service/ConstService'
 import RouterService from '@/service/RouterService'
 import MaskContainer from '@/components/MaskContainer.vue'
 
@@ -97,7 +96,7 @@ export default class ImageManage extends Vue {
   private list: any[] = []
   private selection: any[] = []
 
-  private action = cache.getBaseConfig('baseHost') + ConstService.getAppValue('adminImageHost')
+  private action = cache.getBaseConfig('baseHost') + 'image'
   private headers = {
     Accept: 'application/json',
     'X-Requested-With': 'XMLHttpRequest',

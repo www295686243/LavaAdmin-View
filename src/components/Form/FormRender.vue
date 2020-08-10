@@ -8,6 +8,7 @@
     <div class="FormFooterContainer">
       <slot name="footer">
         <ButtonSubmit :onClick="handleSubmit">提交</ButtonSubmit>
+        <ButtonSubmit :onClick="handleSubmitAndBack">提交并返回</ButtonSubmit>
         <ButtonSubmit :onClick="handleReset" type="" style="margin-left: 8px">重置</ButtonSubmit>
       </slot>
     </div>
@@ -73,11 +74,15 @@ export default class FormRender extends Vue {
                 return this.Service.store(this.data)
               }
             })
-            .then((res) => {
-              RouterService.go()
-              return res
-            })
         }
+      })
+  }
+
+  private handleSubmitAndBack () {
+    return this.handleSubmit()
+      .then((res) => {
+        RouterService.go()
+        return res
       })
   }
 

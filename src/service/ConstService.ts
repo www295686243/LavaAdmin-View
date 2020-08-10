@@ -2,13 +2,13 @@ import cache from '@/plugins/cache'
 
 class ConstService {
   getAppValue (name: string) {
-    const configs = cache.config.get('app')
+    const configs = cache.config.get('app') || []
     const item = configs.find((res: { name: string }) => res.name === name)
     return item ? item.value : ''
   }
 
   getAppOptions (name: string) {
-    const configs = cache.config.get('app')
+    const configs = cache.config.get('app') || []
     const item = configs.find((res: { name: string }) => res.name === name)
     return item ? item.options : []
   }

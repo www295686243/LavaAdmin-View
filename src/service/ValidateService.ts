@@ -148,6 +148,13 @@ class ValidateService {
     return field
   }
 
+  genRules (fields: { [key: string]: IFormFieldItem }) {
+    Object.keys(fields).forEach((key) => {
+      fields[key] = this.genRule(fields[key])
+    })
+    return fields
+  }
+
   required ({ trigger = 'blur', type = 'string' } = {}) {
     return function ({ name = '' } = {}) {
       return {

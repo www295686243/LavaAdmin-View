@@ -3,11 +3,7 @@
     <el-row :gutter="8" class="images-container" v-if="innerValue.length > 0">
       <el-col :span="4" v-for="(img, index) in innerValue" :key="index">
         <div class="cover-img">
-          <MaskContainer>
-            <i class="el-icon-close" @click="handleRemove(index)"></i>
-            <i class="el-icon-view" @click="handleViewImages(index)"></i>
-          </MaskContainer>
-          <el-image :src="img" fit="cover"></el-image>
+          <ImageMaskContainer v-model="innerValue" :index="index" size="auto"></ImageMaskContainer>
         </div>
       </el-col>
     </el-row>
@@ -22,11 +18,11 @@ import FormMixins from './FormMixins'
 import { Component, Mixins } from 'vue-property-decorator'
 import ImageManageService from '@/service/ImageManageService/Service'
 import CarouselService from '@/service/CarouselService/Service'
-import MaskContainer from '@/components/MaskContainer.vue'
+import ImageMaskContainer from '@/components/ImageMaskContainer.vue'
 
 @Component({
   components: {
-    MaskContainer
+    ImageMaskContainer
   }
 })
 export default class FormImages extends Mixins(FormMixins) {
