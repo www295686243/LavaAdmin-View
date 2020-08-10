@@ -60,8 +60,7 @@ export default class FormRender extends Vue {
   }
 
   private handleSubmit () {
-    return Promise.resolve()
-      .then(() => this.$refs.FormElement.validate())
+    return this.validate()
       .then(() => {
         if (this.onSubmit) {
           return this.onSubmit()
@@ -78,9 +77,22 @@ export default class FormRender extends Vue {
       })
   }
 
+  private validate () {
+    return this.$refs.FormElement.validate()
+      .then(() => {
+        return (this.$refs.FormElement.$children as any[]).reduce((acc, element) => {
+          return acc.then(() => {
+            if (element.$options._componentTag === 'FormGroupRender') {
+              return element.validate()
+            }
+          })
+        }, Promise.resolve())
+      })
+  }
+
   private handleSubmitAndBack () {
     return this.handleSubmit()
-      .then((res) => {
+      .then((res: IResult) => {
         RouterService.go()
         return res
       })

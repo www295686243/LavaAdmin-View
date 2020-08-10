@@ -12,10 +12,12 @@
         </el-row>
       </div>
       <template v-for="(v, index) in innerValue">
-        <el-form label-width="90px" ref="formElement" :key="index" :model="v" class="FormGroup-item">
-          <slot :index="index" :v="v"></slot>
-          <ButtonDelete class="card-delete-btn" :onClick="() => removeGroup(index)">删除</ButtonDelete>
-        </el-form>
+        <div :key="index" class="FormGroup-item">
+          <el-form label-width="90px" ref="formElement" :model="v">
+            <slot :index="index" :v="v"></slot>
+            <ButtonDelete class="card-delete-btn" :onClick="() => removeGroup(index)">删除</ButtonDelete>
+          </el-form>
+        </div>
       </template>
     </el-card>
   </div>
@@ -31,7 +33,9 @@ interface FormElement {
   clearValidate: Function;
 }
 
-@Component
+@Component({
+  name: 'FormGroupRender'
+})
 export default class FormGroupRender extends Vue {
   @Ref()
   formElement!: FormElement[]
@@ -53,9 +57,7 @@ export default class FormGroupRender extends Vue {
   private innerValue: any[] = this.value || []
 
   private createGroup () {
-    return (this.formElement || []).reduce((acc, form) => {
-      return acc.then(() => form.validate())
-    }, Promise.resolve())
+    return this.validate()
       .then(() => {
         this.innerValue.push(JSON.parse(JSON.stringify(this.initData)))
       })
@@ -69,6 +71,12 @@ export default class FormGroupRender extends Vue {
         this.innerValue.splice(index, 1)
       })
   }
+
+  public validate () {
+    return (this.formElement || []).reduce((acc, form) => {
+      return acc.then(() => form.validate())
+    }, Promise.resolve())
+  }
 }
 </script>
 
@@ -78,12 +86,14 @@ export default class FormGroupRender extends Vue {
     text-align: right;
   }
   .FormGroup-item {
+    padding: 16px 0;
     position: relative;
+    border-bottom: 1px solid #eee;
   }
   .card-delete-btn {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 16px;
   }
   & + .FormGroupRender {
     margin-top: 16px;
