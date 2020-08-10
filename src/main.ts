@@ -21,6 +21,8 @@ import FormCheckbox from './components/Form/FormCheckbox.vue'
 import FormCascader from './components/Form/FormCascader.vue'
 import FormImage from './components/Form/FormImage.vue'
 import FormImages from './components/Form/FormImages.vue'
+import FormGroupRender from './components/Form/FormGroupRender.vue'
+import FormRangeDate from './components/Form/FormRangeDate.vue'
 
 import TableRender from './components/Table/TableRender.vue'
 import TableText from './components/Table/TableText.vue'
@@ -50,6 +52,7 @@ Vue.component('FormCheckbox', FormCheckbox)
 Vue.component('FormCascader', FormCascader)
 Vue.component('FormImage', FormImage)
 Vue.component('FormImages', FormImages)
+Vue.component('FormRangeDate', FormRangeDate)
 
 Vue.component('TableRender', TableRender)
 Vue.component('TableText', TableText)
@@ -59,6 +62,7 @@ Vue.component('TableImage', TableImage)
 Vue.component('TableImages', TableImages)
 Vue.component('TableCascader', TableCascader)
 Vue.component('TableAction', TableAction)
+Vue.component('FormGroupRender', FormGroupRender)
 
 RouterService.init(router)
 UserService.init()

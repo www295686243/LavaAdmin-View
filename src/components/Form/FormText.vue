@@ -8,7 +8,8 @@
       :disabled="field.disabled"
       :show-word-limit="maxLength > 0"
       :autosize="autosize ? { minRows: 1.2 } : false"
-      :maxlength="maxLength">
+      :maxlength="maxLength"
+      clearable>
     </el-input>
     <p class="tips" v-if="field.tips">{{field.tips}}</p>
   </el-form-item>

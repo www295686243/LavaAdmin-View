@@ -34,13 +34,14 @@ export default class FormRangeDate extends Mixins(FormMixins) {
     const [minValue, maxValue] = val
     this.$emit('update:minValue', minValue)
     this.$emit('update:maxValue', maxValue)
+    this.$emit('input', val)
   }
 
   created () {
     if (this.type === 'monthrange') {
       this.valueFormat = 'yyyy-MM'
     }
-    this.innerValue = [this.minValue, this.maxValue]
+    this.innerValue = (this.minValue && this.maxValue) ? [this.minValue, this.maxValue] : []
   }
 }
 </script>
