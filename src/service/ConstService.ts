@@ -1,4 +1,13 @@
 import cache from '@/plugins/cache'
+import { IOptions } from '@/interface/common'
+import areaOptions from '@/assets/json/area'
+
+interface ConfigItem {
+  name: string;
+  display_name: string;
+  guard_name: string;
+  options: IOptions[];
+}
 
 class ConstService {
   getAppValue (name: string) {
@@ -7,10 +16,18 @@ class ConstService {
     return item ? item.value : ''
   }
 
-  getAppOptions (name: string) {
-    const configs = cache.config.get('app') || []
-    const item = configs.find((res: { name: string }) => res.name === name)
-    return item ? item.options : []
+  getOptions (guard_name: string, name: string) {
+    const configs: ConfigItem[] = cache.config.get(guard_name) || []
+    const config = configs.find((res) => res.name === name)
+    return config ? config.options : []
+  }
+
+  getUserOptions (name: string) {
+    return this.getOptions('options.User', name)
+  }
+
+  getAreaOptions () {
+    return JSON.parse(JSON.stringify(areaOptions))
   }
 
   getColor (name: string) {
@@ -28,23 +45,6 @@ class ConstService {
           return '#303133'
         }
     }
-  }
-
-  getOptions () {
-    return [
-      {
-        label: '选项1',
-        value: 1
-      },
-      {
-        label: '选项2',
-        value: 2
-      },
-      {
-        label: '选项3',
-        value: 3
-      }
-    ]
   }
 }
 

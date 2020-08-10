@@ -67,6 +67,7 @@ export interface IFormFieldItem {
   tips?: string // 一般用于表单下方的提示性文字
   maxlength?: number // 一般用于textarea
   uploadParams?: IUploadParams // 一般用于图片上传表单
+  filterable?: boolean // 一般用于cascader表单
 }
 
 export interface IUploadParams {

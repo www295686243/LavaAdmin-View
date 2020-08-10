@@ -12,6 +12,13 @@ import userForm from '@/views/user/member/user/form.vue'
 import role from '@/views/user/member/role/index.vue'
 import roleForm from '@/views/user/member/role/form.vue'
 import rolePermissions from '@/views/user/member/role/permissions.vue'
+// 配置
+import ParamsConfig from '@/views/params-config/index.vue'
+import ParamsConfigForm from '@/views/params-config/form.vue'
+import OptionsConfig from '@/views/options-config/index.vue'
+import OptionsConfigForm from '@/views/options-config/form.vue'
+import OptionsConfigOptions from '@/views/options-config/options/index.vue'
+import OptionsConfigOptionsForm from '@/views/options-config/options/form.vue'
 
 export default [
   // 职位
@@ -62,6 +69,36 @@ export default [
     component: rolePermissions,
     meta: {
       title: '权限管理'
+    }
+  },
+  {
+    path: '/user/config',
+    component: ParamsConfig
+  },
+  {
+    path: '/user/config/form',
+    component: ParamsConfigForm
+  },
+  {
+    path: '/user/options/config',
+    component: OptionsConfig
+  },
+  {
+    path: '/user/options/config/form',
+    component: OptionsConfigForm
+  },
+  {
+    path: '/user/options/config/config-options',
+    component: OptionsConfigOptions,
+    meta: {
+      title: '选项配置'
+    }
+  },
+  {
+    path: '/user/options/config/config-options/form',
+    component: OptionsConfigOptionsForm,
+    meta: {
+      title: '选项配置'
     }
   }
 ]

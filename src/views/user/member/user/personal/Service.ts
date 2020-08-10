@@ -1,17 +1,13 @@
 import axios from '@/plugins/axios'
+import RouterService from '@/service/RouterService'
 
 class Service {
-  name = '会员'
-  store (params: object) {
-    return axios.post('user', params)
-  }
-
   show (id: number | string) {
-    return axios.get(`user/${id}`)
+    return axios.get(`user_personal/${id}`)
   }
 
   update (params: { id: number }) {
-    return axios.put(`user/${params.id}`, params)
+    return axios.put(`user_personal/${RouterService.query('id')}`, params)
   }
 }
 

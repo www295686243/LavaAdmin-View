@@ -23,7 +23,6 @@ import FormEditor from '@/components/Form/FormEditor.vue'
 import FormImage from '@/components/Form/FormImage.vue'
 import FormImages from '@/components/Form/FormImages.vue'
 import { IFormFields } from '@/interface/common'
-import ConstService from '@/service/ConstService'
 import ValidateService from '@/service/ValidateService'
 
 @Component({
@@ -67,7 +66,7 @@ export default class ViewInfoNewsForm extends Vue {
     select: {
       prop: 'select',
       label: 'select',
-      options: ConstService.getOptions(),
+      options: [],
       props: {
         label: 'label',
         value: 'value'
@@ -76,7 +75,7 @@ export default class ViewInfoNewsForm extends Vue {
     radio: {
       prop: 'radio',
       label: 'radio',
-      options: ConstService.getOptions(),
+      options: [],
       props: {
         label: 'label',
         value: 'value'
@@ -98,7 +97,7 @@ export default class ViewInfoNewsForm extends Vue {
     checkbox: {
       prop: 'checkbox',
       label: 'checkbox',
-      options: ConstService.getOptions(),
+      options: [],
       props: {
         label: 'label',
         value: 'value'
