@@ -11,15 +11,6 @@ export default {
   layout: store.namespace(uniqueId + 'layout'),
   config: store.namespace(uniqueId + 'config'),
   version: store.namespace(uniqueId + 'version'),
-  getBaseConfig (name: string) {
-    if (name === 'baseHost') {
-      if (process.env.NODE_ENV === 'development') {
-        return 'http://lavacms/admin/'
-      } else {
-        return 'https://lavacms/admin/'
-      }
-    }
-  },
   clearAll () {
     store.clearAll()
   }

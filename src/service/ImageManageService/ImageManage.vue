@@ -96,7 +96,7 @@ export default class ImageManage extends Vue {
   private list: any[] = []
   private selection: any[] = []
 
-  private action = cache.getBaseConfig('baseHost') + 'image'
+  private action = process.env.VUE_APP_BASEURL + '/image'
   private headers = {
     Accept: 'application/json',
     'X-Requested-With': 'XMLHttpRequest',

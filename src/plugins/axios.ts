@@ -1,18 +1,48 @@
 import axios from 'axios'
 import cache from './cache'
 import router from '@/router'
-import VersionService from '@/service/VersionService'
+import VersionService, { Version } from '@/service/VersionService'
+import UserService from '@/service/UserService'
+
+export interface PromiseResult {
+  message: string;
+  data: any;
+  code?: number;
+  status?: string;
+  version: Version;
+}
+
+interface UrlParams {
+  url: string;
+  method: string;
+  params?: object;
+  data?: object;
+}
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers.common.Accept = 'application/json'
 
-function notLogin () {
-  cache.user.clearAll()
-  router.push({ path: '/login' })
+const onceUrls = ['app/getAppConfig']
+
+// 获取应用配置
+function checkVersion (data: UrlParams, res: PromiseResult) {
+  return Promise.resolve()
+    .then(() => {
+      if (!onceUrls.includes(data.url)) {
+        return VersionService.checkAllVersion(res.version)
+      }
+    })
 }
 
-function ajax (data: any): Promise<any> {
-  axios.defaults.baseURL = cache.getBaseConfig('baseHost')
+function notLogin () {
+  return UserService.logout()
+    .then(() => {
+      router.push({ path: '/login' })
+    })
+}
+
+function ajax (data: any): Promise<PromiseResult> {
+  axios.defaults.baseURL = process.env.VUE_APP_BASEURL
   if (cache.user.get('api_token')) {
     axios.defaults.headers.common.Authorization = 'Bearer ' + cache.user.get('api_token')
   }
@@ -22,14 +52,10 @@ function ajax (data: any): Promise<any> {
       .then(res => res.data)
       .then(res => {
         if (res.status === 'success') {
-          if (data.url !== 'app/getAppConfig') {
-            VersionService.checkAllVersion(res.version)
-              .then(() => {
-                resolve(res)
-              })
-          } else {
-            resolve(res)
-          }
+          return checkVersion(data, res)
+            .then(() => {
+              resolve(res)
+            })
         } else {
           if (res.code === 401) {
             notLogin()

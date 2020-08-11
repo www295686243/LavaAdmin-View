@@ -64,12 +64,7 @@ export default class FormGroupRender extends Vue {
   }
 
   private removeGroup (index: number) {
-    return this.$confirm('您真的要删除吗?', '提示', {
-      type: 'warning'
-    })
-      .then(() => {
-        this.innerValue.splice(index, 1)
-      })
+    this.innerValue.splice(index, 1)
   }
 
   public validate () {
