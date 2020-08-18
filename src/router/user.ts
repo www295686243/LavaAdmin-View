@@ -19,6 +19,8 @@ import OptionsConfig from '@/views/options-config/index.vue'
 import OptionsConfigForm from '@/views/options-config/form.vue'
 import OptionsConfigOptions from '@/views/options-config/options/index.vue'
 import OptionsConfigOptionsForm from '@/views/options-config/options/form.vue'
+// 通知记录
+import Notify from '@/views/user/member/notify/index.vue'
 
 export default [
   // 职位
@@ -100,5 +102,9 @@ export default [
     meta: {
       title: '选项配置'
     }
+  },
+  {
+    path: '/user/member/notify',
+    component: Notify
   }
 ]

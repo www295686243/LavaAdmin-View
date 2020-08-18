@@ -46,6 +46,19 @@ class ConstService {
         }
     }
   }
+
+  getBoolOptions () {
+    return [
+      {
+        id: 0,
+        display_name: '否'
+      },
+      {
+        id: 1,
+        display_name: '是'
+      }
+    ]
+  }
 }
 
 export default new ConstService()

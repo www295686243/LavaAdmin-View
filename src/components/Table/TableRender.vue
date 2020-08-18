@@ -129,7 +129,7 @@ export default class TableRender extends Vue {
   }
 
   created () {
-    this.maxHeight = document.body.clientHeight - 250
+    this.maxHeight = document.body.clientHeight - 280
     this.initLoad()
     if (this.Service) {
       this.tableService.refresh = this.removeReload

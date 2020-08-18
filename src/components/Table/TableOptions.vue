@@ -30,6 +30,9 @@ export default class TableOptions extends Mixins(TableMixins) {
   })
   props!: { label: string; value: any }
 
+  @Prop({ default: false })
+  bool!: boolean
+
   @Prop()
   options!: any[]
 
@@ -37,7 +40,8 @@ export default class TableOptions extends Mixins(TableMixins) {
   colors!: { [key: string]: string }
 
   private getValue (row: any) {
-    const value = getDeepValue(this.prop, row)
+    let value = getDeepValue(this.prop, row)
+    value = this.bool && !value ? 0 : value
     if (Array.isArray(this.options)) {
       const item = this.options.find((res) => res[this.props.value] === value)
       return item ? item[this.props.label] : '--'
@@ -47,7 +51,8 @@ export default class TableOptions extends Mixins(TableMixins) {
   }
 
   private getColor (row: any) {
-    const value = getDeepValue(this.prop, row)
+    let value = getDeepValue(this.prop, row)
+    value = this.bool && !value ? 0 : value
     if (Array.isArray(this.options)) {
       const item = this.options.find((res) => res[this.props.value] === value)
       if (item && item.color) {

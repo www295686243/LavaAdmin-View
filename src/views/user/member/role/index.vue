@@ -1,6 +1,6 @@
 <template>
   <PageContainer>
-    <TableRender  :Service="Service">
+    <TableRender :Service="Service">
       <TableText prop="id" label="ID" :width="180"></TableText>
       <TableText prop="display_name" label="名称" :width="200"></TableText>
       <TableAction :buttons="[
