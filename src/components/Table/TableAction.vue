@@ -4,6 +4,7 @@
     label="操作"
     :width="width"
     :min-width="minWidth"
+    fixed="right"
   >
     <template slot-scope="scope">
       <template v-for="(v, key) in innerButtons">
@@ -95,6 +96,9 @@ export default class TableAction extends Mixins(TableMixins) {
           return v.onClick(scope.row, scope.$index)
         } else {
           return DialogService.show(require('@/views' + RouterService.getPath() + '/show.vue').default, { id: scope.row.id })
+            .catch(() => {
+              //
+            })
         }
       })
   }

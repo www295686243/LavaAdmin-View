@@ -5,6 +5,7 @@
     <FormText v-model="info.remark" :field="formFields.remark"></FormText>
     <FormText v-model="info.url" :field="formFields.url"></FormText>
     <FormText v-model="info.url_params" :field="formFields.url_params"></FormText>
+    <FormText v-model="info.keyword_names" :field="formFields.keyword_names"></FormText>
     <FormText v-model="info.keywords" :field="formFields.keywords"></FormText>
     <FormRadio v-model="info.is_read" :field="formFields.is_read"></FormRadio>
     <FormRadio v-model="info.channel" :field="formFields.channel"></FormRadio>
@@ -69,7 +70,12 @@ export default class ViewUserMemberNotifyShow extends Vue {
     },
     keywords: {
       prop: 'keywords',
-      label: '参数字段',
+      label: '参数值',
+      disabled: true
+    },
+    keyword_names: {
+      prop: 'keyword_names',
+      label: '参数名称',
       disabled: true
     },
     is_read: {

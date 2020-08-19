@@ -9,10 +9,10 @@ class DialogService {
       propsData: {
         component,
         ...params,
-        width: 500
+        width: '800px'
       }
-    }).$mount(el);
-    (instance as any).open()
+    }).$mount(el)
+    return (instance as any).open()
   }
 }
 

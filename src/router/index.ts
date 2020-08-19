@@ -5,6 +5,7 @@ import Main from '@/views/main/main.vue'
 import system from './system'
 import user from './user'
 import info from './info'
+import other from './other'
 
 Vue.use(VueRouter)
 
@@ -15,7 +16,8 @@ const routes: Array<RouteConfig> = [
     children: [
       ...system,
       ...user,
-      ...info
+      ...info,
+      ...other
     ]
   },
   {
