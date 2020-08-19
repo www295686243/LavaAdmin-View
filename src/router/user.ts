@@ -21,6 +21,8 @@ import OptionsConfigOptions from '@/views/options-config/options/index.vue'
 import OptionsConfigOptionsForm from '@/views/options-config/options/form.vue'
 // 通知记录
 import Notify from '@/views/user/member/notify/index.vue'
+// 报表
+import Report from '@/views/user/report/index.vue'
 
 export default [
   // 职位
@@ -73,6 +75,7 @@ export default [
       title: '权限管理'
     }
   },
+  // 配置
   {
     path: '/user/config',
     component: ParamsConfig
@@ -103,8 +106,14 @@ export default [
       title: '选项配置'
     }
   },
+  // 通知记录
   {
     path: '/user/member/notify',
     component: Notify
+  },
+  // 报表
+  {
+    path: '/user/report',
+    component: Report
   }
 ]

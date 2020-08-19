@@ -1,6 +1,6 @@
 <template>
   <div class="PageContainer">
-    <DataRender :onLoad="onLoad">
+    <DataRender :onLoad="onLoad" @success="handleSuccess">
       <div class="PageHeaderContainer">
         <slot name="header"></slot>
       </div>
@@ -26,6 +26,10 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 export default class PageContainer extends Vue {
   @Prop({ default: () => () => Promise.resolve() })
   readonly onLoad!: Function
+
+  private handleSuccess () {
+    this.$emit('success')
+  }
 }
 </script>
 
