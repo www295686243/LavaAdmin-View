@@ -19,7 +19,7 @@
         :options="Service.getTypaNameOptions()"
         align="center" />
       <TableAction :buttons="[
-        { name: '查看详情', onClick: (row) => RouterService.push('/user/member/role/permissions', { id: row.id }) }
+        { name: '查看详情' }
       ]" :minWidth="160" />
     </TableRender>
   </PageContainer>

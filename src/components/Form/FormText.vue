@@ -31,6 +31,7 @@ export default class FormText extends Mixins(FormMixins) {
     if (rule) {
       this.maxLength = rule.max || rule.len
     }
+    this.innerValue = typeof this.innerValue === 'string' ? this.innerValue : JSON.stringify(this.innerValue)
   }
 }
 </script>

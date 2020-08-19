@@ -62,7 +62,7 @@ export default class TableRender extends Vue {
   private isLoading = false
   private pagination: IPagination = {
     page: Number(RouterService.query('page')) || 1,
-    limit: this.Service.limit || 10,
+    limit: Number(RouterService.query('limit')) || this.Service.limit || 10,
     total: 0
   }
 
@@ -111,7 +111,7 @@ export default class TableRender extends Vue {
   }
 
   private pageLoad () {
-    RouterService.replace(RouterService.getPath(), { page: this.pagination.page })
+    RouterService.replace(RouterService.getPath(), { page: this.pagination.page, limit: this.pagination.limit })
   }
 
   private removeReload () {

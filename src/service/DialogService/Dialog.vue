@@ -6,7 +6,10 @@
     custom-class="ServiceDialog"
     :append-to-body="true"
     :width="width">
-    <component :is="this.component" :data="data" @done="handleDone"></component>
+    <component :is="this.component" :id="id" @done="handleDone" :dialog="true"></component>
+    <span slot="footer">
+      <el-button type="primary" @click="close">关 闭</el-button>
+    </span>
   </el-dialog>
 </template>
 
@@ -19,7 +22,7 @@ export default class ServiceDialog extends Vue {
   component!: string
 
   @Prop()
-  data!: any
+  id!: string
 
   @Prop({ default: '500px' })
   width!: string
@@ -47,3 +50,12 @@ export default class ServiceDialog extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.ServiceDialog {
+  .el-dialog__body {
+    height: 60vh;
+    overflow-y: auto;
+  }
+}
+</style>

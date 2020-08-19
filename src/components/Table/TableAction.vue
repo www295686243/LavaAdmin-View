@@ -28,6 +28,14 @@
           :key="key"
           :type="v.type || 'warning'"
           :size="v.size || 'small'"
+          :onClick="() => handleShow(scope, v)"
+          v-else-if="v.name === '查看详情'">
+          {{v.name}}
+        </ButtonSubmit>
+        <ButtonSubmit
+          :key="key"
+          :type="v.type || 'warning'"
+          :size="v.size || 'small'"
           :onClick="() => v.onClick(scope.row, scope.$index)"
           v-else>
           {{v.name}}
@@ -43,6 +51,7 @@ import { Component, Prop, Inject, Mixins } from 'vue-property-decorator'
 import { ITableColumnAction, IService } from '@/interface/common'
 import RouterService from '@/service/RouterService'
 import UserService from '@/service/UserService'
+import DialogService from '@/service/DialogService/Service'
 
 @Component
 export default class TableAction extends Mixins(TableMixins) {
@@ -79,6 +88,17 @@ export default class TableAction extends Mixins(TableMixins) {
       })
   }
 
+  private handleShow (scope: { row: any; $index: number }, v: { onClick: Function }) {
+    return Promise.resolve()
+      .then(() => {
+        if (v.onClick) {
+          return v.onClick(scope.row, scope.$index)
+        } else {
+          return DialogService.show(require('@/views' + RouterService.getPath() + '/show.vue').default, { id: scope.row.id })
+        }
+      })
+  }
+
   created () {
     const controllerName = RouterService.getControllerName()
     this.innerButtons = this.buttons.filter((res) => {
@@ -86,6 +106,8 @@ export default class TableAction extends Mixins(TableMixins) {
         res.permission = 'update'
       } else if (res.name === '删除') {
         res.permission = 'destroy'
+      } else if (res.name === '查看详情') {
+        res.permission = 'show'
       }
       if (res.permission) {
         const permissionName = controllerName + '@' + res.permission

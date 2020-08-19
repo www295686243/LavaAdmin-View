@@ -5,13 +5,13 @@
         <slot></slot>
       </el-form>
     </div>
-    <div class="FormFooterContainer">
-      <slot name="footer">
+    <slot name="footer">
+      <div class="FormFooterContainer">
         <ButtonSubmit :onClick="handleSubmit">提交</ButtonSubmit>
         <ButtonSubmit :onClick="handleSubmitAndBack">提交并返回</ButtonSubmit>
         <ButtonSubmit :onClick="handleReset" type="" style="margin-left: 8px">重置</ButtonSubmit>
-      </slot>
-    </div>
+      </div>
+    </slot>
   </DataRender>
 </template>
 
