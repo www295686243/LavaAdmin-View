@@ -1,13 +1,12 @@
 <template>
-  <EChartContainer class="EChartLine">
+  <div class="EChartLine">
     <div class="report"></div>
-  </EChartContainer>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import echarts from '@/plugins/echarts'
-import EChartContainer from './EChartContainer.vue'
 
 const xData = (function () {
   const arr = []
@@ -17,11 +16,7 @@ const xData = (function () {
   return arr
 })()
 
-@Component({
-  components: {
-    EChartContainer
-  }
-})
+@Component
 export default class EChartLine extends Vue {
   private getOptions () {
     return {
@@ -79,8 +74,8 @@ export default class EChartLine extends Vue {
         },
         markPoint: {
           data: [
-            { type: 'min' },
-            { type: 'max' }
+            { type: 'min', name: '最小值' },
+            { type: 'max', name: '最大值' }
           ]
         },
         areaStyle: {

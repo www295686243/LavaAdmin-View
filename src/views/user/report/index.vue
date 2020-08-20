@@ -1,19 +1,19 @@
 <template>
   <PageContainer class="view-user-report" :onLoad="handleLoad">
-    <el-row>
-      <el-col :span="12"><EChartLine></EChartLine></el-col>
-      <el-col :span="12"></el-col>
+    <el-row :gutter="40">
+      <el-col :span="12"><EChartRender type="line"></EChartRender></el-col>
+      <el-col :span="12"><EChartRender type="line"></EChartRender></el-col>
     </el-row>
   </PageContainer>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import EChartLine from '@/components/ECharts/EChartLine.vue'
+import EChartRender from '@/components/ECharts/EChartRender.vue'
 
 @Component({
   components: {
-    EChartLine
+    EChartRender
   }
 })
 export default class ViewUserReport extends Vue {
