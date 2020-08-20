@@ -1,22 +1,22 @@
 <template>
-  <div class="EChartRender">
+  <div class="ChartRender">
     <component :is="componentName"></component>
-    <EChartTool @change="handleChange"></EChartTool>
+    <ChartTool @change="handleChange"></ChartTool>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import EChartTool from './EChartTool.vue'
-import EChartLine from './EChartLine.vue'
+import ChartTool from './ChartTool.vue'
+import ChartLine from './ChartLine.vue'
 
 @Component({
   components: {
-    EChartTool,
-    EChartLine
+    ChartTool,
+    ChartLine
   }
 })
-export default class EChartRender extends Vue {
+export default class ChartRender extends Vue {
   @Prop()
   type!: string
 
@@ -29,16 +29,16 @@ export default class EChartRender extends Vue {
 
   created () {
     if (this.type === 'line') {
-      this.componentName = 'EChartLine'
+      this.componentName = 'ChartLine'
     }
   }
 }
 </script>
 
 <style lang="scss">
-.EChartRender {
+.ChartRender {
   position: relative;
-  .EChartTool {
+  .ChartTool {
     position: absolute;
     right: 20px;
     top: 0;

@@ -1,5 +1,5 @@
 <template>
-  <div class="EChartTool">
+  <div class="ChartTool">
     <el-form :inline="true">
       <el-form-item>
         <el-button-group>
@@ -31,7 +31,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
-export default class EChartTool extends Vue {
+export default class ChartTool extends Vue {
   private buttons = [
     {
       text: '按日',
@@ -70,8 +70,3 @@ export default class EChartTool extends Vue {
   }
 }
 </script>
-
-<style lang="scss">
-.EChartTool {
-}
-</style>

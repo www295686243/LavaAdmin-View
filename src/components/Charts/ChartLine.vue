@@ -1,5 +1,5 @@
 <template>
-  <div class="EChartLine">
+  <div class="ChartLine">
     <div class="report"></div>
   </div>
 </template>
@@ -17,7 +17,7 @@ const xData = (function () {
 })()
 
 @Component
-export default class EChartLine extends Vue {
+export default class ChartLine extends Vue {
   private getOptions () {
     return {
       title: {
@@ -106,7 +106,7 @@ export default class EChartLine extends Vue {
 </script>
 
 <style lang="scss">
-.EChartLine {
+.ChartLine {
   .report {
     width: 100%;
     height: 400px;
