@@ -1,12 +1,27 @@
 <template>
-  <div class="EChartLine"></div>
+  <EChartContainer class="EChartLine">
+    <div class="report"></div>
+  </EChartContainer>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import echarts from '@/plugins/echarts'
+import EChartContainer from './EChartContainer.vue'
 
-@Component
+const xData = (function () {
+  const arr = []
+  for (let i = 1; i <= 31; i++) {
+    arr.push('12月' + i + '日')
+  }
+  return arr
+})()
+
+@Component({
+  components: {
+    EChartContainer
+  }
+})
 export default class EChartLine extends Vue {
   private getOptions () {
     return {
@@ -18,57 +33,71 @@ export default class EChartLine extends Vue {
         show: true,
         trigger: 'item'
       },
-      // 图表位置
       grid: {
-        top: '10%',
-        right: '2%',
-        bottom: '5%',
-        left: '1%',
+        top: 80,
+        right: 30,
+        bottom: 40,
+        left: 0,
         containLabel: true
       },
       xAxis: [{
         type: 'category',
         boundaryGap: false,
-        data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+        splitLine: {
+          show: false
+        },
+        data: xData
       }],
       yAxis: [{
         type: 'value',
-        name: '',
-        min: 0,
-        max: 1000,
         splitLine: {
-          show: true,
-          lineStyle: {
-            color: '#f4f4f4'
-          }
+          show: false
         }
+      }],
+      dataZoom: [{
+        show: false,
+        start: 65,
+        end: 100
+      },
+      {
+        type: 'inside'
       }],
       series: [{
         name: '注册数',
         type: 'line',
+        smooth: true, // 是否平滑
         symbol: 'circle',
         symbolSize: 8,
         itemStyle: {
           normal: {
-            color: '#0092f6',
+            color: '#48B3FF',
             lineStyle: {
-              color: '#0092f6',
+              color: '#48B3FF',
               width: 2
             }
           }
+        },
+        markPoint: {
+          data: [
+            { type: 'min' },
+            { type: 'max' }
+          ]
         },
         areaStyle: {
           normal: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
               offset: 0,
-              color: 'rgba(34,150,243, 0.3)' // 折线底下区域渐变色
-            }, {
-              offset: 0.8,
-              color: 'rgba(34,150,243, 0.1)' // 折线底下区域渐变色
-            }], false)
+              color: 'rgba(195,230,255,1)'
+            },
+            {
+              offset: 1,
+              color: 'rgba(195,230,255,0.1)'
+            }], false),
+            shadowColor: 'rgba(195,230,255,0.1)',
+            shadowBlur: 20
           }
         },
-        data: [120, 132, 101, 134, 90, 230, 210, 182, 191, 234, 290, 330]
+        data: [120, 132, 101, 134, 90, 230, 210, 182, 191, 234, 290, 330, 132, 101, 134, 90, 230, 210, 182, 191, 234, 290, 330, 132, 101, 134, 90, 230, 210, 182, 191, 234, 290, 330]
       }]
     }
   }
@@ -83,7 +112,9 @@ export default class EChartLine extends Vue {
 
 <style lang="scss">
 .EChartLine {
-  width: 100%;
-  height: 400px;
+  .report {
+    width: 100%;
+    height: 400px;
+  }
 }
 </style>
