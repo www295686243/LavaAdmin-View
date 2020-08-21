@@ -19,7 +19,7 @@
           @change="handleChangeDate"
           v-model="date"
           :type="dateType"
-          :value-format="valueFormat"
+          :picker-options="pickerOptions"
           :placeholder="'选择' + (dateType === 'month' ? '月' : '年')">
         </el-date-picker>
       </el-form-item>
@@ -30,28 +30,36 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
+interface ButtonItem {
+  text: string;
+  active: boolean;
+  type: string;
+}
+
 @Component
 export default class ChartTool extends Vue {
-  private buttons = [
+  private buttons: ButtonItem[] = [
     {
       text: '按日',
       active: true,
-      type: 'month',
-      valueFormat: 'yyyy-MM'
+      type: 'month'
     },
     {
       text: '按月',
       active: false,
-      type: 'year',
-      valueFormat: 'yyyy'
+      type: 'year'
     }
   ]
 
   private date = ''
   private dateType = 'month'
-  private valueFormat = 'yyyy-MM'
+  private pickerOptions = {
+    disabledDate: (time: Date) => {
+      return time.getTime() > (new Date()).getTime()
+    }
+  }
 
-  private handleChangeButton (v: { text: string; active: boolean; type: string; valueFormat: string }) {
+  private handleChangeButton (v: { text: string; active: boolean; type: string }) {
     this.buttons.forEach((res) => {
       if (res.text === v.text) {
         res.active = true
@@ -59,14 +67,32 @@ export default class ChartTool extends Vue {
         res.active = false
       }
       this.dateType = v.type
-      this.valueFormat = v.valueFormat
       this.date = ''
     })
   }
 
-  private handleChangeDate (value: string) {
-    this.date = value
-    this.$emit('change', this.date)
+  private handleChangeDate (date: Date) {
+    const item = this.buttons.find((res) => res.active) as ButtonItem
+    const category = []
+    if (item.text === '按日') {
+      const y = date.getFullYear()
+      const m = date.getMonth() + 1
+      const d = new Date(y, m, 0)
+      const num = d.getDate()
+      for (let i = 1; i <= num; i++) {
+        category.push(i + '日')
+      }
+    } else {
+      const num = 12
+      for (let i = 1; i <= num; i++) {
+        category.push(i + '月')
+      }
+    }
+    this.$emit('change', category)
+  }
+
+  created () {
+    this.handleChangeDate(new Date())
   }
 }
 </script>

@@ -1,8 +1,8 @@
 <template>
   <PageContainer class="view-user-report" :onLoad="handleLoad">
     <el-row :gutter="40">
-      <el-col :span="12"><ChartRender type="line"></ChartRender></el-col>
-      <el-col :span="12"><ChartRender type="line"></ChartRender></el-col>
+      <el-col :span="12"><ChartRender type="line" title="授权量"></ChartRender></el-col>
+      <el-col :span="12"><ChartRender type="line" title="注册量"></ChartRender></el-col>
     </el-row>
   </PageContainer>
 </template>

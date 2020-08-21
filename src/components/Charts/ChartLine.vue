@@ -5,23 +5,28 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import echarts from '@/plugins/echarts'
-
-const xData = (function () {
-  const arr = []
-  for (let i = 1; i <= 31; i++) {
-    arr.push('12月' + i + '日')
-  }
-  return arr
-})()
 
 @Component
 export default class ChartLine extends Vue {
+  @Prop()
+  title!: string
+
+  @Prop()
+  category!: string[]
+
+  @Watch('category')
+  onCategory () {
+    this.chart.setOption(this.getOptions())
+  }
+
+  private chart = null as any
+
   private getOptions () {
     return {
       title: {
-        text: '注册量走势图'
+        text: this.title
       },
       // 提示框
       tooltip: {
@@ -41,7 +46,7 @@ export default class ChartLine extends Vue {
         splitLine: {
           show: false
         },
-        data: xData
+        data: this.category
       }],
       yAxis: [{
         type: 'value',
@@ -58,7 +63,7 @@ export default class ChartLine extends Vue {
         type: 'inside'
       }],
       series: [{
-        name: '注册数',
+        name: this.title,
         type: 'line',
         smooth: true, // 是否平滑
         symbol: 'circle',
@@ -99,8 +104,8 @@ export default class ChartLine extends Vue {
 
   mounted () {
     const el = this.$el.querySelector('.report')
-    const chart = echarts.init(el)
-    chart.setOption(this.getOptions())
+    this.chart = echarts.init(el)
+    this.chart.setOption(this.getOptions())
   }
 }
 </script>

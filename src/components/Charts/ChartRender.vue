@@ -1,6 +1,6 @@
 <template>
   <div class="ChartRender">
-    <component :is="componentName"></component>
+    <component :is="componentName" :title="title" :category="category" v-if="isShowChart"></component>
     <ChartTool @change="handleChange"></ChartTool>
   </div>
 </template>
@@ -20,11 +20,16 @@ export default class ChartRender extends Vue {
   @Prop()
   type!: string
 
-  private date = ''
-  private componentName = ''
+  @Prop()
+  title!: string
 
-  private handleChange (value: string) {
-    this.date = value
+  private category: string[] = []
+  private componentName = ''
+  private isShowChart = false
+
+  private handleChange (category: string[]) {
+    this.category = category
+    this.isShowChart = true
   }
 
   created () {
