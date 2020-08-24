@@ -17,10 +17,11 @@
         <el-date-picker
           size="small"
           @change="handleChangeDate"
-          v-model="date"
-          :type="dateType"
+          v-model="search.date"
+          :type="search.type"
+          :value-format="valueFormat"
           :picker-options="pickerOptions"
-          :placeholder="'选择' + (dateType === 'month' ? '月' : '年')">
+          :placeholder="'选择' + (search.type === 'month' ? '月' : '年')">
         </el-date-picker>
       </el-form-item>
     </el-form>
@@ -28,71 +29,66 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
 interface ButtonItem {
   text: string;
   active: boolean;
   type: string;
+  valueFormat: string;
+}
+
+interface Search {
+  date: string;
+  type: string;
+  text: string;
 }
 
 @Component
 export default class ChartTool extends Vue {
+  @Prop()
+  search!: Search
+
   private buttons: ButtonItem[] = [
     {
       text: '按日',
-      active: true,
-      type: 'month'
+      active: this.search.type === 'month',
+      type: 'month',
+      valueFormat: 'yyyy-MM'
     },
     {
       text: '按月',
-      active: false,
-      type: 'year'
+      active: this.search.type === 'year',
+      type: 'year',
+      valueFormat: 'yyyy'
     }
   ]
 
-  private date = ''
-  private dateType = 'month'
+  private valueFormat = 'yyyy-MM'
   private pickerOptions = {
     disabledDate: (time: Date) => {
       return time.getTime() > (new Date()).getTime()
     }
   }
 
-  private handleChangeButton (v: { text: string; active: boolean; type: string }) {
+  private handleChangeButton (v: ButtonItem) {
     this.buttons.forEach((res) => {
       if (res.text === v.text) {
         res.active = true
       } else {
         res.active = false
       }
-      this.dateType = v.type
-      this.date = ''
+      this.valueFormat = v.valueFormat
+      this.search.type = v.type
+      this.search.date = ''
     })
   }
 
-  private handleChangeDate (date: Date) {
+  private handleChangeDate (date: string) {
     const item = this.buttons.find((res) => res.active) as ButtonItem
-    const category = []
-    if (item.text === '按日') {
-      const y = date.getFullYear()
-      const m = date.getMonth() + 1
-      const d = new Date(y, m, 0)
-      const num = d.getDate()
-      for (let i = 1; i <= num; i++) {
-        category.push(i + '日')
-      }
-    } else {
-      const num = 12
-      for (let i = 1; i <= num; i++) {
-        category.push(i + '月')
-      }
-    }
-    this.$emit('change', category)
-  }
-
-  created () {
-    this.handleChangeDate(new Date())
+    this.search.type = item.type
+    this.search.date = date
+    this.$emit('change')
   }
 }
 </script>

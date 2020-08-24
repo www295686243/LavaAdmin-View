@@ -58,6 +58,8 @@ export function getDate (value?: Date, fmt = 'Y-m-d'): string {
     return `${year}-${month}`
   } else if (fmt === 'Y-m-d H:i:s') {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+  } else if (fmt === 'Y') {
+    return `${year}`
   } else {
     return `${year}-${month}-${day}`
   }

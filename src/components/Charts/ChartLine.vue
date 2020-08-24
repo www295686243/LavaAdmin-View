@@ -5,25 +5,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
+import ChartMixins from './ChartMixins'
+import { Component, Mixins } from 'vue-property-decorator'
 import echarts from '@/plugins/echarts'
 
 @Component
-export default class ChartLine extends Vue {
-  @Prop()
-  title!: string
+export default class ChartLine extends Mixins(ChartMixins) {
+  private startDataZoom = 0
 
-  @Prop()
-  category!: string[]
+  getOptions () {
+    const scale = 8 / this.category.length
+    this.startDataZoom = scale >= 1 ? 0 : Math.floor(scale * 100)
 
-  @Watch('category')
-  onCategory () {
-    this.chart.setOption(this.getOptions())
-  }
-
-  private chart = null as any
-
-  private getOptions () {
     return {
       title: {
         text: this.title
@@ -52,11 +45,12 @@ export default class ChartLine extends Vue {
         type: 'value',
         splitLine: {
           show: false
-        }
+        },
+        minInterval: 1
       }],
       dataZoom: [{
         show: false,
-        start: 65,
+        start: this.startDataZoom,
         end: 100
       },
       {
@@ -97,24 +91,20 @@ export default class ChartLine extends Vue {
             shadowBlur: 20
           }
         },
-        data: [120, 132, 101, 134, 90, 230, 210, 182, 191, 234, 290, 330, 132, 101, 134, 90, 230, 210, 182, 191, 234, 290, 330, 132, 101, 134, 90, 230, 210, 182, 191, 234, 290, 330]
+        data: this.innerValue
       }]
     }
-  }
-
-  mounted () {
-    const el = this.$el.querySelector('.report')
-    this.chart = echarts.init(el)
-    this.chart.setOption(this.getOptions())
   }
 }
 </script>
 
 <style lang="scss">
 .ChartLine {
+  width: 100%;
+  height: 100%;
   .report {
     width: 100%;
-    height: 400px;
+    height: 100%;
   }
 }
 </style>

@@ -62,6 +62,10 @@ export default class DataRender extends Vue {
       })
   }
 
+  public reload () {
+    return this.initLoad()
+  }
+
   created () {
     this.initLoad()
   }
