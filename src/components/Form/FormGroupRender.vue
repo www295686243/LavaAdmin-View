@@ -64,7 +64,10 @@ export default class FormGroupRender extends Vue {
   }
 
   private removeGroup (index: number) {
-    this.innerValue.splice(index, 1)
+    return Promise.resolve()
+      .then(() => {
+        this.innerValue.splice(index, 1)
+      })
   }
 
   public validate () {

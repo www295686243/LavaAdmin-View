@@ -17,6 +17,10 @@ class Service {
   update (params: { id: number }) {
     return axios.put(`notify_template/${params.id}`, params)
   }
+
+  destroy (id: number | string) {
+    return axios.delete(`notify_template/${id}`)
+  }
 }
 
 export default new Service()

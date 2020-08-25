@@ -23,6 +23,7 @@ export default class FormSelect extends Mixins(FormMixins) {
 
   created () {
     Object.assign(this.props, this.field.props)
+    this.innerValue = this.innerValue || ''
   }
 }
 </script>

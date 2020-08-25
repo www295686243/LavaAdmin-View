@@ -190,7 +190,7 @@ export default class ViewUserMemberUserPersonalForm extends Vue {
     city: {
       prop: 'city',
       label: '公司地区',
-      rule: [ValidateService.required],
+      rule: [ValidateService.required({ type: 'number' })],
       options: ConstService.getAreaOptions(),
       props: {
         label: 'name',

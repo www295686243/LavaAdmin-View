@@ -52,7 +52,9 @@ export default class FormRender extends Vue {
           if (this.data.id && this.Service.show) {
             return this.Service.show(this.data.id)
               .then((res: IResult) => {
-                Object.assign(this.data, res.data)
+                Object.keys(this.data).forEach((key: string) => {
+                  this.data[key] = res.data[key] || this.data[key]
+                })
               })
           }
         }

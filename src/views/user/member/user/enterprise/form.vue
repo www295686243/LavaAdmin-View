@@ -49,7 +49,7 @@ export default class ViewUserMemberUserEnterpriseForm extends Vue {
     },
     business_license: {
       prop: 'business_license',
-      label: '身份证',
+      label: '营业执照',
       rule: [ValidateService.len(18)]
     },
     city: {
