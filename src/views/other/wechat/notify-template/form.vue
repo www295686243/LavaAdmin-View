@@ -7,6 +7,8 @@
     <FormText v-model="data.url" :field="formFields.url"></FormText>
     <FormText v-model="data.url_params" :field="formFields.url_params"></FormText>
     <FormText v-model="data.keyword_names" :field="formFields.keyword_names"></FormText>
+    <FormSwitch v-model="data.is_push_official_account" :field="formFields.is_push_official_account"></FormSwitch>
+    <FormSwitch v-model="data.is_push_message" :field="formFields.is_push_message"></FormSwitch>
   </FormRender>
 </template>
 
@@ -16,6 +18,7 @@ import Service from './Service'
 import RouterService from '@/service/RouterService'
 import { IFormFields } from '@/interface/common'
 import ValidateService from '@/service/ValidateService'
+import ConstService from '@/service/ConstService'
 
 @Component
 export default class PlatformConfigBaseForm extends Vue {
@@ -28,45 +31,60 @@ export default class PlatformConfigBaseForm extends Vue {
     remark: '',
     url: '',
     url_params: '',
-    keyword_names: ''
+    keyword_names: '',
+    is_push_official_account: 1,
+    is_push_message: 1
   }
 
-  private formFields: IFormFields = {
-    template_id: ValidateService.genRule({
+  private formFields: IFormFields = ValidateService.genRules({
+    template_id: {
       prop: 'template_id',
       label: '微信模板ID',
       rule: [ValidateService.required, ValidateService.max(80)]
-    }),
-    title: ValidateService.genRule({
+    },
+    title: {
       prop: 'title',
       label: '通知标题',
       rule: [ValidateService.required, ValidateService.max(60)]
-    }),
-    content: ValidateService.genRule({
+    },
+    content: {
       prop: 'content',
       label: '通知内容',
       rule: [ValidateService.required, ValidateService.max(120)]
-    }),
-    remark: ValidateService.genRule({
+    },
+    remark: {
       prop: 'remark',
       label: '通知备注',
       rule: [ValidateService.required, ValidateService.max(120)]
-    }),
-    url: ValidateService.genRule({
+    },
+    url: {
       prop: 'url',
       label: '跳转地址',
-      rule: [ValidateService.required, ValidateService.max(120)]
-    }),
-    url_params: ValidateService.genRule({
+      rule: [ValidateService.required, ValidateService.max(120)],
+      placeholder: '格式如：/list'
+    },
+    url_params: {
       prop: 'url_params',
       label: '地址参数',
-      rule: [ValidateService.max(120)]
-    }),
-    keyword_names: ValidateService.genRule({
+      rule: [ValidateService.max(120)],
+      placeholder: '格式如：id,name'
+    },
+    keyword_names: {
       prop: 'keyword_names',
       label: '字段名称',
-      rule: [ValidateService.required, ValidateService.max(120)]
-    })
-  }
+      rule: [ValidateService.required, ValidateService.max(120)],
+      placeholder: '格式如：name,姓名|date,日期'
+    },
+    is_push_official_account: {
+      prop: 'is_push_official_account',
+      label: '推送公众号',
+      options: ConstService.getBoolOptions()
+    },
+    is_push_message: {
+      prop: 'is_push_message',
+      label: '推送站内信',
+      options: ConstService.getBoolOptions()
+    }
+  })
 }
 </script>

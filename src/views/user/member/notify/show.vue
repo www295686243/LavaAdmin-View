@@ -8,7 +8,8 @@
     <FormText v-model="info.keyword_names" :field="formFields.keyword_names"></FormText>
     <FormText v-model="info.keywords" :field="formFields.keywords"></FormText>
     <FormRadio v-model="info.is_read" :field="formFields.is_read"></FormRadio>
-    <FormRadio v-model="info.channel" :field="formFields.channel"></FormRadio>
+    <FormSwitch v-model="info.is_push_official_account" :field="formFields.is_push_official_account"></FormSwitch>
+    <FormSwitch v-model="info.is_push_message" :field="formFields.is_push_message"></FormSwitch>
     <div slot="footer"></div>
   </FormRender>
 </template>
@@ -39,7 +40,8 @@ export default class ViewUserMemberNotifyShow extends Vue {
     keywords: {} as { [key: string]: string },
     keyword_names: {} as { [key: string]: string },
     is_read: 0,
-    channel: ''
+    is_push_official_account: 1,
+    is_push_message: 1
   }
 
   private formFields: IFormFields = {
@@ -84,10 +86,16 @@ export default class ViewUserMemberNotifyShow extends Vue {
       options: ConstService.getBoolOptions(),
       disabled: true
     },
-    channel: {
-      prop: 'channel',
-      label: '发送渠道',
-      options: Service.getTypaNameOptions(),
+    is_push_official_account: {
+      prop: 'is_push_official_account',
+      label: '推送公众号',
+      options: ConstService.getBoolOptions(),
+      disabled: true
+    },
+    is_push_message: {
+      prop: 'is_push_message',
+      label: '推送站内信',
+      options: ConstService.getBoolOptions(),
       disabled: true
     }
   }

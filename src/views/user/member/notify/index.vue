@@ -12,12 +12,8 @@
         :width="100"
         :bool="true"
         align="center" />
-      <TableOptions
-        prop="channel"
-        label="发送渠道"
-        :width="100"
-        :options="Service.getTypaNameOptions()"
-        align="center" />
+      <TableOptions prop="is_push_official_account" label="推送公众号" :width="100" :options="ConstService.getBoolOptions()"></TableOptions>
+      <TableOptions prop="is_push_message" label="推送站内信" :width="100" :options="ConstService.getBoolOptions()"></TableOptions>
       <TableAction :buttons="[
         { name: '查看详情' }
       ]" :minWidth="160" />
