@@ -1,11 +1,11 @@
 <template>
-  <FormRender :onLoad="handleLoad" :data="data" :Service="Service">
-    <FormSelect v-model="data.role_names" :field="formFields.role_names"></FormSelect>
-    <FormImage v-model="data.head_url" :field="formFields.head_url"></FormImage>
-    <FormText v-model="data.username" :field="formFields.username"></FormText>
-    <FormText v-model="data.password" :field="formFields.password"></FormText>
-    <FormText v-model="data.nickname" :field="formFields.nickname"></FormText>
-    <FormText v-model="data.phone" :field="formFields.phone"></FormText>
+  <FormRender :onLoad="handleLoad" :data="form" :Service="Service">
+    <FormSelect v-model="form.role_names" :field="formFields.role_names"></FormSelect>
+    <FormImage v-model="form.head_url" :field="formFields.head_url"></FormImage>
+    <FormText v-model="form.username" :field="formFields.username"></FormText>
+    <FormText v-model="form.password" :field="formFields.password"></FormText>
+    <FormText v-model="form.nickname" :field="formFields.nickname"></FormText>
+    <FormText v-model="form.phone" :field="formFields.phone"></FormText>
   </FormRender>
 </template>
 
@@ -20,7 +20,7 @@ import ValidateService from '@/service/ValidateService'
 @Component
 export default class ViewUserMemberUserBaseForm extends Vue {
   private Service = Service
-  private data = {
+  private form = {
     id: RouterService.query('id'),
     role_names: [],
     head_url: '',
@@ -28,6 +28,8 @@ export default class ViewUserMemberUserBaseForm extends Vue {
     password: '',
     nickname: '',
     phone: ''
+  } as {
+    [key: string]: any;
   }
 
   private formFields: IFormFields = ValidateService.genRules({
@@ -54,7 +56,7 @@ export default class ViewUserMemberUserBaseForm extends Vue {
     password: {
       prop: 'password',
       label: '密码',
-      rule: [ValidateService.loginPassword, this.data.id ? ValidateService.optional : ValidateService.required]
+      rule: [ValidateService.loginPassword, this.form.id ? ValidateService.optional : ValidateService.required]
     },
     nickname: {
       prop: 'nickname',
@@ -71,11 +73,13 @@ export default class ViewUserMemberUserBaseForm extends Vue {
   private handleLoad () {
     return this.fetchRoleList()
       .then(() => {
-        if (this.data.id) {
-          return Service.show(this.data.id)
+        if (this.form.id) {
+          return Service.show(this.form.id)
             .then((res) => {
               res.data.role_names = res.data.roles.map((res: { name: string }) => res.name)
-              Object.assign(this.data, res.data)
+              Object.keys(this.form).forEach((key: string) => {
+                this.form[key] = res.data[key] || this.form[key]
+              })
             })
         }
       })
