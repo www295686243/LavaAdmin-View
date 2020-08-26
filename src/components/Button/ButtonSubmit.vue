@@ -6,7 +6,7 @@
     :class="{long: long}"
     :size="size"
     :icon="icon">
-    <slot>提交</slot>
+    <slot></slot>
   </el-button>
 </template>
 

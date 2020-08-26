@@ -13,17 +13,20 @@
           {{v.display_name}}
       </el-menu-item>
     </el-menu>
-    <el-dropdown @command="handleClickDropdown">
-      <div class="dropdown">
-        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-        <span class="name">{{UserService.info.nickname}}</span>
-      </div>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="setup">设置</el-dropdown-item>
-        <el-dropdown-item command="updateCache">更新缓存</el-dropdown-item>
-        <el-dropdown-item command="logout">注销</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+    <div class="header-right">
+      <SearchMember></SearchMember>
+      <el-dropdown @command="handleClickDropdown">
+        <div class="dropdown">
+          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+          <span class="name">{{UserService.info.nickname}}</span>
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="setup">设置</el-dropdown-item>
+          <el-dropdown-item command="updateCache">更新缓存</el-dropdown-item>
+          <el-dropdown-item command="logout">注销</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
@@ -33,8 +36,13 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import UserService from '@/service/UserService'
 import cache from '@/plugins/cache'
 import { IMenu } from '@/interface/common'
+import SearchMember from './SearchMember.vue'
 
-@Component
+@Component({
+  components: {
+    SearchMember
+  }
+})
 export default class HeaderContainer extends Vue {
   private UserService = UserService
   private list: IMenu[] = []
@@ -124,6 +132,10 @@ export default class HeaderContainer extends Vue {
     .name {
       margin-left: 8px;
     }
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="TableRender">
     <div class="function-container">
-      <div v-permission="'store'" v-if="!!Service.store" class="store-btn">
+      <div v-permission="'store'" v-if="Service && !!Service.store" class="store-btn">
         <ButtonSubmit :onClick="() => RouterService.pushForm()">添加{{Service.name}}</ButtonSubmit>
       </div>
       <TableToolSearch
@@ -62,7 +62,7 @@ export default class TableRender extends Vue {
   private isLoading = false
   private pagination: IPagination = {
     page: Number(RouterService.query('page')) || 1,
-    limit: Number(RouterService.query('limit')) || this.Service.limit || 10,
+    limit: Number(RouterService.query('limit')) || (this.Service && this.Service.limit) || 10,
     total: 0
   }
 
