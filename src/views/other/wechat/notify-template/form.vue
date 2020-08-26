@@ -1,14 +1,14 @@
 <template>
-  <FormRender :data="data" :Service="Service">
-    <FormText v-model="data.template_id" :field="formFields.template_id"></FormText>
-    <FormText v-model="data.title" :field="formFields.title"></FormText>
-    <FormText v-model="data.content" :field="formFields.content"></FormText>
-    <FormText v-model="data.remark" :field="formFields.remark"></FormText>
-    <FormText v-model="data.url" :field="formFields.url"></FormText>
-    <FormText v-model="data.url_params" :field="formFields.url_params"></FormText>
-    <FormText v-model="data.keyword_names" :field="formFields.keyword_names"></FormText>
-    <FormSwitch v-model="data.is_push_official_account" :field="formFields.is_push_official_account"></FormSwitch>
-    <FormSwitch v-model="data.is_push_message" :field="formFields.is_push_message"></FormSwitch>
+  <FormRender :data="form" :Service="Service">
+    <FormText v-model="form.template_id" :field="formFields.template_id"></FormText>
+    <FormText v-model="form.title" :field="formFields.title"></FormText>
+    <FormText v-model="form.content" :field="formFields.content"></FormText>
+    <FormText v-model="form.remark" :field="formFields.remark"></FormText>
+    <FormText v-model="form.url" :field="formFields.url"></FormText>
+    <FormText v-model="form.url_params" :field="formFields.url_params"></FormText>
+    <FormText v-model="form.keyword_names" :field="formFields.keyword_names"></FormText>
+    <FormSwitch v-model="form.is_push_official_account" :field="formFields.is_push_official_account"></FormSwitch>
+    <FormSwitch v-model="form.is_push_message" :field="formFields.is_push_message"></FormSwitch>
   </FormRender>
 </template>
 
@@ -23,7 +23,7 @@ import ConstService from '@/service/ConstService'
 @Component
 export default class PlatformConfigBaseForm extends Vue {
   private Service = Service
-  private data = {
+  private form = {
     id: RouterService.query('id'),
     template_id: '',
     title: '',

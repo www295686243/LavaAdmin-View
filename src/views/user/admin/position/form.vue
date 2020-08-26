@@ -1,6 +1,6 @@
 <template>
-  <FormRender :Service="Service" :data="data">
-    <FormText v-model="data.display_name" :field="formFields.display_name"></FormText>
+  <FormRender :Service="Service" :data="form">
+    <FormText v-model="form.display_name" :field="formFields.display_name"></FormText>
   </FormRender>
 </template>
 
@@ -15,7 +15,7 @@ import ValidateService from '@/service/ValidateService'
 export default class ViewUserAdminPositionForm extends Vue {
   private Service = Service
 
-  private data = {
+  private form = {
     id: RouterService.query('id'),
     display_name: ''
   }

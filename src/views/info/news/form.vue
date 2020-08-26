@@ -1,17 +1,17 @@
 <template>
-  <FormRender :data="data" :Service="Service">
-    <FormText v-model="data.text" :field="formFields.text"></FormText>
-    <FormTextarea v-model="data.textarea" :field="formFields.textarea"></FormTextarea>
-    <FormSelect v-model="data.select" :field="formFields.select"></FormSelect>
-    <FormRadio v-model="data.radio" :field="formFields.radio"></FormRadio>
-    <FormSwitch v-model="data.switch" :field="formFields.switch"></FormSwitch>
-    <FormDate v-model="data.datetime" :field="formFields.datetime"></FormDate>
-    <FormCheckbox v-model="data.checkbox" :field="formFields.checkbox"></FormCheckbox>
-    <FormCounter v-model="data.counter" :field="formFields.counter"></FormCounter>
-    <FormCascader v-model="data.cascader" :field="formFields.cascader"></FormCascader>
-    <FormEditor v-model="data.editor" :field="formFields.editor"></FormEditor>
-    <FormImage v-model="data.image" :field="formFields.image"></FormImage>
-    <FormImages v-model="data.images" :field="formFields.images"></FormImages>
+  <FormRender :data="form" :Service="Service">
+    <FormText v-model="form.text" :field="formFields.text"></FormText>
+    <FormTextarea v-model="form.textarea" :field="formFields.textarea"></FormTextarea>
+    <FormSelect v-model="form.select" :field="formFields.select"></FormSelect>
+    <FormRadio v-model="form.radio" :field="formFields.radio"></FormRadio>
+    <FormSwitch v-model="form.switch" :field="formFields.switch"></FormSwitch>
+    <FormDate v-model="form.datetime" :field="formFields.datetime"></FormDate>
+    <FormCheckbox v-model="form.checkbox" :field="formFields.checkbox"></FormCheckbox>
+    <FormCounter v-model="form.counter" :field="formFields.counter"></FormCounter>
+    <FormCascader v-model="form.cascader" :field="formFields.cascader"></FormCascader>
+    <FormEditor v-model="form.editor" :field="formFields.editor"></FormEditor>
+    <FormImage v-model="form.image" :field="formFields.image"></FormImage>
+    <FormImages v-model="form.images" :field="formFields.images"></FormImages>
   </FormRender>
 </template>
 
@@ -34,7 +34,7 @@ import ValidateService from '@/service/ValidateService'
 })
 export default class ViewInfoNewsForm extends Vue {
   private Service = Service
-  private data = {
+  private form = {
     id: RouterService.query('id'),
     text: '',
     textarea: '',

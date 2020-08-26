@@ -1,8 +1,8 @@
 <template>
-  <FormRender :data="data" :Service="Service">
-    <FormText v-model="data.name" :field="formFields.name"></FormText>
-    <FormText v-model="data.display_name" :field="formFields.display_name"></FormText>
-    <FormCounter v-model="data.value" :field="formFields.value"></FormCounter>
+  <FormRender :data="form" :Service="Service">
+    <FormText v-model="form.name" :field="formFields.name"></FormText>
+    <FormText v-model="form.display_name" :field="formFields.display_name"></FormText>
+    <FormCounter v-model="form.value" :field="formFields.value"></FormCounter>
   </FormRender>
 </template>
 
@@ -16,7 +16,7 @@ import ValidateService from '@/service/ValidateService'
 @Component
 export default class PlatformConfigBaseForm extends Vue {
   private Service = Service
-  private data = {
+  private form = {
     id: RouterService.query('id'),
     name: '',
     display_name: '',
@@ -27,7 +27,7 @@ export default class PlatformConfigBaseForm extends Vue {
     name: ValidateService.genRule({
       prop: 'name',
       label: '标识',
-      disabled: !!this.data.id,
+      disabled: !!this.form.id,
       rule: [ValidateService.required, ValidateService.max(60)]
     }),
     display_name: ValidateService.genRule({

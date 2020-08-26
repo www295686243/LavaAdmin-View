@@ -6,6 +6,7 @@ import system from './system'
 import user from './user'
 import info from './info'
 import other from './other'
+import operation from './operation'
 
 Vue.use(VueRouter)
 
@@ -17,7 +18,8 @@ const routes: Array<RouteConfig> = [
       ...system,
       ...user,
       ...info,
-      ...other
+      ...other,
+      ...operation
     ]
   },
   {

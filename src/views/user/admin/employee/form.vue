@@ -1,10 +1,10 @@
 <template>
-  <FormRender :onLoad="handleLoad" :data="data" :Service="Service">
-    <FormSelect v-model="data.role_names" :field="formFields.role_names"></FormSelect>
-    <FormText v-model="data.username" :field="formFields.username"></FormText>
-    <FormText v-model="data.password" :field="formFields.password"></FormText>
-    <FormText v-model="data.nickname" :field="formFields.nickname"></FormText>
-    <FormText v-model="data.phone" :field="formFields.phone"></FormText>
+  <FormRender :onLoad="handleLoad" :data="form" :Service="Service">
+    <FormSelect v-model="form.role_names" :field="formFields.role_names"></FormSelect>
+    <FormText v-model="form.username" :field="formFields.username"></FormText>
+    <FormText v-model="form.password" :field="formFields.password"></FormText>
+    <FormText v-model="form.nickname" :field="formFields.nickname"></FormText>
+    <FormText v-model="form.phone" :field="formFields.phone"></FormText>
   </FormRender>
 </template>
 
@@ -19,7 +19,7 @@ import ValidateService from '@/service/ValidateService'
 @Component
 export default class ViewUserAdminEmployeeForm extends Vue {
   private Service = Service
-  private data = {
+  private form = {
     id: RouterService.query('id'),
     role_names: [],
     username: '',
@@ -48,7 +48,7 @@ export default class ViewUserAdminEmployeeForm extends Vue {
     password: ValidateService.genRule({
       prop: 'password',
       label: '密码',
-      rule: [ValidateService.loginPassword, this.data.id ? ValidateService.optional : ValidateService.required]
+      rule: [ValidateService.loginPassword, this.form.id ? ValidateService.optional : ValidateService.required]
     }),
     nickname: ValidateService.genRule({
       prop: 'nickname',
@@ -65,11 +65,11 @@ export default class ViewUserAdminEmployeeForm extends Vue {
   private handleLoad () {
     return this.fetchRoleList()
       .then(() => {
-        if (this.data.id) {
-          return Service.show(this.data.id)
+        if (this.form.id) {
+          return Service.show(this.form.id)
             .then((res) => {
               res.data.role_names = res.data.roles.map((res: { name: string }) => res.name)
-              Object.assign(this.data, res.data)
+              Object.assign(this.form, res.data)
             })
         }
       })
