@@ -7,7 +7,7 @@
     :append-to-body="true"
     :width="width">
     <component :is="this.component" :id="id" @done="handleDone" :dialog="true"></component>
-    <span slot="footer">
+    <span slot="footer" v-if="hideCloseBtn === false">
       <el-button type="primary" @click="close">关 闭</el-button>
     </span>
   </el-dialog>
@@ -26,6 +26,9 @@ export default class ServiceDialog extends Vue {
 
   @Prop({ default: '500px' })
   width!: string
+
+  @Prop({ default: false })
+  hideCloseBtn!: boolean
 
   private isShowModal = false
   private resolve!: Function

@@ -8,7 +8,7 @@
     <slot name="footer">
       <div class="FormFooterContainer">
         <ButtonSubmit :onClick="handleSubmit">提交</ButtonSubmit>
-        <ButtonSubmit :onClick="handleSubmitAndBack">提交并返回</ButtonSubmit>
+        <ButtonSubmit :onClick="handleSubmitAndBack" v-if="disableSubmitAndBackBtn === false">提交并返回</ButtonSubmit>
         <ButtonSubmit :onClick="handleReset" type="" style="margin-left: 8px">重置</ButtonSubmit>
       </div>
     </slot>
@@ -42,6 +42,9 @@ export default class FormRender extends Vue {
 
   @Prop()
   Service!: IService
+
+  @Prop({ default: false })
+  disableSubmitAndBackBtn!: boolean
 
   private handleLoad () {
     return Promise.resolve()

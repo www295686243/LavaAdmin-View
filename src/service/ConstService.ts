@@ -26,6 +26,10 @@ class ConstService {
     return this.getOptions('options.User', name)
   }
 
+  getOperationOptions (name: string) {
+    return this.getOptions('options.Operation', name)
+  }
+
   getAreaOptions () {
     return JSON.parse(JSON.stringify(areaOptions))
   }

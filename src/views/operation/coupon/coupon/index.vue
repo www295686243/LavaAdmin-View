@@ -1,18 +1,13 @@
 <template>
   <PageContainer>
     <TableRender :Service="Service" :searchFields="searchFields">
-      <TableText prop="template_id" label="微信模板ID" :width="400"></TableText>
-      <TableText prop="title" label="通知标题" :width="260"></TableText>
-      <TableText prop="content" label="通知内容" :width="300"></TableText>
-      <TableText prop="remark" label="通知备注" :width="360"></TableText>
-      <TableText prop="url" label="跳转地址" :width="160"></TableText>
-      <TableText prop="keyword_names" label="字段名称" :width="260"></TableText>
-      <TableOptions prop="is_push_official_account" label="推送公众号" :width="100" :options="ConstService.getBoolOptions()"></TableOptions>
-      <TableOptions prop="is_push_message" label="推送站内信" :width="100" :options="ConstService.getBoolOptions()"></TableOptions>
-      <TableAction :buttons="[
-        { name: '编辑' },
-        { name: '删除' }
-      ]" :minWidth="160" />
+      <TableText prop="display_name" label="名称" :width="160"></TableText>
+      <TableText prop="amount" label="金额" :width="120" align="right"></TableText>
+      <TableText prop="user.nickname" label="归属者" :width="160"></TableText>
+      <TableOptions prop="coupon_status" label="状态" :width="160" :options="ConstService.getOperationOptions('coupon_status')"></TableOptions>
+      <TableText prop="start_at" label="开始时间" :width="180"></TableText>
+      <TableText prop="end_at" label="过期时间" :width="180"></TableText>
+      <TableText prop="source" label="来源"></TableText>
     </TableRender>
   </PageContainer>
 </template>
@@ -30,8 +25,8 @@ export default class ViewSystemConfigIndex extends Vue {
 
   private searchFields: ISearchFields[] = [
     {
-      name: 'template_id',
-      display_name: '微信模板ID',
+      name: 'user_id',
+      display_name: '用户ID',
       type: 'string'
     }
   ]

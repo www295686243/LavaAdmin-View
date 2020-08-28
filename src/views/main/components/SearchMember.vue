@@ -26,6 +26,7 @@
           trigger="hover">
           <li slot="reference">{{v.nickname}}</li>
           <ul class="user-list-btns">
+            <li>用户ID: {{v.id}}</li>
             <li><ButtonSubmit size="mini" :onClick="() => handlePopover('/user/popover/api_log/index', v.id)">活动轨迹</ButtonSubmit></li>
           </ul>
         </el-popover>
@@ -51,23 +52,28 @@ export default class SearchMember extends Vue {
   private userList = []
 
   private handleSubmit () {
-    return axios.get('user', {
-      _search: [{
-        field: this.search.field,
-        where: '等于',
-        value: this.search.keyword,
-        type: 'string'
-      }]
-    })
-      .then((res) => {
-        this.userList = res.data.data || []
-        this.isShowUserList = this.userList.length > 0
-        if (!this.isShowUserList) {
-          this.$message({
-            showClose: true,
-            message: '该用户不存在',
-            type: 'error'
+    return Promise.resolve()
+      .then(() => {
+        if (this.search.keyword !== '') {
+          return axios.get('user', {
+            _search: [{
+              field: this.search.field,
+              where: '等于',
+              value: this.search.keyword,
+              type: 'string'
+            }]
           })
+            .then((res) => {
+              this.userList = res.data.data || []
+              this.isShowUserList = this.userList.length > 0
+              if (!this.isShowUserList) {
+                this.$message({
+                  showClose: true,
+                  message: '该用户不存在',
+                  type: 'error'
+                })
+              }
+            })
         }
       })
   }

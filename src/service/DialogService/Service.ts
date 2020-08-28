@@ -2,7 +2,7 @@ import Vue from 'vue'
 import ServiceDialog from './Dialog.vue'
 
 class DialogService {
-  show (component: any, params: any) {
+  show (component: any, params?: any) {
     const el = document.body.appendChild(document.createElement('div'))
     const Constructor = Vue.extend(ServiceDialog)
     const instance = new Constructor({
@@ -13,6 +13,9 @@ class DialogService {
       }
     }).$mount(el)
     return (instance as any).open()
+      .catch(() => {
+        console.log('关闭弹窗')
+      })
   }
 }
 
