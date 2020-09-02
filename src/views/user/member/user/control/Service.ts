@@ -1,7 +1,9 @@
 import axios from '@/plugins/axios'
 import RouterService from '@/service/RouterService'
+import BaseModalService from '@/service/BaseModalService'
 
-class Service {
+class Service extends BaseModalService {
+  modelName = 'UserControl'
   show (id: number | string) {
     return axios.get(`user_control/${id}`)
   }

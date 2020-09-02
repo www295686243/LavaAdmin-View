@@ -1,7 +1,7 @@
 <template>
   <div class="TableRender">
     <div class="function-container">
-      <div v-permission="'store'" v-if="Service && !!Service.store" class="store-btn">
+      <div v-permission="tableService.getPermissionName('store')" v-if="Service && !!Service.store" class="store-btn">
         <ButtonSubmit :onClick="() => RouterService.pushForm()">添加{{Service.name}}</ButtonSubmit>
       </div>
       <TableToolSearch

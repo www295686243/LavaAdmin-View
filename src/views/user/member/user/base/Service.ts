@@ -1,7 +1,9 @@
 import axios from '@/plugins/axios'
+import BaseModalService from '@/service/BaseModalService'
 
-class Service {
+class Service extends BaseModalService {
   name = '会员'
+  modelName = 'User'
   store (params: object) {
     return axios.post('user', params)
   }

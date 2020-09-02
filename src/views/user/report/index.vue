@@ -1,5 +1,5 @@
 <template>
-  <PageContainer class="view-user-report">
+  <div class="view-user-report">
     <!-- <div class="tools">
       <ButtonSubmit :onClick="handleCreateTodayData">生成今日数据</ButtonSubmit>
     </div> -->
@@ -8,7 +8,7 @@
       <el-col :span="12"><ChartRender type="line" title="注册量" code="register"></ChartRender></el-col>
       <el-col :span="12"><ChartRender type="line" title="登录量" code="login"></ChartRender></el-col>
     </el-row>
-  </PageContainer>
+  </div>
 </template>
 
 <script lang="ts">

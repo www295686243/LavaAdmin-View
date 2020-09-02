@@ -1,7 +1,9 @@
 import axios from '@/plugins/axios'
+import BaseModalService from '@/service/BaseModalService'
 
-class Service {
+class Service extends BaseModalService {
   name = '职位'
+  modelName = 'Position'
   index () {
     return axios.get('position')
   }

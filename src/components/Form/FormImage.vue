@@ -11,9 +11,10 @@
 
 <script lang="ts">
 import FormMixins from './FormMixins'
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Inject } from 'vue-property-decorator'
 import ImageManageService from '@/service/ImageManageService/Service'
 import ImageMaskContainer from '@/components/ImageMaskContainer.vue'
+import { IService } from '@/interface/common'
 
 @Component({
   components: {
@@ -21,10 +22,13 @@ import ImageMaskContainer from '@/components/ImageMaskContainer.vue'
   }
 })
 export default class FormImage extends Mixins(FormMixins) {
+  @Inject('formService')
+  formService!: IService
+
   private ImageManageService!: ImageManageService
 
   private handleChangeModal () {
-    return this.ImageManageService.open('single')
+    return this.ImageManageService.open('single', this.formService.getModelName())
       .then((data: { full_url: string }) => {
         this.innerValue = data.full_url
       })

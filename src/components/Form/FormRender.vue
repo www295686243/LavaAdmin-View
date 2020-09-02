@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop, Provide } from 'vue-property-decorator'
 import { IService, IResult } from '@/interface/common'
 import RouterService from '@/service/RouterService'
 import DataRender from '@/components/DataRender.vue'
@@ -42,6 +42,9 @@ export default class FormRender extends Vue {
 
   @Prop()
   Service!: IService
+
+  @Provide()
+  formService = this.Service
 
   @Prop({ default: false })
   disableSubmitAndBackBtn!: boolean

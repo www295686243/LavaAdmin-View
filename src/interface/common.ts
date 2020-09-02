@@ -101,4 +101,6 @@ export interface IService {
   destroy: Function;
   refresh: Function;
   limit?: number;
+  getPermissionName: Function;
+  getModelName: Function;
 }

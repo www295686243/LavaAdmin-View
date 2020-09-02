@@ -104,7 +104,6 @@ export default class TableAction extends Mixins(TableMixins) {
   }
 
   created () {
-    const controllerName = RouterService.getControllerName()
     this.innerButtons = this.buttons.filter((res) => {
       if (res.name === '编辑') {
         res.permission = 'update'
@@ -114,8 +113,7 @@ export default class TableAction extends Mixins(TableMixins) {
         res.permission = 'show'
       }
       if (res.permission) {
-        const permissionName = controllerName + '@' + res.permission
-        return UserService.hasPermission(permissionName)
+        return UserService.hasPermission(this.tableService.getPermissionName(res.permission))
       } else {
         return true
       }

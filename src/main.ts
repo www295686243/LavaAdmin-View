@@ -6,6 +6,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import PageContainer from './components/PageContainer.vue'
+import DataRender from './components/DataRender.vue'
 import ButtonSubmit from './components/Button/ButtonSubmit.vue'
 import ButtonDelete from './components/Button/ButtonDelete.vue'
 
@@ -39,6 +40,7 @@ import UserService from '@/service/UserService'
 Vue.component('ButtonSubmit', ButtonSubmit)
 Vue.component('ButtonDelete', ButtonDelete)
 Vue.component('PageContainer', PageContainer)
+Vue.component('DataRender', DataRender)
 
 Vue.component('FormRender', FormRender)
 Vue.component('FormText', FormText)
@@ -71,7 +73,7 @@ Vue.use(ElementUI)
 Vue.config.productionTip = false
 
 Vue.directive('permission', (el, params) => {
-  const result = UserService.hasPermission(RouterService.getControllerName() + '@' + params.value)
+  const result = UserService.hasPermission(params.value)
   if (!result) {
     el.style.display = 'none'
   }

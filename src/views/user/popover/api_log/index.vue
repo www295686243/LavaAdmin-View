@@ -1,5 +1,5 @@
 <template>
-  <TableRender :onLoad="handleLoad">
+  <TableRender :onLoad="handleLoad" :Service="Service">
     <TableText prop="method" label="模式" :width="100"></TableText>
     <TableText prop="path" label="地址" :width="200"></TableText>
     <TableText prop="ip" label="IP" :width="110"></TableText>

@@ -1,5 +1,5 @@
 <template>
-  <PageContainer :onLoad="handleLoad">
+  <DataRender :onLoad="handleLoad">
     <div class="interface-permissions">
       <el-card header="权限">
         <FormTree
@@ -14,7 +14,7 @@
     <template slot="footer">
       <ButtonSubmit :onClick="handleSubmit">提交</ButtonSubmit>
     </template>
-  </PageContainer>
+  </DataRender>
 </template>
 
 <script lang="ts">

@@ -1,8 +1,10 @@
 import axios from '@/plugins/axios'
 import RouterService from '@/service/RouterService'
+import BaseModalService from '@/service/BaseModalService'
 
-class Service {
+class Service extends BaseModalService {
   name = '选项'
+  modelName = 'ConfigOption'
   index (params: { page: number }) {
     return axios.get('config_option', {
       ...params,

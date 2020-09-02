@@ -1,6 +1,8 @@
 import axios from '@/plugins/axios'
+import BaseModalService from '@/service/BaseModalService'
 
-class Service {
+class Service extends BaseModalService {
+  modelName = 'AdminLog'
   index (params: { page: number }) {
     return axios.get('admin_log', params)
   }

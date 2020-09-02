@@ -1,7 +1,9 @@
 import axios from '@/plugins/axios'
+import BaseModalService from '@/service/BaseModalService'
 
-class Service {
+class Service extends BaseModalService {
   name = '新闻'
+  modelName = 'News'
   index (params: { page: number; guard_name: string }) {
     return axios.get('news', params)
   }

@@ -4,12 +4,13 @@ import ImageManage from './ImageManage.vue'
 export default class ImageManageService {
   instance!: any
 
-  open (type: string) {
+  open (type: string, modelName: string) {
     const el = document.body.appendChild(document.createElement('div'))
     const Constructor = Vue.extend(ImageManage)
     this.instance = new Constructor({
       propsData: {
-        type
+        type,
+        modelName
       }
     }).$mount(el)
     return this.instance.open()
