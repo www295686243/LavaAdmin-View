@@ -29,6 +29,7 @@
             <li>用户ID: {{v.id}}</li>
             <li><ButtonSubmit size="mini" :onClick="() => handlePopover('/user/popover/api_log/index', v.id)">活动轨迹</ButtonSubmit></li>
             <li><ButtonSubmit size="mini" :onClick="() => handlePopover('/user/member/order/index', v.id)">订单记录</ButtonSubmit></li>
+            <li><ButtonSubmit size="mini" :onClick="() => handlePopover('/user/member/bill/index', v.id)">账单记录</ButtonSubmit></li>
           </ul>
         </el-popover>
       </ul>

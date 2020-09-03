@@ -2,13 +2,9 @@ import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  modelName = 'UserOrder'
+  modelName = 'UserBill'
   index (params: { page: number }) {
-    return axios.get('user_order', params)
-  }
-
-  show (id: number | string) {
-    return axios.get(`user_order/${id}`)
+    return axios.get('user_bill', params)
   }
 }
 

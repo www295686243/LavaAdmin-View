@@ -16,19 +16,15 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import Service from './Service'
-import RouterService from '@/service/RouterService'
-import ConstService from '@/service/ConstService'
 import { ISearchFields } from '@/interface/common'
 import DialogService from '@/service/DialogService/Service'
 
 @Component
-export default class ViewUserMemberNotifyIndex extends Vue {
+export default class ViewUserMemberOrderIndex extends Vue {
   @Prop()
   id!: string
 
   private Service = Service
-  private RouterService = RouterService
-  private ConstService = ConstService
 
   private searchFields: ISearchFields[] | null = [
     {

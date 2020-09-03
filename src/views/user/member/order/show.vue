@@ -19,7 +19,7 @@ import Service from './Service'
 import { IFormFields } from '@/interface/common'
 
 @Component
-export default class ViewUserMemberNotifyShow extends Vue {
+export default class ViewUserMemberOrderShow extends Vue {
   @Prop()
   id!: string
 

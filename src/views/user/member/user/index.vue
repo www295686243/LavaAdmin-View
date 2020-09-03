@@ -8,8 +8,8 @@
       { name: '赠送优惠券', onClick: giveCoupon },
       { name: '编辑' },
       { name: '更多', children: [
-        { name: '账单记录' },
-        { name: '订单记录', onClick: openUserOrder }
+        { name: '账单记录', onClick: (row) => handlePopover(row, '/user/member/bill/index') },
+        { name: '订单记录', onClick: (row) => handlePopover(row, '/user/member/order/index') }
       ] }
     ]" :minWidth="280" />
   </TableRender>
@@ -37,8 +37,8 @@ export default class ViewUserMemberUserIndex extends Vue {
     return DialogService.show(require('@/views/components/GiveCoupon.vue').default, { id: row.id, hideCloseBtn: true })
   }
 
-  private openUserOrder (row: { id: number }) {
-    return DialogService.show(require('../order/index.vue').default, { id: row.id })
+  private handlePopover (row: { id: number }, path: string) {
+    return DialogService.show(require(`@/views${path}.vue`).default, { id: row.id })
   }
 }
 </script>
