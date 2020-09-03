@@ -7,6 +7,7 @@ import user from './user'
 import info from './info'
 import other from './other'
 import operation from './operation'
+import report from './report'
 
 Vue.use(VueRouter)
 
@@ -19,7 +20,8 @@ const routes: Array<RouteConfig> = [
       ...user,
       ...info,
       ...other,
-      ...operation
+      ...operation,
+      ...report
     ]
   },
   {

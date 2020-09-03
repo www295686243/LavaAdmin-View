@@ -1,5 +1,5 @@
 <template>
-  <div class="view-user-report">
+  <div class="view-report-user">
     <!-- <div class="tools">
       <ButtonSubmit :onClick="handleCreateTodayData">生成今日数据</ButtonSubmit>
     </div> -->
@@ -21,7 +21,7 @@ import ChartService from '@/service/ChartService'
     ChartRender
   }
 })
-export default class ViewUserReport extends Vue {
+export default class ViewReportUser extends Vue {
   private handleCreateTodayData () {
     return ChartService.createTodayData()
   }

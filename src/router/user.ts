@@ -14,8 +14,6 @@ import roleForm from '@/views/user/member/role/form.vue'
 import rolePermissions from '@/views/user/member/role/permissions.vue'
 // 通知记录
 import Notify from '@/views/user/member/notify/index.vue'
-// 报表
-import Report from '@/views/user/report/index.vue'
 // 订单
 import Order from '@/views/user/member/order/index.vue'
 
@@ -74,11 +72,6 @@ export default [
   {
     path: '/user/member/notify',
     component: Notify
-  },
-  // 报表
-  {
-    path: '/user/report',
-    component: Report
   },
   // 订单
   {
