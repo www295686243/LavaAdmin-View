@@ -4,9 +4,7 @@
       <ButtonSubmit :onClick="handleCreateTodayData">生成今日数据</ButtonSubmit>
     </div>
     <el-row :gutter="40">
-      <el-col :span="12"><ChartRender type="line" title="授权量" code="auth"></ChartRender></el-col>
-      <el-col :span="12"><ChartRender type="line" title="注册量" code="register"></ChartRender></el-col>
-      <el-col :span="12"><ChartRender type="line" title="登录量" code="login"></ChartRender></el-col>
+      <el-col :span="12"><ChartRender type="line" title="总订单" code="order_total"></ChartRender></el-col>
     </el-row>
   </div>
 </template>
