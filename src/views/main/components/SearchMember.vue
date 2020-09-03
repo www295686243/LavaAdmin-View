@@ -28,6 +28,7 @@
           <ul class="user-list-btns">
             <li>用户ID: {{v.id}}</li>
             <li><ButtonSubmit size="mini" :onClick="() => handlePopover('/user/popover/api_log/index', v.id)">活动轨迹</ButtonSubmit></li>
+            <li><ButtonSubmit size="mini" :onClick="() => handlePopover('/user/member/order/index', v.id)">订单记录</ButtonSubmit></li>
           </ul>
         </el-popover>
       </ul>
@@ -79,7 +80,7 @@ export default class SearchMember extends Vue {
   }
 
   private handlePopover (path: string, user_id: string) {
-    DialogService.show(require(`@/views${path}.vue`).default, {
+    return DialogService.show(require(`@/views${path}.vue`).default, {
       id: user_id
     })
   }

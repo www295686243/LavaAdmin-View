@@ -6,6 +6,7 @@
       :type="autosize ? 'textarea' : 'text'"
       :placeholder="field.placeholder ? field.placeholder : '请输入' + field.label"
       :disabled="field.disabled"
+      :readonly="field.readonly"
       :show-word-limit="maxLength > 0"
       :autosize="autosize ? { minRows: 1.2 } : false"
       :maxlength="maxLength"

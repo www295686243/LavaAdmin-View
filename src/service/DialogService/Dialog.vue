@@ -60,5 +60,10 @@ export default class ServiceDialog extends Vue {
     height: 60vh;
     overflow-y: auto;
   }
+  .el-input.is-disabled .el-input__inner {
+    background-color: #FFF;
+    border-color: #DCDFE6;
+    color: #606266;
+  }
 }
 </style>

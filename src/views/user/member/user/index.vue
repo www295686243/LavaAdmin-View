@@ -7,7 +7,10 @@
     <TableAction :buttons="[
       { name: '赠送优惠券', onClick: giveCoupon },
       { name: '编辑' },
-      { name: '删除' }
+      { name: '更多', children: [
+        { name: '账单记录' },
+        { name: '订单记录', onClick: openUserOrder }
+      ] }
     ]" :minWidth="280" />
   </TableRender>
 </template>
@@ -32,6 +35,10 @@ export default class ViewUserMemberUserIndex extends Vue {
 
   private giveCoupon (row: { id: number }) {
     return DialogService.show(require('@/views/components/GiveCoupon.vue').default, { id: row.id, hideCloseBtn: true })
+  }
+
+  private openUserOrder (row: { id: number }) {
+    return DialogService.show(require('../order/index.vue').default, { id: row.id })
   }
 }
 </script>

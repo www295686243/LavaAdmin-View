@@ -1,15 +1,14 @@
 <template>
   <FormRender :Service="Service" :data="info">
-    <FormText v-model="info.title" :field="formFields.title"></FormText>
-    <FormText v-model="info.content" :field="formFields.content"></FormText>
-    <FormText v-model="info.remark" :field="formFields.remark"></FormText>
-    <FormText v-model="info.url" :field="formFields.url"></FormText>
-    <FormText v-model="info.url_params" :field="formFields.url_params"></FormText>
-    <FormText v-model="info.keyword_names" :field="formFields.keyword_names"></FormText>
-    <FormText v-model="info.keywords" :field="formFields.keywords"></FormText>
-    <FormRadio v-model="info.is_read" :field="formFields.is_read"></FormRadio>
-    <FormSwitch v-model="info.is_push_official_account" :field="formFields.is_push_official_account"></FormSwitch>
-    <FormSwitch v-model="info.is_push_message" :field="formFields.is_push_message"></FormSwitch>
+    <FormText v-model="info.user.nickname" :field="formFields.nickname"></FormText>
+    <FormText v-model="info.user_orderable.title" :field="formFields.title"></FormText>
+    <FormText v-model="info.total_amount" :field="formFields.total_amount"></FormText>
+    <FormText v-model="info.cash_amount" :field="formFields.cash_amount"></FormText>
+    <FormText v-model="info.balance_amount" :field="formFields.balance_amount"></FormText>
+    <FormText v-model="info.coupon_amount" :field="formFields.coupon_amount"></FormText>
+    <FormText v-model="info.user_coupon.display_name" :field="formFields.display_name"></FormText>
+    <FormSelect v-model="info.pay_status" :field="formFields.pay_status"></FormSelect>
+    <FormText v-model="info.paid_at" :field="formFields.paid_at"></FormText>
     <div slot="footer"></div>
   </FormRender>
 </template>
@@ -18,7 +17,6 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import Service from './Service'
 import { IFormFields } from '@/interface/common'
-import ConstService from '@/service/ConstService'
 
 @Component
 export default class ViewUserMemberNotifyShow extends Vue {
@@ -31,72 +29,68 @@ export default class ViewUserMemberNotifyShow extends Vue {
   private Service = Service
   private info = {
     id: this.id,
-    title: '',
-    user_id: '',
-    url: '',
-    url_params: {} as { [key: string]: string },
-    content: '',
-    remark: '',
-    keywords: {} as { [key: string]: string },
-    keyword_names: {} as { [key: string]: string },
-    is_read: 0,
-    is_push_official_account: 1,
-    is_push_message: 1
+    user: {
+      nickname: ''
+    },
+    user_orderable: {
+      title: ''
+    },
+    total_amount: 0,
+    cash_amount: 0,
+    balance_amount: 0,
+    coupon_amount: 0,
+    user_coupon: {
+      display_name: ''
+    },
+    pay_status: '',
+    paid_at: ''
   }
 
   private formFields: IFormFields = {
+    nickname: {
+      prop: 'nickname',
+      label: '支付人',
+      readonly: true
+    },
     title: {
       prop: 'title',
-      label: '标题',
+      label: '信息',
+      readonly: true
+    },
+    total_amount: {
+      prop: 'total_amount',
+      label: '总金额',
+      readonly: true
+    },
+    cash_amount: {
+      prop: 'cash_amount',
+      label: '现金',
+      readonly: true
+    },
+    balance_amount: {
+      prop: 'balance_amount',
+      label: '余额',
+      readonly: true
+    },
+    coupon_amount: {
+      prop: 'coupon_amount',
+      label: '优惠券金额',
+      readonly: true
+    },
+    display_name: {
+      prop: 'display_name',
+      label: '优惠券',
+      readonly: true
+    },
+    pay_status: {
+      prop: 'pay_status',
+      label: '支付状态',
       disabled: true
     },
-    content: {
-      prop: 'content',
-      label: '通知内容',
-      disabled: true
-    },
-    remark: {
-      prop: 'remark',
-      label: '通知备注',
-      disabled: true
-    },
-    url: {
-      prop: 'url',
-      label: '链接地址',
-      disabled: true
-    },
-    url_params: {
-      prop: 'url_params',
-      label: '链接参数',
-      disabled: true
-    },
-    keywords: {
-      prop: 'keywords',
-      label: '参数值',
-      disabled: true
-    },
-    keyword_names: {
-      prop: 'keyword_names',
-      label: '参数名称',
-      disabled: true
-    },
-    is_read: {
-      prop: 'is_read',
-      label: '是否查看',
-      options: ConstService.getBoolOptions(),
-      disabled: true
-    },
-    is_push_official_account: {
-      prop: 'is_push_official_account',
-      label: '推送公众号',
-      options: ConstService.getBoolOptions(),
-      disabled: true
-    },
-    is_push_message: {
-      prop: 'is_push_message',
-      label: '推送站内信',
-      options: ConstService.getBoolOptions(),
-      disabled: true
+    paid_at: {
+      prop: 'paid_at',
+      label: '支付时间',
+      readonly: true
     }
   }
 }

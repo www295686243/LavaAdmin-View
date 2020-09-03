@@ -60,6 +60,7 @@ export interface IFormFieldItem {
   width?: number // 元素宽度
   defaultValue?: any
   disabled?: boolean
+  readonly?: boolean
   placeholder?: string
   multiple?: boolean // 一般用于select
   min?: number // 一般用于FormCounter组件里

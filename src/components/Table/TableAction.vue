@@ -5,6 +5,7 @@
     :width="width"
     :min-width="minWidth"
     fixed="right"
+    class-name="TableAction"
   >
     <template slot-scope="scope">
       <template v-for="(v, key) in innerButtons">
@@ -33,6 +34,34 @@
           v-else-if="v.name === '查看详情'">
           {{v.name}}
         </ButtonSubmit>
+        <el-popover
+          popper-class="TableAction-popper"
+          :key="key"
+          v-else-if="v.name === '更多' && v.children.length > 0"
+          placement="bottom">
+          <div class="more-btns" v-for="(item, itemKey) in v.children" :key="itemKey">
+            <ButtonDelete
+              type="text"
+              :size="item.size || 'small'"
+              :onClick="() => handleDestroy(scope, item)"
+              v-if="item.name === '删除'">
+              {{item.name}}
+            </ButtonDelete>
+            <ButtonSubmit
+              v-else
+              type="text"
+              :onClick="() => item.onClick(scope.row, scope.$index)"
+              :size="item.size || 'small'">
+              {{item.name}}
+            </ButtonSubmit>
+          </div>
+          <ButtonSubmit
+            slot="reference"
+            :type="v.type || 'primary'"
+            :size="v.size || 'small'">
+            更多<i class="el-icon-arrow-down el-icon--right"></i>
+          </ButtonSubmit>
+        </el-popover>
         <ButtonSubmit
           :key="key"
           :type="v.type || 'warning'"
@@ -96,9 +125,6 @@ export default class TableAction extends Mixins(TableMixins) {
           return v.onClick(scope.row, scope.$index)
         } else {
           return DialogService.show(require('@/views' + RouterService.getPath() + '/show.vue').default, { id: scope.row.id })
-            .catch(() => {
-              //
-            })
         }
       })
   }
@@ -121,3 +147,23 @@ export default class TableAction extends Mixins(TableMixins) {
   }
 }
 </script>
+
+<style lang="scss">
+.TableAction {
+  .el-popover__reference {
+    margin-left: 10px;
+  }
+}
+.TableAction-popper {
+  padding: 4px 0;
+  min-width: 100px;
+  .more-btns {
+    .el-button {
+      width: 100%;
+      &:hover {
+        background-color: #ecf5ff;
+      }
+    }
+  }
+}
+</style>
