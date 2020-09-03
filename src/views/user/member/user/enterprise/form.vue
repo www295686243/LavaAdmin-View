@@ -74,8 +74,7 @@ export default class ViewUserMemberUserEnterpriseForm extends Vue {
     },
     tags: {
       prop: 'tags',
-      label: '公司标签',
-      options: ConstService.getUserOptions('enterprise_tags')
+      label: '公司标签'
     },
     company_images: {
       prop: 'company_images',
@@ -83,8 +82,7 @@ export default class ViewUserMemberUserEnterpriseForm extends Vue {
     },
     company_scale: {
       prop: 'company_scale',
-      label: '企业规模',
-      options: ConstService.getUserOptions('company_scale')
+      label: '企业规模'
     },
     name: {
       prop: 'name',

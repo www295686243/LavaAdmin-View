@@ -105,8 +105,7 @@ export default class ViewUserMemberUserPersonalForm extends Vue {
     },
     seniority: {
       prop: 'seniority',
-      label: '工作年限',
-      options: ConstService.getUserOptions('seniority')
+      label: '工作年限'
     },
     intro: {
       prop: 'intro',
@@ -140,8 +139,7 @@ export default class ViewUserMemberUserPersonalForm extends Vue {
     },
     tags: {
       prop: 'tags',
-      label: '自我评价',
-      options: ConstService.getUserOptions('personal_tags')
+      label: '自我评价'
     },
     work_experience: {
       prop: 'work_experience',

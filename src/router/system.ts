@@ -1,5 +1,9 @@
 import ParamsConfig from '@/views/params-config/index.vue'
 import ParamsConfigForm from '@/views/params-config/form.vue'
+import OptionsConfig from '@/views/options-config/index.vue'
+import OptionsConfigForm from '@/views/options-config/form.vue'
+import OptionsConfigOptions from '@/views/options-config/options/index.vue'
+import OptionsConfigOptionsForm from '@/views/options-config/options/form.vue'
 
 import adminLog from '@/views/system/admin-log/index.vue'
 
@@ -14,6 +18,28 @@ export default [
   {
     path: '/system/config/form',
     component: ParamsConfigForm
+  },
+  {
+    path: '/system/options/config',
+    component: OptionsConfig
+  },
+  {
+    path: '/system/options/config/form',
+    component: OptionsConfigForm
+  },
+  {
+    path: '/system/options/config/config-options',
+    component: OptionsConfigOptions,
+    meta: {
+      title: '选项配置'
+    }
+  },
+  {
+    path: '/system/options/config/config-options/form',
+    component: OptionsConfigOptionsForm,
+    meta: {
+      title: '选项配置'
+    }
   },
   {
     path: '/system/admin-log',

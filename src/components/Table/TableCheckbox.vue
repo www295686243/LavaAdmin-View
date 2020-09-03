@@ -14,8 +14,10 @@
 
 <script lang="ts">
 import TableMixins from './TableMixins'
-import { Component, Mixins, Prop } from 'vue-property-decorator'
+import { Component, Mixins, Prop, Inject } from 'vue-property-decorator'
 import { getDeepValue } from '@/plugins/tools'
+import { IOptions, IService } from '@/interface/common'
+import ConstService from '@/service/ConstService'
 
 @Component
 export default class TableImage extends Mixins(TableMixins) {
@@ -29,22 +31,24 @@ export default class TableImage extends Mixins(TableMixins) {
   })
   props!: { label: string; value: any }
 
-  @Prop()
-  options!: any[]
+  @Inject('tableService')
+  tableService!: IService
+
+  private options = [] as IOptions[]
 
   private getValue (row: any) {
     const values = getDeepValue(this.prop as string, row)
     if (Array.isArray(values)) {
-      if (Array.isArray(this.options)) {
-        return this.options.filter((res) => values.includes(res[this.props.value]))
-          .map((res) => res[this.props.label])
-          .join('、')
-      } else {
-        return values.join('、')
-      }
+      return this.options.filter((res) => values.includes(res[this.props.value]))
+        .map((res) => res[this.props.label])
+        .join('、')
     } else {
       return '--'
     }
+  }
+
+  created () {
+    this.options = ConstService.getOptions(this.tableService.getModelName() + ':' + this.prop)
   }
 }
 </script>

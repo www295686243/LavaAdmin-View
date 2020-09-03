@@ -12,17 +12,12 @@ import userForm from '@/views/user/member/user/form.vue'
 import role from '@/views/user/member/role/index.vue'
 import roleForm from '@/views/user/member/role/form.vue'
 import rolePermissions from '@/views/user/member/role/permissions.vue'
-// 配置
-import ParamsConfig from '@/views/params-config/index.vue'
-import ParamsConfigForm from '@/views/params-config/form.vue'
-import OptionsConfig from '@/views/options-config/index.vue'
-import OptionsConfigForm from '@/views/options-config/form.vue'
-import OptionsConfigOptions from '@/views/options-config/options/index.vue'
-import OptionsConfigOptionsForm from '@/views/options-config/options/form.vue'
 // 通知记录
 import Notify from '@/views/user/member/notify/index.vue'
 // 报表
 import Report from '@/views/user/report/index.vue'
+// 订单
+import Order from '@/views/user/member/order/index.vue'
 
 export default [
   // 职位
@@ -75,37 +70,6 @@ export default [
       title: '权限管理'
     }
   },
-  // 配置
-  {
-    path: '/user/config',
-    component: ParamsConfig
-  },
-  {
-    path: '/user/config/form',
-    component: ParamsConfigForm
-  },
-  {
-    path: '/user/options/config',
-    component: OptionsConfig
-  },
-  {
-    path: '/user/options/config/form',
-    component: OptionsConfigForm
-  },
-  {
-    path: '/user/options/config/config-options',
-    component: OptionsConfigOptions,
-    meta: {
-      title: '选项配置'
-    }
-  },
-  {
-    path: '/user/options/config/config-options/form',
-    component: OptionsConfigOptionsForm,
-    meta: {
-      title: '选项配置'
-    }
-  },
   // 通知记录
   {
     path: '/user/member/notify',
@@ -115,5 +79,10 @@ export default [
   {
     path: '/user/report',
     component: Report
+  },
+  // 订单
+  {
+    path: '/user/member/order',
+    component: Order
   }
 ]

@@ -91,6 +91,7 @@ export interface IOptions {
   display_name: string;
   id: number;
   children?: IOptions[];
+  [key: string]: any;
 }
 
 export interface IService {

@@ -16,18 +16,10 @@ class ConstService {
     return item ? item.value : ''
   }
 
-  getOptions (guard_name: string, name: string) {
-    const configs: ConfigItem[] = cache.config.get(guard_name) || []
+  getOptions (name: string) {
+    const configs: ConfigItem[] = cache.config.get('options') || []
     const config = configs.find((res) => res.name === name)
     return config ? config.options : []
-  }
-
-  getUserOptions (name: string) {
-    return this.getOptions('options.User', name)
-  }
-
-  getOperationOptions (name: string) {
-    return this.getOptions('options.Operation', name)
   }
 
   getAreaOptions () {
