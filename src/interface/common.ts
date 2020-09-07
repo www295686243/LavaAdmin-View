@@ -78,7 +78,7 @@ export interface IUploadParams {
 }
 
 export interface IFormFields {
-  [key: string]: IFormFieldItem
+  [key: string]: IFormFieldItem | IFormFields
 }
 
 export interface ISearchFields {

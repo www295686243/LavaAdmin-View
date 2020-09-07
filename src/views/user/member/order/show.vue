@@ -23,9 +23,6 @@ export default class ViewUserMemberOrderShow extends Vue {
   @Prop()
   id!: string
 
-  @Prop({ default: false })
-  dialog!: boolean
-
   private Service = Service
   private info = {
     id: this.id,
