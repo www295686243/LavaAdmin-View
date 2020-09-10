@@ -25,7 +25,7 @@ import FormTree from '@/components/Form/FormTree.vue'
     FormTree
   }
 })
-export default class ViewUserMemberRolePermission extends Vue {
+export default class ViewUserMemberRoleAssignPermission extends Vue {
   $refs!: {
     interfaceTreeElement: any;
   }
@@ -33,7 +33,7 @@ export default class ViewUserMemberRolePermission extends Vue {
   private interface: any[] = []
   private interfacePermissions: any[] = []
   private handleLoad () {
-    return Service.getPermissions(RouterService.query('id'))
+    return Service.getAssignPermissions(RouterService.query('id'))
       .then((res) => {
         this.interface = res.data.interface
         this.interfacePermissions = res.data.interface_permissions
@@ -42,7 +42,7 @@ export default class ViewUserMemberRolePermission extends Vue {
 
   private handleSubmit () {
     const permissions = this.$refs.interfaceTreeElement.getCheckedNodeIds()
-    return Service.updatePermissions(RouterService.query('id'), {
+    return Service.updateAssignPermissions(RouterService.query('id'), {
       permissions
     })
       .then(() => {
@@ -51,3 +51,6 @@ export default class ViewUserMemberRolePermission extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+</style>

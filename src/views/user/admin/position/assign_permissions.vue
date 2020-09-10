@@ -9,6 +9,13 @@
         :defaultCheckedKeys="interfacePermissions">
       </FormTree>
     </el-card>
+    <el-card header="菜单" style="margin-top: 20px">
+      <FormTree
+        ref="menuTreeElement"
+        :treeList="menus"
+        :defaultCheckedKeys="menuPermissions">
+      </FormTree>
+    </el-card>
     <div style="height: 20px"></div>
     <ButtonSubmit :onClick="handleSubmit">提交</ButtonSubmit>
   </DataRender>
@@ -25,25 +32,32 @@ import FormTree from '@/components/Form/FormTree.vue'
     FormTree
   }
 })
-export default class ViewUserMemberRolePermission extends Vue {
+export default class ViewUserAdminPositionAssignPermission extends Vue {
   $refs!: {
+    menuTreeElement: any;
     interfaceTreeElement: any;
   }
 
   private interface: any[] = []
   private interfacePermissions: any[] = []
+  private menus: any[] = []
+  private menuPermissions: number[] = []
   private handleLoad () {
-    return Service.getPermissions(RouterService.query('id'))
+    return Service.getAssignPermissions(RouterService.query('id'))
       .then((res) => {
         this.interface = res.data.interface
         this.interfacePermissions = res.data.interface_permissions
+        this.menus = res.data.menus
+        this.menuPermissions = res.data.menu_permissions
       })
   }
 
   private handleSubmit () {
+    const menus = this.$refs.menuTreeElement.getCheckedNodeIds()
     const permissions = this.$refs.interfaceTreeElement.getCheckedNodeIds()
-    return Service.updatePermissions(RouterService.query('id'), {
-      permissions
+    return Service.updateAssignPermissions(RouterService.query('id'), {
+      permissions,
+      menus
     })
       .then(() => {
         RouterService.go()
@@ -51,3 +65,6 @@ export default class ViewUserMemberRolePermission extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+</style>

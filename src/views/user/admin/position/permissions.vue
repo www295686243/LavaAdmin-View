@@ -18,9 +18,8 @@
         </FormTree>
       </el-card>
     </div>
-    <template slot="footer">
-      <ButtonSubmit :onClick="handleSubmit">提交</ButtonSubmit>
-    </template>
+    <div style="height: 20px"></div>
+    <ButtonSubmit :onClick="handleSubmit">提交</ButtonSubmit>
   </DataRender>
 </template>
 
