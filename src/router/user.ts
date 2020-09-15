@@ -21,6 +21,9 @@ import Order from '@/views/user/member/order/index.vue'
 // 个人认证
 import PersonalAuth from '@/views/user/member/personal-auth/index.vue'
 import PersonalAuthForm from '@/views/user/member/personal-auth/form.vue'
+// 企业认证
+import EnterpriseAuth from '@/views/user/member/enterprise-auth/index.vue'
+import EnterpriseAuthForm from '@/views/user/member/enterprise-auth/form.vue'
 
 export default [
   // 职位
@@ -104,5 +107,13 @@ export default [
   {
     path: '/user/member/personal-auth/form',
     component: PersonalAuthForm
+  },
+  {
+    path: '/user/member/enterprise-auth',
+    component: EnterpriseAuth
+  },
+  {
+    path: '/user/member/enterprise-auth/form',
+    component: EnterpriseAuthForm
   }
 ]

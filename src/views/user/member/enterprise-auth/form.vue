@@ -1,8 +1,7 @@
 <template>
   <FormRender :Service="Service" :data="form">
-    <FormText v-model="form.name" :field="formFields.name"></FormText>
     <FormText v-model="form.company" :field="formFields.company"></FormText>
-    <FormText v-model="form.position" :field="formFields.position"></FormText>
+    <FormText v-model="form.business_license" :field="formFields.business_license"></FormText>
     <FormCascader v-model="form.city" :field="formFields.city"></FormCascader>
     <FormText v-model="form.address" :field="formFields.address"></FormText>
     <FormTextarea v-model="form.intro" :field="formFields.intro"></FormTextarea>
@@ -21,13 +20,12 @@ import ValidateService from '@/service/ValidateService'
 import ConstService from '@/service/ConstService'
 
 @Component
-export default class ViewUserMemberPersonalAuthForm extends Vue {
+export default class ViewUserMemberEnterpriseAuthForm extends Vue {
   private Service = Service
   private form = {
     id: RouterService.query('id'),
-    name: '',
     company: '',
-    position: '',
+    business_license: '',
     city: 0,
     address: '',
     intro: '',
@@ -37,20 +35,15 @@ export default class ViewUserMemberPersonalAuthForm extends Vue {
   }
 
   private formFields: IFormFields = ValidateService.genRules({
-    name: {
-      prop: 'name',
-      label: '姓名',
-      rule: [ValidateService.required, ValidateService.fullname]
-    },
     company: {
       prop: 'company',
       label: '公司名',
       rule: [ValidateService.required, ValidateService.max(60)]
     },
-    position: {
-      prop: 'position',
-      label: '职位',
-      rule: [ValidateService.required, ValidateService.max(60)]
+    business_license: {
+      prop: 'business_license',
+      label: '营业执照',
+      rule: [ValidateService.required, ValidateService.max(18)]
     },
     city: {
       prop: 'city',
