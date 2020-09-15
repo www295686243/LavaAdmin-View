@@ -1,12 +1,18 @@
 import cache from '@/plugins/cache'
-import { IOptions } from '@/interface/common'
 import areaOptions from '@/assets/json/area'
 
-interface ConfigItem {
+export interface OptionItem {
+  id: number;
+  config_id: number;
+  display_name: string;
+}
+
+export interface ConfigItem {
+  id: number;
   name: string;
   display_name: string;
   guard_name: string;
-  options: IOptions[];
+  options: OptionItem[];
 }
 
 class ConstService {
@@ -20,6 +26,12 @@ class ConstService {
     const configs: ConfigItem[] = cache.config.get('options') || []
     const config = configs.find((res) => res.name === name)
     return config ? config.options : []
+  }
+
+  getOptionsValue (id: number, _displayName?: string) {
+    const configs: OptionItem[] = cache.config.get('options_list') || []
+    const item = configs.find((res) => res.id === id)
+    return item ? item.id : null
   }
 
   getAreaOptions () {

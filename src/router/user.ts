@@ -18,6 +18,9 @@ import roleAssignPermissions from '@/views/user/member/role/assign_permissions.v
 import Notify from '@/views/user/member/notify/index.vue'
 // 订单
 import Order from '@/views/user/member/order/index.vue'
+// 个人认证
+import PersonalAuth from '@/views/user/member/personal-auth/index.vue'
+import PersonalAuthForm from '@/views/user/member/personal-auth/form.vue'
 
 export default [
   // 职位
@@ -93,5 +96,13 @@ export default [
   {
     path: '/user/member/order',
     component: Order
+  },
+  {
+    path: '/user/member/personal-auth',
+    component: PersonalAuth
+  },
+  {
+    path: '/user/member/personal-auth/form',
+    component: PersonalAuthForm
   }
 ]

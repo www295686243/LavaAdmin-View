@@ -105,4 +105,5 @@ export interface IService {
   limit?: number;
   getPermissionName: Function;
   getModelName: Function;
+  getControllerName: Function;
 }

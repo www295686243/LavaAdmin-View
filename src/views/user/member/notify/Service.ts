@@ -2,7 +2,7 @@ import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  modelName = 'Notify'
+  modelName = 'Notify/Notify'
   index (params: { page: number }) {
     return axios.get('notify', params)
   }

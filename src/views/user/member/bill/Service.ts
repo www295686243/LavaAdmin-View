@@ -2,7 +2,7 @@ import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  modelName = 'UserBill'
+  modelName = 'User/UserBill'
   index (params: { page: number }) {
     return axios.get('user_bill', params)
   }
