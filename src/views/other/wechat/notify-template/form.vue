@@ -21,7 +21,7 @@ import ValidateService from '@/service/ValidateService'
 import ConstService from '@/service/ConstService'
 
 @Component
-export default class PlatformConfigBaseForm extends Vue {
+export default class ViewOtherWeChatNotifyTemplateForm extends Vue {
   private Service = Service
   private form = {
     id: RouterService.query('id'),

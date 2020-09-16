@@ -14,7 +14,6 @@
           type="danger"
           :size="v.size || 'small'"
           :onClick="() => handleDestroy(scope, v)"
-          style="margin-left: 10px;"
           v-if="v.name === '删除'">
           {{v.name}}
         </ButtonDelete>

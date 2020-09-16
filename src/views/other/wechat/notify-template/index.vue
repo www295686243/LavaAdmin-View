@@ -9,9 +9,10 @@
     <TableOptions prop="is_push_official_account" label="推送公众号" :width="100" :options="ConstService.getBoolOptions()"></TableOptions>
     <TableOptions prop="is_push_message" label="推送站内信" :width="100" :options="ConstService.getBoolOptions()"></TableOptions>
     <TableAction :buttons="[
+      { name: '通知用户', onClick: (row) => RouterService.push('/other/wechat/notify-user', { notify_template_id: row.id }) },
       { name: '编辑' },
       { name: '删除' }
-    ]" :minWidth="160" />
+    ]" :minWidth="260" />
   </TableRender>
 </template>
 
@@ -20,11 +21,13 @@ import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
 import { ISearchFields } from '@/interface/common'
 import ConstService from '@/service/ConstService'
+import RouterService from '@/service/RouterService'
 
 @Component
-export default class ViewSystemConfigIndex extends Vue {
+export default class ViewOtherWeChatNotifyTemplateIndex extends Vue {
   private Service = Service
   private ConstService = ConstService
+  private RouterService = RouterService
 
   private searchFields: ISearchFields[] = [
     {
