@@ -72,7 +72,7 @@ export interface IFormFieldItem {
 }
 
 export interface IUploadParams {
-  type: string;
+  _type: string;
   info_id?: number | string;
   marking?: string | number;
 }
