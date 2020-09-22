@@ -135,6 +135,22 @@ function validateEmail (rule: any, value: string, callback: Function) {
   }
 }
 
+function validateMinValue (name: string, value: number, minValue: number, callback: Function) {
+  if (value >= minValue) {
+    callback()
+  } else {
+    callback(new Error(`${name}最小值为${minValue}`))
+  }
+}
+
+function validateMaxValue (name: string, value: number, maxValue: number, callback: Function) {
+  if (value <= maxValue) {
+    callback()
+  } else {
+    callback(new Error(`${name}最大值为${maxValue}`))
+  }
+}
+
 class ValidateService {
   genRule (field: IFormFieldItem) {
     const innerRules = field.rule || []
@@ -192,10 +208,26 @@ class ValidateService {
     }
   }
 
+  minNum (min = 0) {
+    return function ({ name = '' } = {}) {
+      return {
+        min: { min, validator: (rule: any, value: number, callback: Function) => validateMinValue(name, value, min, callback), trigger: 'blur' }
+      }
+    }
+  }
+
   max (max = 0) {
     return function ({ name = '' } = {}) {
       return {
         max: { max, message: `${name}最多${max}个字符`, trigger: 'blur' }
+      }
+    }
+  }
+
+  maxNum (max = 0) {
+    return function ({ name = '' } = {}) {
+      return {
+        max: { max, validator: (rule: any, value: number, callback: Function) => validateMaxValue(name, value, max, callback), trigger: 'blur' }
       }
     }
   }

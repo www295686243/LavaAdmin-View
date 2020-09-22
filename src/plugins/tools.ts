@@ -9,6 +9,17 @@ function recursiveGetAncestors (id: number, list: any[], paths: any[], field: st
   return paths
 }
 
+function getCodeDeep (code: string | number) {
+  code = code.toString()
+  const len = code.length / 3
+  const groupValue = len === 2 ? '00' : '000'
+  const arr = []
+  for (let i = 0; i < 3; i++) {
+    arr.push(code.substr(i * len, len))
+  }
+  return arr.filter((res: string) => res !== groupValue).length
+}
+
 /**
  * 在一个树形结构中，给出一个id，递归获得当前对象与先祖的结果列表
  * @param currentId
@@ -22,6 +33,37 @@ export function getAncestorsAndSelf (currentId: number, list: any[], field = 'id
   } else {
     return []
   }
+}
+
+/**
+ * @param code 101010
+ * @return [100000, 101000, 101010]
+ */
+export function getCodeParents (code: string | number): number[] {
+  if (!code) return []
+  code = code.toString()
+  const len = code.length / 3
+  const deep = getCodeDeep(code)
+  const codes = []
+  for (let i = 1; i < deep; i++) {
+    codes.push(Number(code.substr(0, i * len).padEnd(len * 3, '0')))
+  }
+  codes.push(Number(code))
+  return codes
+}
+
+/**
+ * @param codes [100000, 101000, 101010]
+ * @param datas tree结构
+ * @return [item, item, item]
+ */
+export function codesToPaths (codes: number[], datas: any[]) {
+  let list = datas
+  return codes.map((code: number) => {
+    const item = list.find((res) => res.id === code) as any
+    list = item.children as any[]
+    return item
+  })
 }
 
 /**

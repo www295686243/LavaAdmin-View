@@ -28,6 +28,12 @@ class ConstService {
     return config ? config.options : []
   }
 
+  getGlobalOptions (name: string) {
+    const configs: ConfigItem[] = cache.config.get('options') || []
+    const config = configs.find((res) => res.name === '_global:' + name)
+    return config ? config.options : []
+  }
+
   // eslint-disable-next-line
   getOptionsValue (id: number, _displayName?: string) {
     const configs: OptionItem[] = cache.config.get('options_list') || []

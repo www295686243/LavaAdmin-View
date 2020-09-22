@@ -1,5 +1,5 @@
 <template>
-  <el-form-item :label="field.label" :prop="field.prop" :rules="field.rule">
+  <el-form-item :label="field.label" :prop="field.prop" :rules="field.rule" ref="formItemElement">
     <el-cascader
       v-model="innerValue"
       :clearable="true"
@@ -13,10 +13,17 @@
 
 <script lang="ts">
 import FormMixins from './FormMixins'
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop, Ref } from 'vue-property-decorator'
+import ConstService from '@/service/ConstService'
 
 @Component
 export default class FormCascader extends Mixins(FormMixins) {
+  @Ref()
+  formItemElement!: { clearValidate: Function }
+
+  @Prop()
+  type!: string
+
   private props = {
     expandTrigger: 'hover',
     label: 'display_name',
@@ -29,9 +36,32 @@ export default class FormCascader extends Mixins(FormMixins) {
     } else {
       this.innerValue = values[values.length - 1]
     }
+    this.formItemElement.clearValidate()
+  }
+
+  private validateCityRequired (rule: any, value: number, callback: Function) {
+    if (this.innerValue > 0) {
+      callback()
+    } else {
+      const text = `请选择${this.field.label}`
+      callback(text)
+    }
   }
 
   created () {
+    if (this.type === 'city') {
+      this.field.props = {
+        label: 'name',
+        value: 'id'
+      }
+      this.field.options = ConstService.getAreaOptions()
+      this.field.filterable = true
+      const isRequired = (this.field.rule || []).find((res) => res.required)
+      if (isRequired) {
+        isRequired.type = 'number'
+        this.field.rule = (this.field.rule || []).concat([{ validator: this.validateCityRequired }])
+      }
+    }
     Object.assign(this.props, this.field.props)
   }
 }

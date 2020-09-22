@@ -1,13 +1,13 @@
-import infoCheck from '@/views/info/info-check/index.vue'
-import infoCheckForm from '@/views/info/info-check/form.vue'
+import job from '@/views/hr/hr-job/index.vue'
+import jobForm from '@/views/hr/hr-job/form.vue'
 
 export default [
   {
-    path: '/hr/info-check',
-    component: infoCheck
+    path: '/hr/job',
+    component: job
   },
   {
-    path: '/hr/info-check/form',
-    component: infoCheckForm
+    path: '/hr/job/form',
+    component: jobForm
   }
 ]

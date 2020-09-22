@@ -15,10 +15,13 @@
 <script lang="ts">
 import TableMixins from './TableMixins'
 import { Component, Mixins, Prop } from 'vue-property-decorator'
-import { getAncestorsAndSelf, getDeepValue } from '@/plugins/tools'
+import { codesToPaths, getAncestorsAndSelf, getCodeParents, getDeepValue } from '@/plugins/tools'
 
 @Component
 export default class TableImages extends Mixins(TableMixins) {
+  @Prop()
+  type!: string
+
   @Prop({
     default: () => {
       return {
@@ -35,8 +38,14 @@ export default class TableImages extends Mixins(TableMixins) {
   private getValue (row: any) {
     const value = getDeepValue(this.prop, row)
     if (value) {
-      const paths = getAncestorsAndSelf(value, this.options as any[], this.props.value)
-      return paths.map((res: any) => res[this.props.label]).join('/')
+      if (this.type === 'city') {
+        const codes = getCodeParents(value)
+        const paths = codesToPaths(codes, this.options as any[])
+        return paths.map((res: any) => res.name).join('/')
+      } else {
+        const paths = getAncestorsAndSelf(value, this.options as any[], this.props.value)
+        return paths.map((res: any) => res[this.props.label]).join('/')
+      }
     } else {
       return '--'
     }

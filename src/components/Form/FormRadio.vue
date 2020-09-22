@@ -30,6 +30,9 @@ export default class FormRadio extends Mixins(FormMixins) {
       this.options = this.field.options
     } else {
       this.options = ConstService.getOptions(this.formService.getModelName() + ':' + this.field.prop)
+      if (this.options.length === 0) {
+        this.options = ConstService.getGlobalOptions(this.field.prop as string)
+      }
     }
   }
 }
