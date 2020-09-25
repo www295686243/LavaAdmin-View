@@ -10,6 +10,9 @@ import adminLog from '@/views/system/admin-log/index.vue'
 import version from '@/views/system/version/index.vue'
 import versionForm from '@/views/system/version/form.vue'
 
+import industry from '@/views/system/industry/index.vue'
+import industryForm from '@/views/system/industry/form.vue'
+
 export default [
   {
     path: '/system/config',
@@ -52,5 +55,13 @@ export default [
   {
     path: '/system/version/form',
     component: versionForm
+  },
+  {
+    path: '/system/industry',
+    component: industry
+  },
+  {
+    path: '/system/industry/form',
+    component: industryForm
   }
 ]

@@ -14,7 +14,7 @@ import { IFormFields } from '@/interface/common'
 import ValidateService from '@/service/ValidateService'
 
 @Component
-export default class PlatformConfigBaseForm extends Vue {
+export default class ViewSystemVersionForm extends Vue {
   private Service = Service
   private form = {
     id: RouterService.query('id'),
