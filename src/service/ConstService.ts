@@ -16,8 +16,8 @@ export interface ConfigItem {
 }
 
 class ConstService {
-  getAppValue (name: string) {
-    const configs = cache.config.get('app') || []
+  getValue (name: string) {
+    const configs = cache.config.get('options') || []
     const item = configs.find((res: { name: string }) => res.name === name)
     return item ? item.value : ''
   }

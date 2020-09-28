@@ -116,8 +116,13 @@ export default class TableRender extends Vue {
 
   private removeReload () {
     if (this.list.length === 1) {
-      this.pagination.page = this.pagination.page > 1 ? --this.pagination.page : 1
-      RouterService.replace(RouterService.getPath(), { page: this.pagination.page })
+      const page = this.pagination.page > 1 ? --this.pagination.page : 1
+      if (this.pagination.page === page) {
+        this.reload()
+      } else {
+        this.pagination.page = page
+        RouterService.replace(RouterService.getPath(), { page: this.pagination.page })
+      }
     } else {
       this.reload()
     }

@@ -3,7 +3,6 @@
     <el-row :gutter="20">
       <el-col :span="10">
         <FormText v-model="form.title" :field="formFields.title"></FormText>
-        <FormText v-model="form.company_name" :field="formFields.company_name"></FormText>
         <FormMultipleCascader v-model="form.industry" :field="formFields.industry" type="industry"></FormMultipleCascader>
         <FormTextarea v-model="form.description" :field="formFields.description"></FormTextarea>
         <FormSalary
@@ -14,13 +13,11 @@
           :field="formFields.monthly_range">
         </FormSalary>
         <FormCascader v-model="form.city" :field="formFields.city" type="city"></FormCascader>
-        <FormText v-model="form.address" :field="formFields.address"></FormText>
         <FormRadio v-model="form.is_other_user" :field="formFields.is_other_user"></FormRadio>
         <FormRadio v-model="form.status" :field="formFields.status"></FormRadio>
-        <FormSwitch v-model="form.is_push" :field="formFields.is_push"></FormSwitch>
+        <FormSwitch v-model="form.is_force_show_user_info" :field="formFields.is_force_show_user_info"></FormSwitch>
       </el-col>
       <el-col :span="10">
-        <FormCounter v-model="form.recruiter_number" :field="formFields.recruiter_number"></FormCounter>
         <FormSelect v-model="form.education" :field="formFields.education"></FormSelect>
         <FormSelect v-model="form.seniority" :field="formFields.seniority"></FormSelect>
         <FormCheckbox v-model="form.treatment" :field="formFields.treatment" type="label-string"></FormCheckbox>
@@ -52,27 +49,24 @@ export default class ViewInfoNewsForm extends Vue {
   private form = {
     id: RouterService.query('id'),
     title: '',
-    company_name: '',
     monthly_pay_min: '',
     monthly_pay_max: '',
     monthly_range: '1',
     is_negotiate: 0,
-    recruiter_number: 1,
     education: '',
     seniority: '',
     treatment: '',
     treatment_input: '',
     city: '',
-    address: '',
     end_time: '',
     contacts: '',
     phone: RouterService.query('phone'),
-    status: ConstService.getOptionsValue(50, '已发布'),
+    status: ConstService.getOptionsValue(80, '已发布'),
     is_other_user: 0,
     provide_user_id: RouterService.query('provide_user_id'),
     description: RouterService.query('description'),
-    is_push: 0,
-    industry: []
+    industry: [],
+    is_force_show_user_info: 0
   }
 
   private formFields: IFormFields = ValidateService.genRules({
@@ -81,21 +75,10 @@ export default class ViewInfoNewsForm extends Vue {
       label: '标题',
       rule: [ValidateService.required, ValidateService.max(42)]
     },
-    company_name: {
-      prop: 'company_name',
-      label: '企业名称',
-      rule: [ValidateService.max(60)]
-    },
     industry: {
       prop: 'industry',
       label: '行业',
       rule: [ValidateService.required({ trigger: 'change', type: 'array' })]
-    },
-    recruiter_number: {
-      prop: 'recruiter_number',
-      label: '招聘人数',
-      rule: [ValidateService.minNum(1)],
-      min: 1
     },
     education: {
       prop: 'education',
@@ -126,13 +109,8 @@ export default class ViewInfoNewsForm extends Vue {
     },
     city: {
       prop: 'city',
-      label: '所在城市',
+      label: '期望城市',
       rule: [ValidateService.required]
-    },
-    address: {
-      prop: 'address',
-      label: '详细地址',
-      rule: [ValidateService.max(60)]
     },
     description: {
       prop: 'description',
@@ -158,9 +136,9 @@ export default class ViewInfoNewsForm extends Vue {
       prop: 'status',
       label: '状态'
     },
-    is_push: {
-      prop: 'is_push',
-      label: '推送'
+    is_force_show_user_info: {
+      prop: 'is_force_show_user_info',
+      label: '公开详情'
     }
   })
 }
