@@ -1,17 +1,28 @@
 <template>
   <FormRender :data="form" :Service="Service">
-    <FormText v-model="form.company" :field="formFields.company"></FormText>
-    <FormText v-model="form.business_license" :field="formFields.business_license"></FormText>
-    <FormCascader v-model="form.city" :field="formFields.city"></FormCascader>
-    <FormText v-model="form.address" :field="formFields.address"></FormText>
-    <FormTextarea v-model="form.intro" :field="formFields.intro"></FormTextarea>
-    <FormCheckbox v-model="form.tags" :field="formFields.tags"></FormCheckbox>
+    <el-row :gutter="20">
+      <el-col :span="14">
+        <FormImage v-model="form.avatar" :field="formFields.avatar"></FormImage>
+        <FormText v-model="form.company" :field="formFields.company"></FormText>
+        <FormText v-model="form.business_license" :field="formFields.business_license"></FormText>
+        <FormMultipleCascader v-model="form.industry" :field="formFields.industry" type="industry"></FormMultipleCascader>
+        <FormCascader v-model="form.city" :field="formFields.city"></FormCascader>
+        <FormText v-model="form.address" :field="formFields.address"></FormText>
+        <FormSelect v-model="form.industry_attr" :field="formFields.industry_attr"></FormSelect>
+        <FormSelect v-model="form.company_scale" :field="formFields.company_scale"></FormSelect>
+        <FormTextarea v-model="form.intro" :field="formFields.intro"></FormTextarea>
+        <FormCheckbox v-model="form.tags" :field="formFields.tags" type="label-string"></FormCheckbox>
+      </el-col>
+      <el-col :span="10">
+        <el-divider>运营人信息</el-divider>
+        <FormText v-model="form.name" :field="formFields.name"></FormText>
+        <FormText v-model="form.id_card" :field="formFields.id_card"></FormText>
+        <FormText v-model="form.position" :field="formFields.position"></FormText>
+        <FormText v-model="form.phone" :field="formFields.phone"></FormText>
+        <FormText v-model="form.email" :field="formFields.email"></FormText>
+      </el-col>
+    </el-row>
     <FormImages v-model="form.company_images" :field="formFields.company_images"></FormImages>
-    <FormSelect v-model="form.company_scale" :field="formFields.company_scale"></FormSelect>
-    <el-divider>运营人信息</el-divider>
-    <FormText v-model="form.name" :field="formFields.name"></FormText>
-    <FormText v-model="form.id_card" :field="formFields.id_card"></FormText>
-    <FormText v-model="form.position" :field="formFields.position"></FormText>
   </FormRender>
 </template>
 
@@ -28,20 +39,29 @@ export default class ViewUserMemberUserEnterpriseForm extends Vue {
   private Service = Service
   private form = {
     id: RouterService.query('id'),
+    avatar: '',
     company: '',
     business_license: '',
     city: 0,
     address: '',
     intro: '',
-    tags: [],
+    industry_attr: '',
+    industry: [],
+    tags: '',
     company_images: [],
     company_scale: 0,
     name: '',
     id_card: '',
-    position: ''
+    position: '',
+    phone: '',
+    email: ''
   }
 
   private formFields: IFormFields = ValidateService.genRules({
+    avatar: {
+      prop: 'avatar',
+      label: 'LOGO'
+    },
     company: {
       prop: 'company',
       label: '公司名',
@@ -72,6 +92,19 @@ export default class ViewUserMemberUserEnterpriseForm extends Vue {
       label: '公司简介',
       rule: [ValidateService.max(255)]
     },
+    industry_attr: {
+      prop: 'industry_attr',
+      label: '行业属性'
+    },
+    industry: {
+      prop: 'industry',
+      label: '行业'
+    },
+    email: {
+      prop: 'email',
+      label: '邮箱',
+      rule: [ValidateService.email]
+    },
     tags: {
       prop: 'tags',
       label: '公司标签'
@@ -98,6 +131,11 @@ export default class ViewUserMemberUserEnterpriseForm extends Vue {
       prop: 'position',
       label: '职位',
       rule: [ValidateService.max(60)]
+    },
+    phone: {
+      prop: 'phone',
+      label: '联系电话',
+      rule: [ValidateService.phone]
     }
   })
 }

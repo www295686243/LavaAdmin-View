@@ -66,7 +66,7 @@ export default class ViewUserMemberUserBaseForm extends Vue {
     phone: {
       prop: 'phone',
       label: '手机号',
-      rule: [ValidateService.phone]
+      rule: [ValidateService.mobile]
     }
   })
 

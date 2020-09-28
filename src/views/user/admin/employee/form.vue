@@ -58,7 +58,7 @@ export default class ViewUserAdminEmployeeForm extends Vue {
     phone: ValidateService.genRule({
       prop: 'phone',
       label: '手机号',
-      rule: [ValidateService.phone]
+      rule: [ValidateService.mobile]
     })
   }
 

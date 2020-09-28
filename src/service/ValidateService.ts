@@ -151,6 +151,14 @@ function validateMaxValue (name: string, value: number, maxValue: number, callba
   }
 }
 
+function validatePhone (name: string, value: string, callback: Function) {
+  if (!value || (/^(1)\d{10}$/.test(value) || /^(([0+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/.test(value))) {
+    callback()
+  } else {
+    callback(new Error(`${name}格式不正确`))
+  }
+}
+
 class ValidateService {
   genRule (field: IFormFieldItem) {
     const innerRules = field.rule || []
@@ -269,7 +277,7 @@ class ValidateService {
   }
 
   idcard ({ name = '身份证' } = {}) {
-    return Object.assign({}, this.required()({ name }), this.max(18)({ name }), {
+    return Object.assign({}, this.max(18)({ name }), {
       idcard: { validator: validateIdcard, trigger: 'blur' },
       adult: { validator: validateAdult, trigger: 'blur' }
     })
@@ -285,20 +293,32 @@ class ValidateService {
     return Object.assign({}, this.required()({ name }), this.len(6)({ name }))
   }
 
-  phone ({ name = '手机号' } = {}) {
+  phone ({ name = '联系电话' } = {}) {
+    return Object.assign({}, {
+      phone: { validator: (rule: any, value: string, callback: Function) => validatePhone(name, value, callback), trigger: 'blur' }
+    })
+  }
+
+  telephone ({ name = '联系电话' } = {}) {
+    return {
+      telephone: { pattern: new RegExp(/^(([0+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/), message: `${name}格式不正确`, trigger: 'blur' }
+    }
+  }
+
+  mobile ({ name = '手机号' } = {}) {
     return Object.assign({}, this.max(11)({ name }), {
-      phone: { pattern: new RegExp(/^(1)\d{10}$/), message: `${name}格式不正确`, trigger: 'blur' }
+      mobile: { pattern: new RegExp(/^(1)\d{10}$/), message: `${name}格式不正确`, trigger: 'blur' }
     })
   }
 
   fullname ({ name = '姓名' } = {}) {
-    return Object.assign({}, this.required()({ name }), this.max(20)({ name }), {
+    return Object.assign({}, this.max(20)({ name }), {
       fullname: { pattern: new RegExp(/^([\u2e80-\u9fff.·•]{2,20})$/), message: `${name}格式不正确`, trigger: 'blur' }
     })
   }
 
   email ({ name = '邮箱' } = {}) {
-    return Object.assign({}, this.required()({ name }), {
+    return Object.assign({}, {
       email: { validator: validateEmail, trigger: 'blur' }
     })
   }

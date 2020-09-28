@@ -20,6 +20,7 @@ import FormSwitch from './components/Form/FormSwitch.vue'
 import FormDate from './components/Form/FormDate.vue'
 import FormCheckbox from './components/Form/FormCheckbox.vue'
 import FormCascader from './components/Form/FormCascader.vue'
+import FormMultipleCascader from './components/Form/FormMultipleCascader.vue'
 import FormImage from './components/Form/FormImage.vue'
 import FormImages from './components/Form/FormImages.vue'
 import FormGroupRender from './components/Form/FormGroupRender.vue'
@@ -52,6 +53,7 @@ Vue.component('FormSwitch', FormSwitch)
 Vue.component('FormDate', FormDate)
 Vue.component('FormCheckbox', FormCheckbox)
 Vue.component('FormCascader', FormCascader)
+Vue.component('FormMultipleCascader', FormMultipleCascader)
 Vue.component('FormImage', FormImage)
 Vue.component('FormImages', FormImages)
 Vue.component('FormRangeDate', FormRangeDate)

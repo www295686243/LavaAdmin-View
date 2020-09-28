@@ -1,44 +1,63 @@
 <template>
   <FormRender :data="form" :Service="Service">
-    <FormText v-model="form.name" :field="formFields.name"></FormText>
-    <FormText v-model="form.id_card" :field="formFields.id_card"></FormText>
-    <FormSelect v-model="form.seniority" :field="formFields.seniority"></FormSelect>
-    <FormTextarea v-model="form.intro" :field="formFields.intro"></FormTextarea>
-    <FormText v-model="form.company" :field="formFields.company"></FormText>
-    <FormText v-model="form.position" :field="formFields.position"></FormText>
-    <FormCascader v-model="form.city" :field="formFields.city"></FormCascader>
-    <FormText v-model="form.address" :field="formFields.address"></FormText>
-    <FormCheckbox v-model="form.tags" :field="formFields.tags"></FormCheckbox>
-    <FormGroupRender v-model="form.education_experience" title="教育经历" :initData="education_experience_form">
-      <template v-slot="{ v }">
-        <FormRangeDate
-          v-model="v.rangeDate"
-          :minValue.sync="v.minDate"
-          :maxValue.sync="v.maxDate"
-          :field="educationExperienceFormFields.rangeDate" />
-        <FormText v-model="v.school" :field="educationExperienceFormFields.school"></FormText>
-        <FormText v-model="v.profession" :field="educationExperienceFormFields.profession"></FormText>
-      </template>
-    </FormGroupRender>
-    <FormGroupRender v-model="form.work_experience" title="工作经历" :initData="work_experience_form">
-      <template v-slot="{ v }">
-        <FormRangeDate
-          v-model="v.rangeDate"
-          :minValue.sync="v.minDate"
-          :maxValue.sync="v.maxDate"
-          :field="workExperienceFormFields.rangeDate" />
-        <FormText v-model="v.company" :field="workExperienceFormFields.company"></FormText>
-        <FormText v-model="v.position" :field="workExperienceFormFields.position"></FormText>
-        <FormCascader v-model="v.city" :field="workExperienceFormFields.city"></FormCascader>
-        <FormText v-model="v.address" :field="workExperienceFormFields.address"></FormText>
-      </template>
-    </FormGroupRender>
-    <FormGroupRender v-model="form.honorary_certificate" title="荣誉证书" :initData="honorary_certificate_form">
-      <template v-slot="{ v }">
-        <FormText v-model="v.name" :field="honoraryCertificateFormFields.name"></FormText>
-        <FormImages v-model="v.images" :field="honoraryCertificateFormFields.images"></FormImages>
-      </template>
-    </FormGroupRender>
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <FormImage v-model="form.avatar" :field="formFields.avatar"></FormImage>
+        <FormText v-model="form.name" :field="formFields.name"></FormText>
+        <FormText v-model="form.id_card" :field="formFields.id_card"></FormText>
+        <FormText v-model="form.phone" :field="formFields.phone"></FormText>
+        <FormText v-model="form.email" :field="formFields.email"></FormText>
+        <FormCascader v-model="form.city" :field="formFields.city"></FormCascader>
+        <FormText v-model="form.address" :field="formFields.address"></FormText>
+      </el-col>
+      <el-col :span="12">
+        <FormText v-model="form.company" :field="formFields.company"></FormText>
+        <FormMultipleCascader v-model="form.industry" :field="formFields.industry" type="industry"></FormMultipleCascader>
+        <FormText v-model="form.position" :field="formFields.position"></FormText>
+        <FormSelect v-model="form.position_attr" :field="formFields.position_attr"></FormSelect>
+        <FormSelect v-model="form.seniority" :field="formFields.seniority"></FormSelect>
+        <FormCheckbox v-model="form.tags" :field="formFields.tags" type="label-string"></FormCheckbox>
+        <FormTextarea v-model="form.intro" :field="formFields.intro"></FormTextarea>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="8">
+        <FormGroupRender v-model="form.education_experience" title="教育经历" :initData="education_experience_form">
+          <template v-slot="{ v }">
+            <FormRangeDate
+              v-model="v.rangeDate"
+              :minValue.sync="v.minDate"
+              :maxValue.sync="v.maxDate"
+              :field="educationExperienceFormFields.rangeDate" />
+            <FormText v-model="v.school" :field="educationExperienceFormFields.school"></FormText>
+            <FormText v-model="v.profession" :field="educationExperienceFormFields.profession"></FormText>
+          </template>
+        </FormGroupRender>
+      </el-col>
+      <el-col :span="8">
+        <FormGroupRender v-model="form.work_experience" title="工作经历" :initData="work_experience_form">
+          <template v-slot="{ v }">
+            <FormRangeDate
+              v-model="v.rangeDate"
+              :minValue.sync="v.minDate"
+              :maxValue.sync="v.maxDate"
+              :field="workExperienceFormFields.rangeDate" />
+            <FormText v-model="v.company" :field="workExperienceFormFields.company"></FormText>
+            <FormText v-model="v.position" :field="workExperienceFormFields.position"></FormText>
+            <FormCascader v-model="v.city" :field="workExperienceFormFields.city"></FormCascader>
+            <FormText v-model="v.address" :field="workExperienceFormFields.address"></FormText>
+          </template>
+        </FormGroupRender>
+      </el-col>
+      <el-col :span="8">
+        <FormGroupRender v-model="form.honorary_certificate" title="荣誉证书" :initData="honorary_certificate_form">
+          <template v-slot="{ v }">
+            <FormText v-model="v.name" :field="honoraryCertificateFormFields.name"></FormText>
+            <FormImages v-model="v.images" :field="honoraryCertificateFormFields.images"></FormImages>
+          </template>
+        </FormGroupRender>
+      </el-col>
+    </el-row>
   </FormRender>
 </template>
 
@@ -55,18 +74,23 @@ export default class ViewUserMemberUserPersonalForm extends Vue {
   private Service = Service
   private form = {
     id: RouterService.query('id'),
+    avatar: '',
     name: '',
     id_card: '',
     seniority: '',
     intro: '',
+    email: '',
+    phone: '',
     company: '',
     position: '',
+    position_attr: '',
     city: 0,
     address: '',
-    tags: [],
+    tags: '',
     education_experience: [],
     work_experience: [],
-    honorary_certificate: []
+    honorary_certificate: [],
+    industry: []
   }
 
   private education_experience_form = {
@@ -98,6 +122,10 @@ export default class ViewUserMemberUserPersonalForm extends Vue {
       label: '姓名',
       rule: [ValidateService.fullname, ValidateService.optional]
     },
+    avatar: {
+      prop: 'avatar',
+      label: '头像'
+    },
     id_card: {
       prop: 'id_card',
       label: '身份证',
@@ -112,6 +140,16 @@ export default class ViewUserMemberUserPersonalForm extends Vue {
       label: '个人介绍',
       rule: [ValidateService.max(255)]
     },
+    email: {
+      prop: 'email',
+      label: '邮箱',
+      rule: [ValidateService.email]
+    },
+    phone: {
+      prop: 'phone',
+      label: '手机号',
+      rule: [ValidateService.mobile]
+    },
     company: {
       prop: 'company',
       label: '公司名',
@@ -122,9 +160,13 @@ export default class ViewUserMemberUserPersonalForm extends Vue {
       label: '职位',
       rule: [ValidateService.max(60)]
     },
+    position_attr: {
+      prop: 'position_attr',
+      label: '职位属性'
+    },
     city: {
       prop: 'city',
-      label: '公司地区',
+      label: '所在地区',
       options: ConstService.getAreaOptions(),
       props: {
         label: 'name',
@@ -148,6 +190,10 @@ export default class ViewUserMemberUserPersonalForm extends Vue {
     honorary_certificate: {
       prop: 'honorary_certificate',
       label: '荣誉证书'
+    },
+    industry: {
+      prop: 'industry',
+      label: '行业'
     }
   })
 

@@ -46,6 +46,9 @@ export default class FormCheckbox extends Vue {
 
   private setInnerValue (value: string | number[] | string[]) {
     if (this.type === 'value-string' || this.type === 'label-string') {
+      if (Array.isArray(value)) {
+        console.error(`${this.type}：数据格式错误`)
+      }
       this.innerValue = (value as string).split(',').filter((res) => res)
     } else {
       this.innerValue = JSON.parse(JSON.stringify(value))

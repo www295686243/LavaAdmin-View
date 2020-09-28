@@ -5,8 +5,7 @@
       :clearable="true"
       :options="field.options"
       :props="props"
-      @change="onChange"
-      :filterable="field.filterable"
+      :filterable="true"
       :disabled="field.disabled"></el-cascader>
   </el-form-item>
 </template>
@@ -27,16 +26,8 @@ export default class FormCascader extends Mixins(FormMixins) {
   private props = {
     expandTrigger: 'hover',
     label: 'display_name',
-    value: 'id'
-  }
-
-  private onChange (values: number[]) {
-    if (values.length === 0) {
-      this.innerValue = 0
-    } else {
-      this.innerValue = values[values.length - 1]
-    }
-    this.formItemElement.clearValidate()
+    value: 'id',
+    emitPath: false
   }
 
   private validateCityRequired (rule: any, value: number, callback: Function) {
@@ -55,7 +46,6 @@ export default class FormCascader extends Mixins(FormMixins) {
         value: 'id'
       }
       this.field.options = ConstService.getAreaOptions()
-      this.field.filterable = true
       const isRequired = (this.field.rule || []).find((res) => res.required)
       if (isRequired) {
         isRequired.type = 'number'
