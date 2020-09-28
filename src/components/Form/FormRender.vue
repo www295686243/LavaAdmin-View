@@ -1,7 +1,7 @@
 <template>
   <DataRender class="FormRender" :onLoad="handleLoad">
     <div class="FormMainContainer">
-      <el-form :model="data" label-width="100px" ref="FormElement" class="FormContentContainer">
+      <el-form :model="form" label-width="100px" ref="FormElement" class="FormContentContainer">
         <slot></slot>
       </el-form>
     </div>
@@ -32,7 +32,7 @@ export default class FormRender extends Vue {
   }
 
   @Prop()
-  data!: any
+  form!: any
 
   @Prop()
   onSubmit!: Function
@@ -55,11 +55,11 @@ export default class FormRender extends Vue {
         if (this.onLoad) {
           return this.onLoad()
         } else {
-          if (this.data.id && this.Service.show) {
-            return this.Service.show(this.data.id)
+          if (this.form.id && this.Service.show) {
+            return this.Service.show(this.form.id)
               .then((res: IResult) => {
-                Object.keys(this.data).forEach((key: string) => {
-                  this.data[key] = res.data[key] || this.data[key]
+                Object.keys(this.form).forEach((key: string) => {
+                  this.form[key] = res.data[key] || this.form[key]
                 })
               })
           }
@@ -75,10 +75,10 @@ export default class FormRender extends Vue {
         } else {
           return Promise.resolve()
             .then(() => {
-              if (this.data.id) {
-                return this.Service.update(this.data)
+              if (this.form.id) {
+                return this.Service.update(this.form)
               } else {
-                return this.Service.store(this.data)
+                return this.Service.store(this.form)
               }
             })
         }

@@ -1,5 +1,5 @@
 <template>
-  <FormRender :data="form" :Service="Service">
+  <FormRender :form="form" :Service="Service">
     <el-row :gutter="20">
       <el-col :span="12">
         <FormImage v-model="form.avatar" :field="formFields.avatar"></FormImage>

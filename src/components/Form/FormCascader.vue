@@ -52,6 +52,7 @@ export default class FormCascader extends Mixins(FormMixins) {
         this.field.rule = (this.field.rule || []).concat([{ validator: this.validateCityRequired }])
       }
     }
+    this.innerValue = this.innerValue ? Number(this.innerValue) : 0
     Object.assign(this.props, this.field.props)
   }
 }

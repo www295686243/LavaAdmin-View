@@ -1,5 +1,5 @@
 <template>
-  <FormRender :data="form" :Service="Service">
+  <FormRender :form="form" :Service="Service">
     <FormSwitch v-model="form.is_disable_all_push" :field="formFields.is_disable_all_push"></FormSwitch>
   </FormRender>
 </template>

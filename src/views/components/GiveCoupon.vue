@@ -1,5 +1,5 @@
 <template>
-  <FormRender :onLoad="handleLoad" :data="form" :onSubmit="handleSubmit" :disableSubmitAndBackBtn="true">
+  <FormRender :onLoad="handleLoad" :form="form" :onSubmit="handleSubmit" :disableSubmitAndBackBtn="true">
     <FormSelect v-model="form.coupon_template_id" :field="formFields.coupon_template_id"></FormSelect>
     <FormSelect v-model="form.amount" :field="formFields.amount"></FormSelect>
     <FormCounter v-model="form.give_number" :field="formFields.give_number"></FormCounter>

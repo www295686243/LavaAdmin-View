@@ -1,5 +1,5 @@
 <template>
-  <FormRender :onLoad="handleLoad" :data="form" :Service="Service">
+  <FormRender :onLoad="handleLoad" :form="form" :Service="Service">
     <FormSelect v-model="form.role_names" :field="formFields.role_names"></FormSelect>
     <FormImage v-model="form.head_url" :field="formFields.head_url"></FormImage>
     <FormText v-model="form.username" :field="formFields.username"></FormText>

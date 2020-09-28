@@ -17,6 +17,9 @@ export default class FormCheckbox extends Vue {
   formService!: IService
 
   @Prop()
+  fieldService!: IService
+
+  @Prop()
   field!: IFormFieldItem
 
   @Prop()
@@ -74,7 +77,8 @@ export default class FormCheckbox extends Vue {
     if (this.field.options) {
       this.options = this.field.options
     } else {
-      this.options = ConstService.getOptions(this.formService.getModelName() + ':' + this.field.prop)
+      const modelName = this.fieldService ? this.fieldService.getModelName() : this.formService.getModelName()
+      this.options = ConstService.getOptions(modelName + ':' + this.field.prop)
       if (this.options.length === 0) {
         this.options = ConstService.getGlobalOptions(this.field.prop as string)
       }

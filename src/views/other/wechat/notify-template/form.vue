@@ -1,5 +1,5 @@
 <template>
-  <FormRender :data="form" :Service="Service">
+  <FormRender :form="form" :Service="Service">
     <FormText v-model="form.template_id" :field="formFields.template_id"></FormText>
     <FormText v-model="form.title" :field="formFields.title"></FormText>
     <FormText v-model="form.content" :field="formFields.content"></FormText>

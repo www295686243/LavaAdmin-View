@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import FormMixins from './FormMixins'
-import { Component, Mixins, Inject } from 'vue-property-decorator'
+import { Component, Mixins, Inject, Prop } from 'vue-property-decorator'
 import { IService, IOptions } from '@/interface/common'
 import ConstService from '@/service/ConstService'
 
@@ -16,6 +16,9 @@ import ConstService from '@/service/ConstService'
 export default class FormRadio extends Mixins(FormMixins) {
   @Inject('formService')
   formService!: IService
+
+  @Prop()
+  fieldService!: IService
 
   private props = {
     value: 'id',
@@ -29,7 +32,8 @@ export default class FormRadio extends Mixins(FormMixins) {
     if (this.field.options) {
       this.options = this.field.options
     } else {
-      this.options = ConstService.getOptions(this.formService.getModelName() + ':' + this.field.prop)
+      const modelName = this.fieldService ? this.fieldService.getModelName() : this.formService.getModelName()
+      this.options = ConstService.getOptions(modelName + ':' + this.field.prop)
       if (this.options.length === 0) {
         this.options = ConstService.getGlobalOptions(this.field.prop as string)
       }

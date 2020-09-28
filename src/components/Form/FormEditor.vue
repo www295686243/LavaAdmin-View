@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import FormMixins from './FormMixins'
-import { Component, Mixins, Inject } from 'vue-property-decorator'
+import { Component, Mixins, Inject, Prop } from 'vue-property-decorator'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import VueNeditorWrap from 'vue-neditor-wrap-wx'
@@ -25,6 +25,9 @@ export default class FormEditor extends Mixins(FormMixins) {
 
   @Inject('formService')
   formService!: IService
+
+  @Prop()
+  fieldService!: IService
 
   private ImageManageService!: ImageManageService
 
@@ -97,7 +100,8 @@ export default class FormEditor extends Mixins(FormMixins) {
   }
 
   private handleChangeModal () {
-    return this.ImageManageService.open('multiple', this.formService.getModelName())
+    const modelName = this.fieldService ? this.fieldService.getModelName() : this.formService.getModelName()
+    return this.ImageManageService.open('multiple', modelName)
       .then((data: object[]) => {
         const imgs = data.map((res: any) => res.full_url)
           .map((img: string) => '<p><img src="' + img + '" /></p>')

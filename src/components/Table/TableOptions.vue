@@ -37,22 +37,25 @@ export default class TableOptions extends Mixins(TableMixins) {
   @Prop()
   colors!: { [key: string]: string }
 
+  @Prop()
+  options!: IOptions[]
+
   @Inject('tableService')
   tableService!: IService
 
-  private options = [] as IOptions[]
+  private innerOptions = [] as IOptions[]
 
   private getValue (row: any) {
     let value = getDeepValue(this.prop, row)
     value = this.bool && !value ? 0 : value
-    const item = this.options.find((res) => res[this.props.value] === value)
+    const item = this.innerOptions.find((res) => res[this.props.value] === value)
     return item ? item[this.props.label] : '--'
   }
 
   private getColor (row: any) {
     let value = getDeepValue(this.prop, row)
     value = this.bool && !value ? 0 : value
-    const item = this.options.find((res) => res[this.props.value] === value)
+    const item = this.innerOptions.find((res) => res[this.props.value] === value)
     if (item && item.color) {
       return ConstService.getColor(item.color)
     }
@@ -63,7 +66,11 @@ export default class TableOptions extends Mixins(TableMixins) {
   }
 
   created () {
-    this.options = ConstService.getOptions(this.tableService.getModelName() + ':' + this.prop)
+    if (this.options) {
+      this.innerOptions = JSON.parse(JSON.stringify(this.options))
+    } else {
+      this.innerOptions = ConstService.getOptions(this.tableService.getModelName() + ':' + this.prop)
+    }
   }
 }
 </script>
