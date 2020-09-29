@@ -16,10 +16,10 @@ import axios from '@/plugins/axios'
 @Component
 export default class TableAction extends Vue {
   @Prop()
-  id!: string
+  params!: { id: string }
 
   private form = {
-    user_id: this.id,
+    user_id: this.params.id,
     coupon_template_id: '',
     amount: 3,
     give_number: 1,
