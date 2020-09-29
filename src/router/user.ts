@@ -24,6 +24,9 @@ import PersonalAuthForm from '@/views/user/member/personal-auth/form.vue'
 // 企业认证
 import EnterpriseAuth from '@/views/user/member/enterprise-auth/index.vue'
 import EnterpriseAuthForm from '@/views/user/member/enterprise-auth/form.vue'
+// 资料审核
+import infoCheck from '@/views/info/info-check/index.vue'
+import infoCheckForm from '@/views/info/info-check/form.vue'
 
 export default [
   // 职位
@@ -115,5 +118,13 @@ export default [
   {
     path: '/user/member/enterprise-auth/form',
     component: EnterpriseAuthForm
+  },
+  {
+    path: '/user/info-check',
+    component: infoCheck
+  },
+  {
+    path: '/user/info-check/form',
+    component: infoCheckForm
   }
 ]

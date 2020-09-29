@@ -7,7 +7,7 @@ class Service extends BaseModalService {
   index (params: { page: number }) {
     return axios.get('info_check', {
       ...params,
-      _type: RouterService.query('_type')
+      _model: RouterService.query('_model')
     })
   }
 

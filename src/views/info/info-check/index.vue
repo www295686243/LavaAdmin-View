@@ -21,7 +21,8 @@ export default class ViewInfoCheckIndex extends Vue {
 
   private typeOptions = [
     { id: 'App\\Models\\Info\\Hr\\HrJob', display_name: '招聘' },
-    { id: 'App\\Models\\Info\\Hr\\HrResume', display_name: '求职' }
+    { id: 'App\\Models\\Info\\Hr\\HrResume', display_name: '求职' },
+    { id: 'App\\Models\\User\\UserPersonal', display_name: '个人详情' }
   ]
 }
 </script>

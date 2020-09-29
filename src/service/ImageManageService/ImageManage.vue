@@ -91,7 +91,7 @@ export default class ImageManage extends Vue {
   }
 
   private uploadParams: IUploadParams = {
-    _type: this.modelName,
+    _model: this.modelName,
     info_id: RouterService.query('id'),
     marking: RouterService.query('marking')
   }
