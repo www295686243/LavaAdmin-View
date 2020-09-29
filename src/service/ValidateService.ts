@@ -317,9 +317,15 @@ class ValidateService {
     })
   }
 
-  email ({ name = '邮箱' } = {}) {
+  email () {
     return Object.assign({}, {
       email: { validator: validateEmail, trigger: 'blur' }
+    })
+  }
+
+  validator (validator: Function) {
+    return Object.assign({}, {
+      validator: { validator, trigger: 'blur' }
     })
   }
 }

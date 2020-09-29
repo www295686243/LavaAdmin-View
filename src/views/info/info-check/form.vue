@@ -1,7 +1,9 @@
 <template>
   <FormRender :form="form" :Service="Service">
-    <HrJobForm :form="form.contents" v-if="form.info_checkable_type === 'App\\Models\\Info\\Hr\\HrJob'"></HrJobForm>
-    <HrResumeForm :form="form.contents" v-else-if="form.info_checkable_type === 'App\\Models\\Info\\Hr\\HrResume'"></HrResumeForm>
+    <el-form :model="form.contents" label-width="100px">
+      <HrJobForm :form="form.contents" v-if="form.info_checkable_type === 'App\\Models\\Info\\Hr\\HrJob'"></HrJobForm>
+      <HrResumeForm :form="form.contents" v-else-if="form.info_checkable_type === 'App\\Models\\Info\\Hr\\HrResume'"></HrResumeForm>
+    </el-form>
     <el-divider>信息审核</el-divider>
     <FormRadio v-model="form.status" :field="formFields.status"></FormRadio>
     <FormText v-model="form.refuse_reason" :field="formFields.refuse_reason"></FormText>
@@ -34,6 +36,13 @@ export default class ViewInfoCheckForm extends Vue {
     refuse_reason: ''
   }
 
+  private validateReason (rule: any, value: string, callback: Function) {
+    if (this.form.status === ConstService.getOptionsValue(49, '未通过') && !value) {
+      callback(new Error('请输入拒绝原因'))
+    }
+    callback()
+  }
+
   private formFields: IFormFields = ValidateService.genRules({
     status: {
       prop: 'status',
@@ -41,7 +50,8 @@ export default class ViewInfoCheckForm extends Vue {
     },
     refuse_reason: {
       prop: 'refuse_reason',
-      label: '拒绝原因'
+      label: '拒绝原因',
+      rule: [ValidateService.validator(this.validateReason), ValidateService.max(255)]
     }
   })
 }
