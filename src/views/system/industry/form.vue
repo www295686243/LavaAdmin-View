@@ -64,7 +64,10 @@ export default class ViewSystemIndustryForm extends Vue {
           return Service.store(this.form)
         }
       })
-      .then(() => this.getParentTree())
+      .then((res) => {
+        return this.getParentTree()
+          .then(() => res)
+      })
   }
 
   private getParentTree () {

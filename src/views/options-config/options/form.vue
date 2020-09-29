@@ -1,8 +1,8 @@
 <template>
-  <FormRender :data="data" :Service="Service">
-    <FormText v-model="data.display_name" :field="formFields.display_name"></FormText>
-    <FormText v-model="data.color" :field="formFields.color"></FormText>
-    <FormCounter v-model="data.sort" :field="formFields.sort"></FormCounter>
+  <FormRender :form="form" :Service="Service">
+    <FormText v-model="form.display_name" :field="formFields.display_name"></FormText>
+    <FormText v-model="form.color" :field="formFields.color"></FormText>
+    <FormCounter v-model="form.sort" :field="formFields.sort"></FormCounter>
   </FormRender>
 </template>
 
@@ -16,7 +16,7 @@ import ValidateService from '@/service/ValidateService'
 @Component
 export default class PlatformConfigBaseForm extends Vue {
   private Service = Service
-  private data = {
+  private form = {
     id: RouterService.query('id'),
     display_name: '',
     color: '',

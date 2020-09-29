@@ -1,5 +1,5 @@
 <template>
-  <FormRender :Service="Service" :data="info" class="view-popover-api_log-show">
+  <FormRender :Service="Service" :form="info" class="view-popover-api_log-show">
     <el-row>
       <el-col :span="12">
         <FormText v-model="info.method" :field="formFields.method"></FormText>

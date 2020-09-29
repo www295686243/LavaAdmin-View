@@ -1,5 +1,5 @@
 <template>
-  <FormRender :Service="Service" :data="info">
+  <FormRender :Service="Service" :form="info">
     <FormText v-model="info.user.nickname" :field="formFields.nickname"></FormText>
     <FormText v-model="info.user_orderable.title" :field="formFields.title"></FormText>
     <FormText v-model="info.total_amount" :field="formFields.total_amount"></FormText>
