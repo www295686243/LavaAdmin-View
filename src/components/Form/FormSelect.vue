@@ -6,7 +6,7 @@
       @change="onChange"
       clearable
       :multiple="field.multiple">
-      <el-option :value="v[props.value]" v-for="v in options" :key="v[props.value]" :label="v[props.label]"></el-option>
+      <el-option :value="v[props.value]" v-for="v in options" :key="v[props.value]" :label="v[props.label]" :disabled="v.disabled"></el-option>
     </el-select>
   </el-form-item>
 </template>

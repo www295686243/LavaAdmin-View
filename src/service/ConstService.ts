@@ -5,6 +5,7 @@ export interface OptionItem {
   id: number;
   config_id: number;
   display_name: string;
+  disabled: boolean;
 }
 
 export interface ConfigItem {
@@ -38,7 +39,7 @@ class ConstService {
   getOptionsValue (id: number, _displayName?: string) {
     const configs: OptionItem[] = cache.config.get('options_list') || []
     const item = configs.find((res) => res.id === id)
-    return item ? item.id : null
+    return item ? item.id : 0
   }
 
   getAreaOptions () {

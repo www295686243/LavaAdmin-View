@@ -8,6 +8,7 @@ import info from './info'
 import other from './other'
 import operation from './operation'
 import report from './report'
+import financial from './financial'
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,8 @@ const routes: Array<RouteConfig> = [
       ...info,
       ...other,
       ...operation,
-      ...report
+      ...report,
+      ...financial
     ]
   },
   {
