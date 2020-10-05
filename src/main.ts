@@ -25,6 +25,7 @@ import FormMultipleCascader from './components/Form/FormMultipleCascader.vue'
 import FormImage from './components/Form/FormImage.vue'
 import FormImages from './components/Form/FormImages.vue'
 import FormGroupRender from './components/Form/FormGroupRender.vue'
+import FormMultipleGroupPopup from './components/Form/FormMultipleGroupPopup.vue'
 import FormGroupPopup from './components/Form/FormGroupPopup.vue'
 import FormRangeDate from './components/Form/FormRangeDate.vue'
 
@@ -61,6 +62,7 @@ Vue.component('FormImage', FormImage)
 Vue.component('FormImages', FormImages)
 Vue.component('FormRangeDate', FormRangeDate)
 Vue.component('FormGroupRender', FormGroupRender)
+Vue.component('FormMultipleGroupPopup', FormMultipleGroupPopup)
 Vue.component('FormGroupPopup', FormGroupPopup)
 
 Vue.component('TableRender', TableRender)

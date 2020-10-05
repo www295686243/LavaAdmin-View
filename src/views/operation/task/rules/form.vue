@@ -1,8 +1,8 @@
 <template>
-  <FormRender :form="form" :Service="Service">
+  <FormRender :form="form" :Service="Service" :onLoad="handleLoad">
     <FormInput v-model="form.title" :field="formFields.title"></FormInput>
     <FormCounter v-model="form.get_number" :field="formFields.get_number"></FormCounter>
-    <FormGroupPopup
+    <FormMultipleGroupPopup
       title="任务规则"
       v-model="form.rules"
       :initForm="rulesForm"
@@ -11,6 +11,19 @@
         <FormSelect v-model="v.rule_name" :field="rulesFormFields.rule_name"></FormSelect>
         <FormSelect v-model="v.operator" :field="rulesFormFields.operator"></FormSelect>
         <FormCounter v-model="v.target_number" :field="rulesFormFields.target_number"></FormCounter>
+      </template>
+    </FormMultipleGroupPopup>
+    <FormGroupPopup
+      :style="{ marginTop: '20px' }"
+      title="任务奖励"
+      v-model="form.rewards"
+      :initForm="rewardsForm"
+      :fields="rewardsFormFields">
+      <template v-slot="{ v }">
+        <FormSelect v-model="v.coupon_template_id" :field="rewardsFormFields.coupon_template_id"></FormSelect>
+        <FormSelect v-model="v.amount" :field="rewardsFormFields.amount"></FormSelect>
+        <FormCounter v-model="v.give_number" :field="rewardsFormFields.give_number"></FormCounter>
+        <FormCounter v-model="v.expiry_day" :field="rewardsFormFields.expiry_day"></FormCounter>
       </template>
     </FormGroupPopup>
   </FormRender>
@@ -22,6 +35,7 @@ import Service from './Service'
 import RouterService from '@/service/RouterService'
 import { IFormFields } from '@/interface/common'
 import ValidateService from '@/service/ValidateService'
+import axios from '@/plugins/axios'
 
 @Component
 export default class ViewOperationTaskForm extends Vue {
@@ -33,6 +47,8 @@ export default class ViewOperationTaskForm extends Vue {
     get_number: 1,
     rules: [],
     rewards: []
+  } as {
+    [key: string]: any;
   }
 
   private rulesForm = {
@@ -42,11 +58,32 @@ export default class ViewOperationTaskForm extends Vue {
   }
 
   private rewardsForm = {
-    reward_name: '',
+    reward_name: 'coupon',
     coupon_template_id: 0,
     amount: '',
     give_number: 1,
     expiry_day: 30
+  }
+
+  private fetchCouponList () {
+    return axios.get('coupon_template/getAll')
+      .then((res) => {
+        this.rewardsFormFields.coupon_template_id.options = res.data
+      })
+  }
+
+  private handleLoad () {
+    return this.fetchCouponList()
+      .then(() => {
+        if (this.form.id) {
+          return Service.show(this.form.id)
+            .then((res) => {
+              Object.keys(this.form).forEach((key: string) => {
+                this.form[key] = res.data[key] || this.form[key]
+              })
+            })
+        }
+      })
   }
 
   private formFields: IFormFields = ValidateService.genRules({
@@ -93,25 +130,32 @@ export default class ViewOperationTaskForm extends Vue {
   })
 
   private rewardsFormFields: IFormFields = ValidateService.genRules({
-    reward_name: {
-      prop: 'reward_name',
-      label: '奖励类型'
-    },
     coupon_template_id: {
       prop: 'coupon_template_id',
-      label: '优惠券模板'
+      label: '优惠券模板',
+      options: [],
+      rule: [ValidateService.required({ trigger: 'change', type: 'number' })]
     },
     amount: {
       prop: 'amount',
-      label: '金额'
+      label: '金额',
+      options: [
+        { display_name: '3元', id: 3 },
+        { display_name: '5元', id: 5 }
+      ],
+      rule: [ValidateService.required({ trigger: 'change', type: 'number' })]
     },
     give_number: {
       prop: 'give_number',
-      label: '奖励数量'
+      label: '奖励数量',
+      min: 1,
+      rule: [ValidateService.required({ trigger: 'change', type: 'number' }), ValidateService.minNum(1)]
     },
     expiry_day: {
       prop: 'expiry_day',
-      label: '到期天数'
+      label: '到期天数',
+      min: 1,
+      rule: [ValidateService.required({ trigger: 'change', type: 'number' }), ValidateService.minNum(1)]
     }
   })
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="FormGroupPopup">
+  <div class="FormMultipleGroupPopup">
     <el-card>
       <div slot="header">
         <el-row type="flex" justify="space-between" align="middle">
@@ -11,40 +11,59 @@
           </el-col>
         </el-row>
       </div>
-      <el-row :gutter="60">
-        <el-col :span="8" v-for="(v, index) in innerValue" :key="index">
-          <FormText label-width="82px" :value="getValue(v, field)" :field="field" v-for="field in fields" :key="field.prop"></FormText>
+      <template v-for="(list, index) in innerExportValue">
+        <div :key="index">
+          <el-divider v-if="index > 0">并且</el-divider>
+          <el-row :gutter="60">
+            <el-col :span="8" v-for="(item, key) in list" :key="key" class="FormGroup-col">
+              <div :key="index" class="FormGroup-item">
+                <FormText label-width="68px" :value="getValue(item, field)" :field="field" v-for="field in fields" :key="field.prop"></FormText>
+              </div>
+            </el-col>
+          </el-row>
           <div class="FormGroup-footer">
             <ButtonSubmit size="mini" :onClick="() => handleEdit(index)">编辑</ButtonSubmit>
             <ButtonDelete size="mini" type="danger" :onClick="() => handleDelete(index)">删除</ButtonDelete>
           </div>
-        </el-col>
-      </el-row>
+        </div>
+      </template>
     </el-card>
     <el-dialog
       :visible.sync="isShowDialog"
       v-if="isShowDialog"
       :close-on-click-modal="false"
-      custom-class="FormGroupDialog"
+      custom-class="FormMultipleGroupDialog"
       :append-to-body="true"
       :destroy-on-close="true"
       :closed="handleClose"
       width="600px">
-      <FormRender :form="innerForm" :onSubmit="handleSubmit" :disableSubmitAndBackBtn="true">
-        <slot :v="innerForm"></slot>
-      </FormRender>
+      <FormGroupRender :title="title" :initForm="innerForm" v-model="innerValue" ref="formGroupRenderElement">
+        <template v-slot="{ v }">
+          <slot :v="v"></slot>
+        </template>
+      </FormGroupRender>
+      <div class="FormMultipleGroupDialog-footer" slot="footer">
+        <ButtonSubmit :onClick="handleSubmit">确定</ButtonSubmit>
+      </div>
     </el-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import { IFormFieldItem, IFormFields } from '@/interface/common'
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop, Ref } from 'vue-property-decorator'
+
+interface FormElement {
+  validate: Function;
+}
 
 @Component({
-  name: 'FormGroupPopup'
+  name: 'FormMultipleGroupPopup'
 })
-export default class FormGroupPopup extends Vue {
+export default class FormMultipleGroupPopup extends Vue {
+  @Ref()
+  formGroupRenderElement!: FormElement
+
   @Prop()
   title!: string
 
@@ -57,7 +76,8 @@ export default class FormGroupPopup extends Vue {
   @Prop()
   fields!: IFormFields[]
 
-  private innerValue: any[] = this.value || []
+  private innerExportValue: any[] = this.value || []
+  private innerValue: any[] = []
   private isShowDialog = false
   private innerForm = {}
   private editIndex = -1
@@ -66,6 +86,7 @@ export default class FormGroupPopup extends Vue {
     Object.keys(this.initForm).forEach((key) => {
       this.$set(this.innerForm, key, this.initForm[key])
     })
+    this.innerValue.push(this.innerForm)
     this.isShowDialog = true
   }
 
@@ -92,13 +113,15 @@ export default class FormGroupPopup extends Vue {
   }
 
   private handleSubmit () {
-    return Promise.resolve()
+    return this.formGroupRenderElement.validate()
       .then(() => {
         if (this.editIndex === -1) {
-          this.innerValue.push(JSON.parse(JSON.stringify(this.innerForm)))
+          this.innerExportValue.push(JSON.parse(JSON.stringify(this.innerValue)))
         } else {
-          Object.assign(this.innerValue[this.editIndex], this.innerForm)
+          this.innerExportValue[this.editIndex] = JSON.parse(JSON.stringify(this.innerValue))
         }
+        this.innerValue = []
+        this.innerForm = {}
         this.editIndex = -1
         this.isShowDialog = false
       })
@@ -107,13 +130,16 @@ export default class FormGroupPopup extends Vue {
   private handleDelete (index: number) {
     return Promise.resolve()
       .then(() => {
-        this.innerValue.splice(index, 1)
+        this.innerExportValue.splice(index, 1)
       })
   }
 
   private handleEdit (index: number) {
     this.editIndex = index
-    Object.assign(this.innerForm, this.innerValue[index])
+    Object.keys(this.initForm).forEach((key) => {
+      this.$set(this.innerForm, key, this.initForm[key])
+    })
+    this.innerValue = JSON.parse(JSON.stringify(this.innerExportValue[index]))
     this.isShowDialog = true
   }
 
@@ -124,9 +150,35 @@ export default class FormGroupPopup extends Vue {
 </script>
 
 <style lang="scss">
-.FormGroupPopup {
+.FormMultipleGroupPopup {
   .card-header-action {
     text-align: right;
+  }
+  .FormGroup-item {
+    .el-form-item:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .FormGroup-col:not(:last-child) {
+    position: relative;
+    &:before {
+      content: ' ';
+      position: absolute;
+      right: 0;
+      height: 100%;
+      width: 1px;
+      background: #EBEEF5;
+    }
+    &:after {
+      position: absolute;
+      content: '或者';
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      width: 12px;
+      background: #fff;
+    }
   }
   .FormGroup-footer {
     text-align: right;
@@ -135,10 +187,13 @@ export default class FormGroupPopup extends Vue {
     }
   }
 }
-.FormGroupDialog {
+.FormMultipleGroupDialog {
   .el-dialog__body {
     height: 50vh;
     overflow-y: auto;
+  }
+  .FormMultipleGroupDialog-footer {
+    text-align: right;
   }
 }
 </style>
