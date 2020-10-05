@@ -11,6 +11,7 @@ import ButtonSubmit from './components/Button/ButtonSubmit.vue'
 import ButtonDelete from './components/Button/ButtonDelete.vue'
 
 import FormRender from './components/Form/FormRender.vue'
+import FormInput from './components/Form/FormInput.vue'
 import FormText from './components/Form/FormText.vue'
 import FormTextarea from './components/Form/FormTextarea.vue'
 import FormSelect from './components/Form/FormSelect.vue'
@@ -24,6 +25,7 @@ import FormMultipleCascader from './components/Form/FormMultipleCascader.vue'
 import FormImage from './components/Form/FormImage.vue'
 import FormImages from './components/Form/FormImages.vue'
 import FormGroupRender from './components/Form/FormGroupRender.vue'
+import FormGroupPopup from './components/Form/FormGroupPopup.vue'
 import FormRangeDate from './components/Form/FormRangeDate.vue'
 
 import TableRender from './components/Table/TableRender.vue'
@@ -44,6 +46,7 @@ Vue.component('PageContainer', PageContainer)
 Vue.component('DataRender', DataRender)
 
 Vue.component('FormRender', FormRender)
+Vue.component('FormInput', FormInput)
 Vue.component('FormText', FormText)
 Vue.component('FormTextarea', FormTextarea)
 Vue.component('FormSelect', FormSelect)
@@ -57,6 +60,8 @@ Vue.component('FormMultipleCascader', FormMultipleCascader)
 Vue.component('FormImage', FormImage)
 Vue.component('FormImages', FormImages)
 Vue.component('FormRangeDate', FormRangeDate)
+Vue.component('FormGroupRender', FormGroupRender)
+Vue.component('FormGroupPopup', FormGroupPopup)
 
 Vue.component('TableRender', TableRender)
 Vue.component('TableText', TableText)
@@ -66,7 +71,6 @@ Vue.component('TableImage', TableImage)
 Vue.component('TableImages', TableImages)
 Vue.component('TableCascader', TableCascader)
 Vue.component('TableAction', TableAction)
-Vue.component('FormGroupRender', FormGroupRender)
 
 RouterService.init(router)
 UserService.init()

@@ -1,12 +1,12 @@
 <template>
   <FormRender :form="form" :Service="Service">
-    <FormText v-model="form.template_id" :field="formFields.template_id"></FormText>
-    <FormText v-model="form.title" :field="formFields.title"></FormText>
-    <FormText v-model="form.content" :field="formFields.content"></FormText>
-    <FormText v-model="form.remark" :field="formFields.remark"></FormText>
-    <FormText v-model="form.url" :field="formFields.url"></FormText>
-    <FormText v-model="form.url_params" :field="formFields.url_params"></FormText>
-    <FormText v-model="form.keyword_names" :field="formFields.keyword_names"></FormText>
+    <FormInput v-model="form.template_id" :field="formFields.template_id"></FormInput>
+    <FormInput v-model="form.title" :field="formFields.title"></FormInput>
+    <FormInput v-model="form.content" :field="formFields.content"></FormInput>
+    <FormInput v-model="form.remark" :field="formFields.remark"></FormInput>
+    <FormInput v-model="form.url" :field="formFields.url"></FormInput>
+    <FormInput v-model="form.url_params" :field="formFields.url_params"></FormInput>
+    <FormInput v-model="form.keyword_names" :field="formFields.keyword_names"></FormInput>
     <FormSwitch v-model="form.is_push_official_account" :field="formFields.is_push_official_account"></FormSwitch>
     <FormSwitch v-model="form.is_push_message" :field="formFields.is_push_message"></FormSwitch>
   </FormRender>

@@ -1,7 +1,7 @@
 <template>
   <FormRender :form="form" :Service="Service">
-    <FormText v-model="form.display_name" :field="formFields.display_name"></FormText>
-    <FormText v-model="form.color" :field="formFields.color"></FormText>
+    <FormInput v-model="form.display_name" :field="formFields.display_name"></FormInput>
+    <FormInput v-model="form.color" :field="formFields.color"></FormInput>
     <FormCounter v-model="form.sort" :field="formFields.sort"></FormCounter>
   </FormRender>
 </template>

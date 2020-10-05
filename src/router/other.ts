@@ -21,6 +21,9 @@ export default [
   },
   {
     path: '/other/wechat/notify-user/form',
-    component: WeChatNotifyUserForm
+    component: WeChatNotifyUserForm,
+    meta: {
+      title: '通知用户'
+    }
   }
 ]

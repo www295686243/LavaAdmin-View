@@ -38,6 +38,9 @@ export default [
   },
   {
     path: '/operation/task/rules/form',
-    component: taskRuleForm
+    component: taskRuleForm,
+    meta: {
+      title: '规则'
+    }
   }
 ]

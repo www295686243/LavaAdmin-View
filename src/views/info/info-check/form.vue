@@ -7,7 +7,7 @@
     </el-form>
     <el-divider>信息审核</el-divider>
     <FormRadio v-model="form.status" :field="formFields.status"></FormRadio>
-    <FormText v-model="form.refuse_reason" :field="formFields.refuse_reason"></FormText>
+    <FormInput v-model="form.refuse_reason" :field="formFields.refuse_reason"></FormInput>
   </FormRender>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="10">
-      <FormText v-model="form.title" :field="formFields.title"></FormText>
-      <FormText v-model="form.company_name" :field="formFields.company_name"></FormText>
+      <FormInput v-model="form.title" :field="formFields.title"></FormInput>
+      <FormInput v-model="form.company_name" :field="formFields.company_name"></FormInput>
       <FormMultipleCascader v-model="form.industry" :field="formFields.industry" type="industry"></FormMultipleCascader>
       <FormTextarea v-model="form.description" :field="formFields.description"></FormTextarea>
       <FormSalary
@@ -13,7 +13,7 @@
         :field="formFields.monthly_range">
       </FormSalary>
       <FormCascader v-model="form.city" :field="formFields.city" type="city"></FormCascader>
-      <FormText v-model="form.address" :field="formFields.address"></FormText>
+      <FormInput v-model="form.address" :field="formFields.address"></FormInput>
       <FormRadio v-model="form.is_other_user" :field="formFields.is_other_user" :fieldService="Service"></FormRadio>
       <FormRadio v-model="form.status" :field="formFields.status" :fieldService="Service"></FormRadio>
       <FormSwitch v-model="form.is_push" :field="formFields.is_push"></FormSwitch>
@@ -23,10 +23,10 @@
       <FormSelect v-model="form.education" :field="formFields.education" :fieldService="Service"></FormSelect>
       <FormSelect v-model="form.seniority" :field="formFields.seniority" :fieldService="Service"></FormSelect>
       <FormCheckbox v-model="form.treatment" :field="formFields.treatment" type="label-string" :fieldService="Service"></FormCheckbox>
-      <FormText v-model="form.treatment_input" :field="formFields.treatment_input"></FormText>
+      <FormInput v-model="form.treatment_input" :field="formFields.treatment_input"></FormInput>
       <FormDate v-model="form.end_time" :field="formFields.end_time" type="date"></FormDate>
-      <FormText v-model="form.contacts" :field="formFields.contacts"></FormText>
-      <FormText v-model="form.phone" :field="formFields.phone"></FormText>
+      <FormInput v-model="form.contacts" :field="formFields.contacts"></FormInput>
+      <FormInput v-model="form.phone" :field="formFields.phone"></FormInput>
     </el-col>
   </el-row>
 </template>

@@ -1,44 +1,32 @@
 <template>
-  <el-form-item class="FormText" :label="field.label" :prop="field.prop" :rules="field.rule">
+  <el-form-item class="FormInput" :label="field.label" :prop="field.prop" :label-width="labelWidth">
     <el-input
       :style="{ width: field.width + 'px' }"
-      v-model="innerValue"
-      :type="autosize ? 'textarea' : 'text'"
-      :placeholder="field.placeholder ? field.placeholder : '请输入' + field.label"
-      :disabled="field.disabled"
-      :readonly="field.readonly"
-      :show-word-limit="maxLength > 0"
-      :autosize="autosize ? { minRows: 1.2 } : false"
-      :maxlength="maxLength"
-      clearable>
+      :value="value"
+      readonly>
     </el-input>
-    <p class="tips" v-if="field.tips">{{field.tips}}</p>
   </el-form-item>
 </template>
 
 <script lang="ts">
-import FormMixins from './FormMixins'
-import { Component, Mixins, Prop } from 'vue-property-decorator'
+import { IFormFieldItem } from '@/interface/common'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
-export default class FormText extends Mixins(FormMixins) {
-  @Prop({ default: false })
-  autosize!: boolean
+export default class FormInput extends Vue {
+  @Prop()
+  value!: string
 
-  private maxLength = null
+  @Prop()
+  field!: IFormFieldItem
 
-  created () {
-    const rule = (this.field.rule || []).find((res) => res.max || res.len)
-    if (rule) {
-      this.maxLength = rule.max || rule.len
-    }
-    this.innerValue = typeof this.innerValue === 'string' ? this.innerValue : JSON.stringify(this.innerValue)
-  }
+  @Prop()
+  labelWidth!: string
 }
 </script>
 
 <style lang="scss">
-.FormText {
+.FormInput {
   .el-input__count {
     line-height: 28px;
   }

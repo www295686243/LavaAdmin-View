@@ -2,10 +2,10 @@
   <FormRender :onLoad="handleLoad" :form="form" :Service="Service">
     <FormSelect v-model="form.role_names" :field="formFields.role_names"></FormSelect>
     <FormImage v-model="form.head_url" :field="formFields.head_url"></FormImage>
-    <FormText v-model="form.username" :field="formFields.username"></FormText>
-    <FormText v-model="form.password" :field="formFields.password"></FormText>
-    <FormText v-model="form.nickname" :field="formFields.nickname"></FormText>
-    <FormText v-model="form.phone" :field="formFields.phone"></FormText>
+    <FormInput v-model="form.username" :field="formFields.username"></FormInput>
+    <FormInput v-model="form.password" :field="formFields.password"></FormInput>
+    <FormInput v-model="form.nickname" :field="formFields.nickname"></FormInput>
+    <FormInput v-model="form.phone" :field="formFields.phone"></FormInput>
   </FormRender>
 </template>
 

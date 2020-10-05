@@ -1,6 +1,6 @@
 <template>
   <FormRender :form="form" :onSubmit="handleSubmit" :disableSubmitAndBackBtn="true">
-    <FormText v-model="form.transfer_user_id" :field="formFields.transfer_user_id"></FormText>
+    <FormInput v-model="form.transfer_user_id" :field="formFields.transfer_user_id"></FormInput>
   </FormRender>
 </template>
 

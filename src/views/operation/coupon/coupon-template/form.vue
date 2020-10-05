@@ -1,7 +1,7 @@
 <template>
   <FormRender :form="form" :Service="Service">
-    <FormText v-model="form.display_name" :field="formFields.display_name"></FormText>
-    <FormText v-model="form.desc" :field="formFields.desc"></FormText>
+    <FormInput v-model="form.display_name" :field="formFields.display_name"></FormInput>
+    <FormInput v-model="form.desc" :field="formFields.desc"></FormInput>
     <FormSwitch v-model="form.is_trade" :field="formFields.is_trade"></FormSwitch>
   </FormRender>
 </template>

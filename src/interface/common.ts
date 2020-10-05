@@ -70,6 +70,7 @@ export interface IFormFieldItem {
   maxlength?: number // 一般用于textarea
   uploadParams?: IUploadParams // 一般用于图片上传表单
   filterable?: boolean // 一般用于cascader表单
+  valueFormat?: string; // 显示的值格式化
 }
 
 export interface IUploadParams {

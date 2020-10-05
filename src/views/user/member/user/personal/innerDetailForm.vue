@@ -4,37 +4,37 @@
     <FormCheckbox v-model="form.tags" :field="formFields.tags" type="label-string" :fieldService="Service"></FormCheckbox>
     <el-row :gutter="20">
       <el-col :span="12">
-        <FormGroupRender v-model="form.education_experience" title="教育经历" :initData="education_experience_form">
+        <FormGroupRender v-model="form.education_experience" title="教育经历" :initForm="education_experience_form">
           <template v-slot="{ v }">
             <FormRangeDate
               v-model="v.rangeDate"
               :minValue.sync="v.minDate"
               :maxValue.sync="v.maxDate"
               :field="educationExperienceFormFields.rangeDate" />
-            <FormText v-model="v.school" :field="educationExperienceFormFields.school"></FormText>
-            <FormText v-model="v.profession" :field="educationExperienceFormFields.profession"></FormText>
+            <FormInput v-model="v.school" :field="educationExperienceFormFields.school"></FormInput>
+            <FormInput v-model="v.profession" :field="educationExperienceFormFields.profession"></FormInput>
           </template>
         </FormGroupRender>
       </el-col>
       <el-col :span="12">
-        <FormGroupRender v-model="form.work_experience" title="工作经历" :initData="work_experience_form">
+        <FormGroupRender v-model="form.work_experience" title="工作经历" :initForm="work_experience_form">
           <template v-slot="{ v }">
             <FormRangeDate
               v-model="v.rangeDate"
               :minValue.sync="v.minDate"
               :maxValue.sync="v.maxDate"
               :field="workExperienceFormFields.rangeDate" />
-            <FormText v-model="v.company" :field="workExperienceFormFields.company"></FormText>
-            <FormText v-model="v.position" :field="workExperienceFormFields.position"></FormText>
+            <FormInput v-model="v.company" :field="workExperienceFormFields.company"></FormInput>
+            <FormInput v-model="v.position" :field="workExperienceFormFields.position"></FormInput>
             <FormCascader v-model="v.city" :field="workExperienceFormFields.city"></FormCascader>
-            <FormText v-model="v.address" :field="workExperienceFormFields.address"></FormText>
+            <FormInput v-model="v.address" :field="workExperienceFormFields.address"></FormInput>
           </template>
         </FormGroupRender>
       </el-col>
       <el-col :span="12">
-        <FormGroupRender v-model="form.honorary_certificate" title="荣誉证书" :initData="honorary_certificate_form">
+        <FormGroupRender v-model="form.honorary_certificate" title="荣誉证书" :initForm="honorary_certificate_form">
           <template v-slot="{ v }">
-            <FormText v-model="v.name" :field="honoraryCertificateFormFields.name"></FormText>
+            <FormInput v-model="v.name" :field="honoraryCertificateFormFields.name"></FormInput>
             <FormImages v-model="v.images" :field="honoraryCertificateFormFields.images"></FormImages>
           </template>
         </FormGroupRender>

@@ -2,17 +2,17 @@
   <FormRender :form="form" :Service="Service">
     <el-row :gutter="20">
       <el-col :span="12">
-        <FormText v-model="form.name" :field="formFields.name"></FormText>
-        <FormText v-model="form.id_card" :field="formFields.id_card"></FormText>
-        <FormText v-model="form.phone" :field="formFields.phone"></FormText>
-        <FormText v-model="form.email" :field="formFields.email"></FormText>
+        <FormInput v-model="form.name" :field="formFields.name"></FormInput>
+        <FormInput v-model="form.id_card" :field="formFields.id_card"></FormInput>
+        <FormInput v-model="form.phone" :field="formFields.phone"></FormInput>
+        <FormInput v-model="form.email" :field="formFields.email"></FormInput>
         <FormCascader v-model="form.city" :field="formFields.city"></FormCascader>
-        <FormText v-model="form.address" :field="formFields.address"></FormText>
+        <FormInput v-model="form.address" :field="formFields.address"></FormInput>
       </el-col>
       <el-col :span="12">
-        <FormText v-model="form.company" :field="formFields.company"></FormText>
+        <FormInput v-model="form.company" :field="formFields.company"></FormInput>
         <FormMultipleCascader v-model="form.industry" :field="formFields.industry" type="industry"></FormMultipleCascader>
-        <FormText v-model="form.position" :field="formFields.position"></FormText>
+        <FormInput v-model="form.position" :field="formFields.position"></FormInput>
         <FormSelect v-model="form.position_attr" :field="formFields.position_attr"></FormSelect>
         <FormSelect v-model="form.seniority" :field="formFields.seniority"></FormSelect>
         <FormTextarea v-model="form.intro" :field="formFields.intro"></FormTextarea>

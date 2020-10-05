@@ -47,7 +47,7 @@ export default class FormGroupRender extends Vue {
   value!: any[]
 
   @Prop()
-  initData!: { [key: string]: any }
+  initForm!: { [key: string]: any }
 
   @Watch('innerValue')
   onInnerValue (val: any[]) {
@@ -59,7 +59,7 @@ export default class FormGroupRender extends Vue {
   private createGroup () {
     return this.validate()
       .then(() => {
-        this.innerValue.push(JSON.parse(JSON.stringify(this.initData)))
+        this.innerValue.push(JSON.parse(JSON.stringify(this.initForm)))
       })
   }
 

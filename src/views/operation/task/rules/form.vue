@@ -1,7 +1,18 @@
 <template>
   <FormRender :form="form" :Service="Service">
-    <FormText v-model="form.title" :field="formFields.title"></FormText>
+    <FormInput v-model="form.title" :field="formFields.title"></FormInput>
     <FormCounter v-model="form.get_number" :field="formFields.get_number"></FormCounter>
+    <FormGroupPopup
+      title="任务规则"
+      v-model="form.rules"
+      :initForm="rulesForm"
+      :fields="rulesFormFields">
+      <template v-slot="{ v }">
+        <FormSelect v-model="v.rule_name" :field="rulesFormFields.rule_name"></FormSelect>
+        <FormSelect v-model="v.operator" :field="rulesFormFields.operator"></FormSelect>
+        <FormCounter v-model="v.target_number" :field="rulesFormFields.target_number"></FormCounter>
+      </template>
+    </FormGroupPopup>
   </FormRender>
 </template>
 
@@ -17,6 +28,7 @@ export default class ViewOperationTaskForm extends Vue {
   private Service = Service
   private form = {
     id: RouterService.query('id'),
+    task_id: RouterService.query('task_id'),
     title: '',
     get_number: 1,
     rules: [],
@@ -26,7 +38,7 @@ export default class ViewOperationTaskForm extends Vue {
   private rulesForm = {
     rule_name: '',
     operator: '',
-    target_number: ''
+    target_number: 10
   }
 
   private rewardsForm = {
@@ -54,15 +66,29 @@ export default class ViewOperationTaskForm extends Vue {
   private rulesFormFields: IFormFields = ValidateService.genRules({
     rule_name: {
       prop: 'rule_name',
-      label: '任务类型'
+      label: '任务类型',
+      options: [
+        { id: 'register-view', display_name: '新用户查看' },
+        { id: 'view', display_name: '用户查看' }
+      ],
+      rule: [ValidateService.required({ trigger: 'change' })]
     },
     operator: {
       prop: 'operator',
-      label: '任务条件'
+      label: '任务条件',
+      options: [
+        { id: '>', display_name: '大于' },
+        { id: '>=', display_name: '大于等于' },
+        { id: '=', display_name: '等于' },
+        { id: '<', display_name: '小于' },
+        { id: '<=', display_name: '小于等于' }
+      ],
+      rule: [ValidateService.required({ trigger: 'change' })]
     },
     target_number: {
       prop: 'target_number',
-      label: '目标数量'
+      label: '目标数量',
+      rule: [ValidateService.required({ type: 'number' })]
     }
   })
 

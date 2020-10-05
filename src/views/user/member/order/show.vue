@@ -1,14 +1,14 @@
 <template>
   <FormRender :Service="Service" :form="info">
-    <FormText v-model="info.user.nickname" :field="formFields.nickname"></FormText>
-    <FormText v-model="info.user_orderable.title" :field="formFields.title"></FormText>
-    <FormText v-model="info.total_amount" :field="formFields.total_amount"></FormText>
-    <FormText v-model="info.cash_amount" :field="formFields.cash_amount"></FormText>
-    <FormText v-model="info.balance_amount" :field="formFields.balance_amount"></FormText>
-    <FormText v-model="info.coupon_amount" :field="formFields.coupon_amount"></FormText>
-    <FormText v-model="info.user_coupon.display_name" :field="formFields.display_name"></FormText>
+    <FormInput v-model="info.user.nickname" :field="formFields.nickname"></FormInput>
+    <FormInput v-model="info.user_orderable.title" :field="formFields.title"></FormInput>
+    <FormInput v-model="info.total_amount" :field="formFields.total_amount"></FormInput>
+    <FormInput v-model="info.cash_amount" :field="formFields.cash_amount"></FormInput>
+    <FormInput v-model="info.balance_amount" :field="formFields.balance_amount"></FormInput>
+    <FormInput v-model="info.coupon_amount" :field="formFields.coupon_amount"></FormInput>
+    <FormInput v-model="info.user_coupon.display_name" :field="formFields.display_name"></FormInput>
     <FormSelect v-model="info.pay_status" :field="formFields.pay_status"></FormSelect>
-    <FormText v-model="info.paid_at" :field="formFields.paid_at"></FormText>
+    <FormInput v-model="info.paid_at" :field="formFields.paid_at"></FormInput>
     <div slot="footer"></div>
   </FormRender>
 </template>

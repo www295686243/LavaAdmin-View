@@ -1,6 +1,6 @@
 <template>
   <FormRender :form="form" :Service="Service">
-    <FormText v-model="form.text" :field="formFields.text"></FormText>
+    <FormInput v-model="form.text" :field="formFields.text"></FormInput>
     <FormTextarea v-model="form.textarea" :field="formFields.textarea"></FormTextarea>
     <FormSelect v-model="form.select" :field="formFields.select"></FormSelect>
     <FormRadio v-model="form.radio" :field="formFields.radio"></FormRadio>

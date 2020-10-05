@@ -1,5 +1,6 @@
 <template>
   <el-button
+    class="ButtonSubmit"
     :type="type"
     @click="handleSubmit"
     :loading="loading"

@@ -1,6 +1,6 @@
 <template>
   <FormRender :form="form" :Service="Service">
-    <FormText v-model="form.user_id" :field="formFields.user_id"></FormText>
+    <FormInput v-model="form.user_id" :field="formFields.user_id"></FormInput>
   </FormRender>
 </template>
 

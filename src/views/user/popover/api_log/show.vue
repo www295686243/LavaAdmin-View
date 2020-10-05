@@ -2,49 +2,49 @@
   <FormRender :Service="Service" :form="info" class="view-popover-api_log-show">
     <el-row>
       <el-col :span="12">
-        <FormText v-model="info.method" :field="formFields.method"></FormText>
+        <FormInput v-model="info.method" :field="formFields.method"></FormInput>
       </el-col>
       <el-col :span="12">
-        <FormText v-model="info.name" :field="formFields.name"></FormText>
+        <FormInput v-model="info.name" :field="formFields.name"></FormInput>
       </el-col>
       <el-col :span="12">
-        <FormText v-model="info.path" :field="formFields.path"></FormText>
+        <FormInput v-model="info.path" :field="formFields.path"></FormInput>
       </el-col>
       <el-col :span="12">
-        <FormText v-model="info.ip" :field="formFields.ip"></FormText>
+        <FormInput v-model="info.ip" :field="formFields.ip"></FormInput>
       </el-col>
       <el-col :span="12">
-        <FormText v-model="info.status" :field="formFields.status"></FormText>
+        <FormInput v-model="info.status" :field="formFields.status"></FormInput>
       </el-col>
       <el-col :span="12">
-        <FormText v-model="info.created_at" :field="formFields.created_at"></FormText>
+        <FormInput v-model="info.created_at" :field="formFields.created_at"></FormInput>
       </el-col>
       <el-col :span="24">
-        <FormText v-model="info.desc" :field="formFields.desc"></FormText>
+        <FormInput v-model="info.desc" :field="formFields.desc"></FormInput>
       </el-col>
       <el-col :span="24">
-        <FormText v-model="info.input._env.ua" :field="formFields.input._env.ua"></FormText>
+        <FormInput v-model="info.input._env.ua" :field="formFields.input._env.ua"></FormInput>
       </el-col>
       <el-col :span="24">
-        <FormText v-model="info.input._env.device" :field="formFields.input._env.device"></FormText>
+        <FormInput v-model="info.input._env.device" :field="formFields.input._env.device"></FormInput>
       </el-col>
       <el-col :span="24">
-        <FormText v-model="info.input._env.engine" :field="formFields.input._env.engine"></FormText>
+        <FormInput v-model="info.input._env.engine" :field="formFields.input._env.engine"></FormInput>
       </el-col>
       <el-col :span="24">
-        <FormText v-model="info.input._env.browser" :field="formFields.input._env.browser"></FormText>
+        <FormInput v-model="info.input._env.browser" :field="formFields.input._env.browser"></FormInput>
       </el-col>
       <el-col :span="12">
-        <FormText v-model="info.input._env.os" :field="formFields.input._env.os"></FormText>
+        <FormInput v-model="info.input._env.os" :field="formFields.input._env.os"></FormInput>
       </el-col>
       <el-col :span="12">
-        <FormText v-model="info.input._env.platform" :field="formFields.input._env.platform"></FormText>
+        <FormInput v-model="info.input._env.platform" :field="formFields.input._env.platform"></FormInput>
       </el-col>
       <el-col :span="12">
-        <FormText v-model="info.input._env.screen_width" :field="formFields.input._env.screen_width"></FormText>
+        <FormInput v-model="info.input._env.screen_width" :field="formFields.input._env.screen_width"></FormInput>
       </el-col>
       <el-col :span="12">
-        <FormText v-model="info.input._env.screen_height" :field="formFields.input._env.screen_height"></FormText>
+        <FormInput v-model="info.input._env.screen_height" :field="formFields.input._env.screen_height"></FormInput>
       </el-col>
     </el-row>
     <div slot="footer"></div>

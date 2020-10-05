@@ -1,10 +1,10 @@
 <template>
   <FormRender :Service="Service" :form="form">
-    <FormText v-model="form.name" :field="formFields.name"></FormText>
-    <FormText v-model="form.company" :field="formFields.company"></FormText>
-    <FormText v-model="form.position" :field="formFields.position"></FormText>
+    <FormInput v-model="form.name" :field="formFields.name"></FormInput>
+    <FormInput v-model="form.company" :field="formFields.company"></FormInput>
+    <FormInput v-model="form.position" :field="formFields.position"></FormInput>
     <FormCascader v-model="form.city" :field="formFields.city"></FormCascader>
-    <FormText v-model="form.address" :field="formFields.address"></FormText>
+    <FormInput v-model="form.address" :field="formFields.address"></FormInput>
     <FormTextarea v-model="form.intro" :field="formFields.intro"></FormTextarea>
     <FormImages v-model="form.certificates" :field="formFields.certificates"></FormImages>
     <FormRadio v-model="form.auth_status" :field="formFields.auth_status"></FormRadio>

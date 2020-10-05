@@ -1,7 +1,7 @@
 <template>
   <FormRender :form="form" :Service="Service" :onLoad="handleLoad" :onSubmit="handleSubmit">
     <FormCascader v-model="form.parent_id" :field="formFields.parent_id"></FormCascader>
-    <FormText v-model="form.display_name" :field="formFields.display_name"></FormText>
+    <FormInput v-model="form.display_name" :field="formFields.display_name"></FormInput>
   </FormRender>
 </template>
 
