@@ -3,8 +3,7 @@
     <TableText prop="title" label="任务名" :width="160"></TableText>
     <TableText prop="get_number" label="领取次数" :width="100"></TableText>
     <TableAction :buttons="[
-      { name: '编辑' },
-      { name: '删除' }
+      { name: '编辑' }
     ]" :minWidth="260" />
   </TableRender>
 </template>

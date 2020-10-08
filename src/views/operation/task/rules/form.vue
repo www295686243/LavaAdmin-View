@@ -105,8 +105,9 @@ export default class ViewOperationTaskForm extends Vue {
       prop: 'rule_name',
       label: '任务类型',
       options: [
-        { id: 'register-view', display_name: '新用户查看' },
-        { id: 'view', display_name: '用户查看' }
+        { id: 'register_view', display_name: '新用户查看' },
+        { id: 'login', display_name: '用户登录' },
+        { id: 'personal_update', display_name: '个人资料修改' }
       ],
       rule: [ValidateService.required({ trigger: 'change' })]
     },
