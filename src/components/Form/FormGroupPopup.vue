@@ -28,7 +28,7 @@
       custom-class="FormGroupDialog"
       :append-to-body="true"
       :destroy-on-close="true"
-      :closed="handleClose"
+      @close="handleClose"
       width="600px">
       <FormRender :form="innerForm" :onSubmit="handleSubmit" :disableSubmitAndBackBtn="true">
         <slot :v="innerForm"></slot>

@@ -35,7 +35,7 @@
       custom-class="FormMultipleGroupDialog"
       :append-to-body="true"
       :destroy-on-close="true"
-      :closed="handleClose"
+      @close="handleClose"
       width="600px">
       <FormGroupRender :title="title" :initForm="innerForm" v-model="innerValue" ref="formGroupRenderElement">
         <template v-slot="{ v }">
@@ -145,6 +145,8 @@ export default class FormMultipleGroupPopup extends Vue {
 
   private handleClose () {
     this.editIndex = -1
+    this.innerForm = {}
+    this.innerValue = []
   }
 }
 </script>
@@ -158,6 +160,9 @@ export default class FormMultipleGroupPopup extends Vue {
     .el-form-item:last-child {
       margin-bottom: 0;
     }
+  }
+  .FormGroup-col {
+    margin-top: 20px;
   }
   .FormGroup-col:not(:last-child) {
     position: relative;
@@ -182,6 +187,7 @@ export default class FormMultipleGroupPopup extends Vue {
   }
   .FormGroup-footer {
     text-align: right;
+    margin-top: 10px;
     .ButtonSubmit {
       margin-right: 10px;
     }
