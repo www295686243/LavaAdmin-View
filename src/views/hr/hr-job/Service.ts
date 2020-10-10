@@ -1,10 +1,11 @@
 import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
+import { SearchItem } from '@/service/SqlService'
 
 class Service extends BaseModalService {
   modelName = 'Info/Hr/HrJob'
   name = '招聘'
-  index (params: { page: number }) {
+  index (params: { page: number; _search?: SearchItem[] }) {
     return axios.get('hr_job', params)
   }
 

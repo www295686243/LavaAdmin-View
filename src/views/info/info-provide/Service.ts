@@ -1,10 +1,11 @@
 import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
 import RouterService from '@/service/RouterService'
+import { SearchItem } from '@/service/SqlService'
 
 class Service extends BaseModalService {
-  modelName = 'Info/InfoComplaint'
-  index (params: { page: number }) {
+  modelName = 'Info/InfoProvide'
+  index (params: { page: number; _search: SearchItem[] }) {
     return axios.get('info_provide', {
       ...params,
       _model: RouterService.query('_model')

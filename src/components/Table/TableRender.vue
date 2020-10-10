@@ -1,7 +1,7 @@
 <template>
   <div class="TableRender">
-    <div class="function-container">
-      <div v-permission="tableService.getPermissionName('store')" v-if="Service && !!Service.store" class="store-btn">
+    <div class="function-container" v-if="searchFields || (Service && !!Service.store && disableCreate === false)">
+      <div v-permission="tableService.getPermissionName('store')" v-if="Service && !!Service.store && disableCreate === false" class="store-btn">
         <ButtonSubmit :onClick="() => RouterService.pushForm()">添加{{Service.name}}</ButtonSubmit>
       </div>
       <TableToolSearch
@@ -54,6 +54,9 @@ export default class TableRender extends Vue {
 
   @Prop()
   Service!: IService
+
+  @Prop({ default: false })
+  disableCreate!: boolean
 
   @Provide()
   tableService = this.Service

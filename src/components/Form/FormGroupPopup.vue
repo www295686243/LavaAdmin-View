@@ -6,13 +6,13 @@
           <el-col>
             {{title}}
           </el-col>
-          <el-col class="card-header-action">
+          <el-col class="header-action">
             <ButtonSubmit :onClick="createGroup">添加</ButtonSubmit>
           </el-col>
         </el-row>
       </div>
       <el-row :gutter="60">
-        <el-col :span="8" v-for="(v, index) in innerValue" :key="index">
+        <el-col :span="24 / col" v-for="(v, index) in innerValue" :key="index" class="FormGroup-col">
           <FormText label-width="82px" :value="getValue(v, field)" :field="field" v-for="field in fields" :key="field.prop"></FormText>
           <div class="FormGroup-footer">
             <ButtonSubmit size="mini" :onClick="() => handleEdit(index)">编辑</ButtonSubmit>
@@ -56,6 +56,9 @@ export default class FormGroupPopup extends Vue {
 
   @Prop()
   fields!: IFormFields[]
+
+  @Prop({ default: 3 })
+  col!: number
 
   private innerValue: any[] = this.value || []
   private isShowDialog = false
@@ -125,7 +128,7 @@ export default class FormGroupPopup extends Vue {
 
 <style lang="scss">
 .FormGroupPopup {
-  .card-header-action {
+  .header-action {
     text-align: right;
   }
   .FormGroup-footer {
@@ -133,6 +136,9 @@ export default class FormGroupPopup extends Vue {
     .ButtonSubmit {
       margin-right: 10px;
     }
+  }
+  .FormGroup-col:not(:first-child) {
+    margin-top: 24px;
   }
 }
 .FormGroupDialog {

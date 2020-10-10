@@ -58,7 +58,7 @@ export interface IFormFieldItem {
     label?: string // label字段名
     multiple?: boolean // 级联表单是否可多选
   }
-  width?: number // 元素宽度
+  width?: number | string // 元素宽度
   defaultValue?: any
   disabled?: boolean
   readonly?: boolean

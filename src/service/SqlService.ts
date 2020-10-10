@@ -1,4 +1,4 @@
-interface SearchItem {
+export interface SearchItem {
   field: string;
   where: string;
   value: string | number | number[] | string[] | null;
