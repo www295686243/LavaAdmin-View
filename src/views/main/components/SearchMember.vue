@@ -42,6 +42,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import axios from '@/plugins/axios'
 import DialogService from '@/service/DialogService/Service.ts'
+import SqlService from '@/service/SqlService'
 
 @Component
 export default class SearchMember extends Vue {
@@ -58,12 +59,11 @@ export default class SearchMember extends Vue {
       .then(() => {
         if (this.search.keyword !== '') {
           return axios.get('user', {
-            _search: [{
+            _search: (new SqlService()).where({
               field: this.search.field,
-              where: '等于',
-              value: this.search.keyword,
-              type: 'string'
-            }]
+              operator: '=',
+              value: this.search.keyword
+            }).get()
           })
             .then((res) => {
               this.userList = res.data.data || []

@@ -4,10 +4,10 @@
       <div v-permission="tableService.getPermissionName('store')" v-if="Service && !!Service.store && disableCreate === false" class="store-btn">
         <ButtonSubmit :onClick="() => RouterService.pushForm()">添加{{Service.name}}</ButtonSubmit>
       </div>
-      <TableToolSearch
+      <SearchTool
         :fields="searchFields"
         v-if="searchFields">
-      </TableToolSearch>
+      </SearchTool>
     </div>
     <el-table
       ref="table"
@@ -31,14 +31,14 @@
 import { Component, Vue, Prop, Provide } from 'vue-property-decorator'
 import { IPagination, IResult, ISearchFields, IService } from '@/interface/common'
 import TablePagination from '@/components/Table/TablePagination.vue'
-import TableToolSearch from './TableToolSearch.vue'
 import RouterService from '@/service/RouterService'
 import QueryString from 'qs'
+import SearchTool from '../SearchTool/Search.vue'
 
 @Component({
   components: {
     TablePagination,
-    TableToolSearch
+    SearchTool
   }
 })
 export default class TableRender extends Vue {
@@ -155,7 +155,7 @@ export default class TableRender extends Vue {
     .store-btn {
       flex: 0 0 auto;
     }
-    .TableToolSearch {
+    .SearchTool {
       flex: 1 1 0;
     }
   }

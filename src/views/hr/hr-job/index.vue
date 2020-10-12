@@ -1,5 +1,5 @@
 <template>
-  <TableRender :Service="Service" ref="table">
+  <TableRender :Service="Service" ref="table" :searchFields="searchFields">
     <TableText prop="user.nickname" label="发布者" :width="100"></TableText>
     <TableText prop="title" label="标题" :minWidth="200"></TableText>
     <TableText prop="company_name" label="公司名" :minWidth="140"></TableText>
@@ -30,6 +30,7 @@ import ConstService from '@/service/ConstService'
 import { Component, Vue, Ref } from 'vue-property-decorator'
 import Service from './Service'
 import DialogService from '@/service/DialogService/Service'
+import { ISearchFields } from '@/interface/common'
 
 @Component
 export default class ViewHrIndex extends Vue {
@@ -43,5 +44,13 @@ export default class ViewHrIndex extends Vue {
     DialogService.show(require('@/views/components/TransferInfo.vue').default, { id: row.id, hideCloseBtn: true, type: 'hr_job' })
       .then(() => this.table.reload())
   }
+
+  private searchFields: ISearchFields[] = [
+    {
+      name: 'user_id',
+      display_name: '发布人ID',
+      type: 'bigInt'
+    }
+  ]
 }
 </script>

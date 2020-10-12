@@ -116,9 +116,11 @@ export default class ViewInfoProvideForm extends Vue {
 
   private handleProvideTableLoad (params: { page: number }) {
     const _search = (new SqlService())
-      .where('description', '等于', this.form.description)
-      .where('phone', '等于', this.form.phone)
-      .where('id', '不等于', this.form.id, 'int')
+      .orWheres([
+        { field: 'description', operator: '=', value: this.form.description },
+        { field: 'phone', operator: '=', value: this.form.phone }
+      ])
+      .where({ field: 'id', operator: '<>', value: this.form.id })
       .get()
     return Service.index({
       ...params,
@@ -128,8 +130,10 @@ export default class ViewInfoProvideForm extends Vue {
 
   private handleInfoTableLoad (params: { page: number }) {
     const _search = (new SqlService())
-      .where('intro', '等于', this.form.description)
-      .where('phone', '等于', this.form.phone)
+      .orWheres([
+        { field: 'intro', operator: '=', value: this.form.description },
+        { field: 'phone', operator: '=', value: this.form.phone }
+      ])
       .get()
     return HrJobService.index({
       ...params,

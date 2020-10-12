@@ -9,7 +9,11 @@ class Service extends BaseModalService {
   index (params: { page: number }) {
     return axios.get('user_cash', {
       ...params,
-      _search: (new SqlService()).where('status', '不包含', ConstService.getOptionsValue(84, '申请中'), 'int').get()
+      _search: (new SqlService()).where({
+        field: 'status',
+        operator: '<>',
+        value: ConstService.getOptionsValue(84, '申请中')
+      }).get()
     })
   }
 

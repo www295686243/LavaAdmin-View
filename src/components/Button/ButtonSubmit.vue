@@ -1,12 +1,11 @@
 <template>
   <el-button
     class="ButtonSubmit"
-    :type="type"
     @click="handleSubmit"
     :loading="loading"
     :class="{long: long}"
-    :size="size"
-    :icon="icon">
+    :type="type"
+    v-bind="$attrs">
     <slot></slot>
   </el-button>
 </template>
@@ -15,22 +14,18 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { IResult } from '@/interface/common'
 
-@Component
+@Component({
+  inheritAttrs: false
+})
 export default class ButtonSubmit extends Vue {
   @Prop({ default: () => () => Promise.resolve })
   onClick!: Function
 
-  @Prop({ default: 'primary' })
-  type!: string
-
   @Prop({ default: false })
   long!: boolean
 
-  @Prop()
-  icon!: string
-
-  @Prop()
-  size!: string
+  @Prop({ default: 'primary' })
+  type!: string
 
   private loading = false
 
