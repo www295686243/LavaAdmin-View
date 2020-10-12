@@ -11,10 +11,8 @@ interface SearchParams extends ListItem {
   operatorDisplayName?: string;
 }
 
-type ListItemType = ListItem | ListItem[]
-
 export default class SqlService {
-  list: ListItemType[] = []
+  list: (ListItem | ListItem[])[] = []
 
   public where (params: SearchParams) {
     return this.addWhere(params)

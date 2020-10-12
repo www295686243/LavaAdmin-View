@@ -41,7 +41,8 @@ export default class ViewHrJobForm extends Vue {
     provide_user_id: RouterService.query('provide_user_id'),
     description: RouterService.query('description'),
     is_push: 0,
-    industry: []
+    industry: [],
+    info_provide_id: RouterService.query('info_provide_id')
   }
 }
 </script>

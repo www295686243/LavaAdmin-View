@@ -1,3 +1,5 @@
+import ConstService from './ConstService'
+
 export default abstract class BaseModalService {
   abstract modelName: string
   name!: string
@@ -13,5 +15,9 @@ export default abstract class BaseModalService {
 
   public getPermissionName (name: string) {
     return this.getControllerName() + 'Controller@' + name
+  }
+
+  public getOptions (fieldName: string) {
+    return ConstService.getOptions(this.modelName + ':' + fieldName)
   }
 }

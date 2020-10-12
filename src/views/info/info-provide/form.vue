@@ -82,7 +82,9 @@ export default class ViewInfoProvideForm extends Vue {
     rewards: [],
     is_admin: 0,
     is_reward: 0,
-    push_text: ''
+    push_text: '',
+    info_provideable_type: '',
+    info_provideable_id: 0
   }
 
   private formFields: IFormFields = ValidateService.genRules({
@@ -134,6 +136,7 @@ export default class ViewInfoProvideForm extends Vue {
         { field: 'intro', operator: '=', value: this.form.description },
         { field: 'phone', operator: '=', value: this.form.phone }
       ])
+      .where({ field: 'id', operator: '<>', value: this.form.info_provideable_id })
       .get()
     return HrJobService.index({
       ...params,
@@ -150,7 +153,13 @@ export default class ViewInfoProvideForm extends Vue {
       .then((res: PromiseResult) => {
         this.form.user_id = res.data.user_id || this.form.user_id
         if (this.form._model === 'Info/Hr/HrJob') {
-          RouterService.push('/hr/job/form', { provide_user_id: this.form.user_id, description: this.form.description, phone: this.form.phone })
+          RouterService.push('/hr/job/form', {
+            provide_user_id: this.form.user_id,
+            description: this.form.description,
+            phone: this.form.phone,
+            info_provide_id: res.data.id,
+            id: this.form.info_provideable_id
+          })
         }
       })
   }

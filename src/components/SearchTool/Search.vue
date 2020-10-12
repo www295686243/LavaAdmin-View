@@ -11,7 +11,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="条件" v-if="innerWheres.length > 0">
+      <el-form-item label="条件" v-if="innerWheres.length > 1">
         <el-select v-model="form.operator" placeholder="请选择条件" class="where-select" @change="handleChangeWhere">
           <el-option
             v-for="item in innerWheres"
@@ -94,7 +94,7 @@ export default class SearchToolEntra extends Vue {
   private innerOptions: SearchOptions[] = []
   private innerWheres: WhereItem[] = []
   private SqlService = new SqlService()
-  private form = {
+  private form: ListItem = {
     field: '',
     operator: '',
     value: '',
@@ -118,7 +118,11 @@ export default class SearchToolEntra extends Vue {
     this.innerOptions = JSON.parse(JSON.stringify(fieldItem.options || []))
     this.form.field = field
     this.form.operator = (row && row.operator) || this.innerWheres[0].value
-    this.form.value = (row && row.value as string) || ''
+    if (fieldItem.type === 'intOptions' && row && row.value) {
+      this.form.value = (row.value as string[]).map((num) => Number(num))
+    } else {
+      this.form.value = (row && row.value as string) || ''
+    }
     this.form.type = fieldItem.type
     this.valueComponent = this.form.type + 'Value'
   }
@@ -165,14 +169,14 @@ export default class SearchToolEntra extends Vue {
 
   private handleEditTag (index: number) {
     const item = this.SqlService.getItem(index) as ListItem
+    const fieldItem = this.getFields().find((res: SearchFields) => res.name === item.field) as SearchFields
     Object.assign(this.form, {
       field: item.field,
       operator: item.operator,
       value: item.value,
-      type: item.type
+      type: fieldItem.type
     })
     this.handleRemoveTag(index)
-    const fieldItem = this.innerFields.find((res: SearchFields) => res.name === item.field) as SearchFields
     this.innerWheres = getOperatorConfig(fieldItem.type)
     this.innerOptions = JSON.parse(JSON.stringify(fieldItem.options || []))
     this.valueComponent = fieldItem.type + 'Value'

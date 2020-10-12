@@ -32,9 +32,11 @@ const config = {
     { label: '包含', value: 'like' },
     { label: '不包含', value: 'notLike' }
   ],
-  options: [
-    { label: '包含', value: 'in' },
-    { label: '不包含', value: 'notIn' }
+  intOptions: [
+    { label: '包含', value: 'in' }
+  ],
+  stringOptions: [
+    { label: '包含', value: 'like' }
   ]
 } as {
   [key: string]: { label: string; value: string }[];

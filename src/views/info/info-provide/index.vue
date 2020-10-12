@@ -1,5 +1,5 @@
 <template>
-  <TableRender :Service="Service">
+  <TableRender :Service="Service" :searchFields="searchFields">
     <TableText prop="user.nickname" label="发布人" :minWidth="140"></TableText>
     <TableText prop="description" label="描述" :minWidth="300"></TableText>
     <TableText prop="phone" label="联系电话" :minWidth="140"></TableText>
@@ -13,11 +13,21 @@
 </template>
 
 <script lang="ts">
+import { ISearchFields } from '@/interface/common'
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
 
 @Component
 export default class ViewInfoProvideIndex extends Vue {
   private Service = Service
+
+  private searchFields: ISearchFields[] = [
+    {
+      name: 'status',
+      display_name: '状态',
+      type: 'intOptions',
+      options: Service.getOptions('status')
+    }
+  ]
 }
 </script>
