@@ -8,6 +8,7 @@ import infoComplaint from '@/views/info/info-complaint/index.vue'
 import infoComplaintForm from '@/views/info/info-complaint/form.vue'
 import infoProvide from '@/views/info/info-provide/index.vue'
 import infoProvideForm from '@/views/info/info-provide/form.vue'
+import infoDelivery from '@/views/info/info-delivery/index.vue'
 
 export default [
   {
@@ -49,5 +50,9 @@ export default [
   {
     path: '/hr/info-provide/form',
     component: infoProvideForm
+  },
+  {
+    path: '/hr/info-delivery',
+    component: infoDelivery
   }
 ]
