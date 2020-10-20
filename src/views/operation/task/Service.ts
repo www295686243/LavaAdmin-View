@@ -19,6 +19,10 @@ class Service extends BaseModalService {
   update (params: { id: number }) {
     return axios.put(`task/${params.id}`, params)
   }
+
+  indexAll () {
+    return axios.get('task/all')
+  }
 }
 
 export default new Service()

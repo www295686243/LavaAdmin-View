@@ -7,7 +7,23 @@
     :align="align"
   >
     <template slot-scope="scope">
-      <span :style="{ color: getColor(scope.row) }">{{ getValue(scope.row) || '--' }}</span>
+      <el-popover
+        placement="right"
+        trigger="click"
+        v-if="prop === 'title'">
+        <p>id: {{scope.row.id}}</p>
+        <p>标题: {{scope.row.title}}</p>
+        <el-button size="mini" slot="reference" type="text">{{ getValue(scope.row) || '--' }}</el-button>
+      </el-popover>
+      <el-popover
+        placement="right"
+        trigger="click"
+        v-else-if="prop === 'user.nickname'">
+        <p>id: {{scope.row.user.id}}</p>
+        <p>昵称: {{scope.row.user.nickname}}</p>
+        <el-button size="mini" slot="reference" type="text">{{ getValue(scope.row) || '--' }}</el-button>
+      </el-popover>
+      <span :style="{ color: getColor(scope.row) }" v-else>{{ getValue(scope.row) || '--' }}</span>
     </template>
   </el-table-column>
 </template>
@@ -22,6 +38,8 @@ import ConstService from '@/service/ConstService'
 export default class TableText extends Mixins(TableMixins) {
   @Prop()
   color!: string
+
+  private ConstService = ConstService
 
   private getValue (row: any) {
     const field = this.prop as string

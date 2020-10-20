@@ -1,7 +1,7 @@
 <template>
   <div class="SearchTool">
     <el-form :inline="true" :model="form" ref="FormElement">
-      <el-form-item label="字段">
+      <el-form-item :label="formFields.field.label" :prop="formFields.field.prop" :rules="formFields.field.rule">
         <el-select v-model="form.field" placeholder="请选择字段" class="field-select" @change="createForm">
           <el-option
             v-for="item in innerFields"
@@ -11,7 +11,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="条件" v-if="innerWheres.length > 1">
+      <el-form-item label="条件" v-if="innerWheres.length > 1" prop="operator">
         <el-select v-model="form.operator" placeholder="请选择条件" class="where-select" @change="handleChangeWhere">
           <el-option
             v-for="item in innerWheres"
@@ -64,7 +64,7 @@ interface SearchFields {
 
 interface SearchOptions {
   display_name: string;
-  id: number;
+  id: number | string;
   children?: SearchOptions[];
   [key: string]: any;
 }
@@ -106,6 +106,7 @@ export default class SearchToolEntra extends Vue {
       prop: 'field',
       label: '字段',
       options: this.getFields(),
+      rule: [ValidateService.required({ trigger: 'change' })],
       props: {
         value: 'name'
       }
@@ -119,7 +120,13 @@ export default class SearchToolEntra extends Vue {
     this.form.field = field
     this.form.operator = (row && row.operator) || this.innerWheres[0].value
     if (fieldItem.type === 'intOptions' && row && row.value) {
-      this.form.value = (row.value as string[]).map((num) => Number(num))
+      this.form.value = (row.value as string[]).map((num) => {
+        if (num.length >= 16) {
+          return num
+        } else {
+          return Number(num)
+        }
+      })
     } else {
       this.form.value = (row && row.value as string) || ''
     }
@@ -132,12 +139,19 @@ export default class SearchToolEntra extends Vue {
       .then(() => {
         const fieldItem = this.innerFields.find((res: SearchFields) => res.name === this.form.field) as SearchFields
         const operatorItem = getOperatorConfig(fieldItem.type).find((res) => res.value === this.form.operator) as WhereItem
+        let valueDisplayName: string[] = []
+        if ((fieldItem.options as SearchOptions[]).length > 0) {
+          valueDisplayName = (fieldItem.options as SearchOptions[])
+            .filter((res) => (this.form.value as string[]).includes(res.id as string))
+            .map((res) => res.display_name)
+        }
         this.SqlService.where({
           field: this.form.field,
           operator: this.form.operator,
           value: this.form.value,
           fieldDisplayName: fieldItem.display_name,
-          operatorDisplayName: operatorItem.label
+          operatorDisplayName: operatorItem.label,
+          valueDisplayName
         })
         this.initForm()
         this.resetFields()
@@ -152,6 +166,9 @@ export default class SearchToolEntra extends Vue {
     this.valueComponent = ''
     this.innerWheres = []
     this.innerOptions = []
+    this.$nextTick(() => {
+      this.FormElement.clearValidate()
+    })
   }
 
   private resetFields () {

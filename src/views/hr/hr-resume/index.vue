@@ -17,10 +17,13 @@
     <TableText prop="admin_user.nickname" label="归属人" :width="100"></TableText>
 
     <TableAction :buttons="[
-      { name: '转让', onClick: handleTransfer },
       { name: '编辑' },
-      { name: '删除' }
-    ]" :minWidth="220" />
+      { name: '删除' },
+      { name: '更多', children: [
+        { name: '信息转让', onClick: handleTransfer },
+        { name: '访问记录', onClick: handleViews }
+      ] }
+    ]" :minWidth="230" />
   </TableRender>
 </template>
 
@@ -41,6 +44,10 @@ export default class ViewHrIndex extends Vue {
   private handleTransfer (row: { id: string }) {
     DialogService.show(require('@/views/components/TransferInfo.vue').default, { id: row.id, hideCloseBtn: true, type: 'hr_resume' })
       .then(() => this.table.reload())
+  }
+
+  private handleViews (row: { id: string }) {
+    DialogService.show(require('@/views/components/InfoViews.vue').default, { id: row.id, _model: Service.modelName })
   }
 }
 </script>

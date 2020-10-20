@@ -6,7 +6,7 @@
       </div>
       <SearchTool
         :fields="searchFields"
-        v-if="searchFields">
+        v-if="searchFields && isLoading === false">
       </SearchTool>
     </div>
     <el-table

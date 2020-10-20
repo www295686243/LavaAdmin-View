@@ -54,6 +54,8 @@ class ConstService {
         return '#E6A23C'
       case 'error':
         return '#F56C6C'
+      case 'click':
+        return '#409EFF'
       default:
         if (name.includes('#')) {
           return name

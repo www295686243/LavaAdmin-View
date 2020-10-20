@@ -1,7 +1,7 @@
 export interface ListItem {
   field: string;
   operator: string;
-  value: string | number | number[] | string[] | null;
+  value: string | number | (number | string)[] | null;
   type?: string;
   text?: string;
 }
@@ -9,6 +9,7 @@ export interface ListItem {
 interface SearchParams extends ListItem {
   fieldDisplayName?: string;
   operatorDisplayName?: string;
+  valueDisplayName?: string | string[];
 }
 
 export default class SqlService {
@@ -36,12 +37,12 @@ export default class SqlService {
     }))
   }
 
-  private addWhere ({ field, operator, value, fieldDisplayName, operatorDisplayName, type = 'and' }: SearchParams) {
+  private addWhere ({ field, operator, value, fieldDisplayName, operatorDisplayName, valueDisplayName, type = 'and' }: SearchParams) {
     this.list.push({
       field,
       operator,
       value,
-      text: `${fieldDisplayName || field} <span class="as">${operatorDisplayName || operator}</span> ${value}`,
+      text: `${fieldDisplayName || field} <span class="as">${operatorDisplayName || operator}</span> ${valueDisplayName || value}`,
       type
     })
     return this
@@ -53,7 +54,7 @@ export default class SqlService {
         field: res.field,
         operator: res.operator,
         value: res.value,
-        text: `${res.fieldDisplayName || res.field} <span class="as">${res.operatorDisplayName || res.operator}</span> ${res.value}`,
+        text: `${res.fieldDisplayName || res.field} <span class="as">${res.operatorDisplayName || res.operator}</span> ${res.valueDisplayName || res.value}`,
         type: res.type
       }
     }))

@@ -8,6 +8,8 @@ import taskForm from '@/views/operation/task/form.vue'
 import taskRule from '@/views/operation/task/rules/index.vue'
 import taskRuleForm from '@/views/operation/task/rules/form.vue'
 
+import taskRecord from '@/views/operation/task-record/index.vue'
+
 export default [
   {
     path: '/operation/coupon-template',
@@ -42,5 +44,9 @@ export default [
     meta: {
       title: '规则'
     }
+  },
+  {
+    path: '/operation/task-record',
+    component: taskRecord
   }
 ]
