@@ -18,6 +18,18 @@ export default abstract class BaseModalService {
   }
 
   public getOptions (fieldName: string) {
-    return ConstService.getOptions(this.modelName + ':' + fieldName)
+    return ConstService.getOptions(this.modelName, fieldName)
+  }
+
+  // eslint-disable-next-line
+  public getOptionsValue (fieldName: string, value: number, _display_name?: string) {
+    const options = ConstService.getOptions(this.modelName, fieldName)
+    const item = options.find((res) => res.value === value)
+    return item ? item.value : 0
+  }
+
+  // eslint-disable-next-line
+  public getStatusValue (value: number, _display_name?: string) {
+    return this.getOptionsValue('status', value, _display_name)
   }
 }

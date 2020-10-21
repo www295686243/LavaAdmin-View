@@ -16,7 +16,7 @@ class Service extends BaseModalService {
     return axios.get(`task/${id}`)
   }
 
-  update (params: { id: number }) {
+  update (params: { id: string }) {
     return axios.put(`task/${params.id}`, params)
   }
 

@@ -16,15 +16,15 @@
 import TableMixins from './TableMixins'
 import { Component, Mixins, Prop, Inject } from 'vue-property-decorator'
 import { getDeepValue } from '@/plugins/tools'
-import { IOptions, IService } from '@/interface/common'
-import ConstService from '@/service/ConstService'
+import { IService } from '@/interface/common'
+import { OptionItem } from '@/service/ConstService'
 
 @Component
 export default class TableImage extends Mixins(TableMixins) {
   @Prop({
     default: () => {
       return {
-        value: 'id',
+        value: 'value',
         label: 'display_name'
       }
     }
@@ -34,7 +34,7 @@ export default class TableImage extends Mixins(TableMixins) {
   @Inject('tableService')
   tableService!: IService
 
-  private options = [] as IOptions[]
+  private options = [] as OptionItem[]
 
   private getValue (row: any) {
     const values = getDeepValue(this.prop as string, row)
@@ -48,7 +48,7 @@ export default class TableImage extends Mixins(TableMixins) {
   }
 
   created () {
-    this.options = ConstService.getOptions(this.tableService.getModelName() + ':' + this.prop)
+    this.options = this.tableService.getOptions(this.prop)
   }
 }
 </script>

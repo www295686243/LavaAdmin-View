@@ -1,6 +1,6 @@
 <template>
-  <div class="FormGroupPopup">
-    <el-card>
+  <DataRender :onLoad="onLoad" class="FormGroupPopup" @success="handleLoadSuccess">
+    <el-card v-if="isLoadComplete">
       <div slot="header">
         <el-row type="flex" justify="space-between" align="middle">
           <el-col>
@@ -34,7 +34,7 @@
         <slot :v="innerForm"></slot>
       </FormRender>
     </el-dialog>
-  </div>
+  </DataRender>
 </template>
 
 <script lang="ts">
@@ -60,10 +60,14 @@ export default class FormGroupPopup extends Vue {
   @Prop({ default: 3 })
   col!: number
 
+  @Prop()
+  onLoad!: Function
+
   private innerValue: any[] = this.value || []
   private isShowDialog = false
   private innerForm = {}
   private editIndex = -1
+  private isLoadComplete = false
 
   private createGroup () {
     Object.keys(this.initForm).forEach((key) => {
@@ -123,6 +127,10 @@ export default class FormGroupPopup extends Vue {
   private handleClose () {
     this.editIndex = -1
   }
+
+  private handleLoadSuccess () {
+    this.isLoadComplete = true
+  }
 }
 </script>
 
@@ -137,8 +145,11 @@ export default class FormGroupPopup extends Vue {
       margin-right: 10px;
     }
   }
-  .FormGroup-col:not(:first-child) {
+  .FormGroup-col {
     margin-top: 24px;
+  }
+  .el-card__body {
+    padding-top: 0;
   }
 }
 .FormGroupDialog {

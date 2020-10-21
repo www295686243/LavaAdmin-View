@@ -8,8 +8,8 @@
 
 <script lang="ts">
 import { Component, Vue, Inject, Watch, Prop } from 'vue-property-decorator'
-import { IService, IOptions, IFormFieldItem } from '@/interface/common'
-import ConstService from '@/service/ConstService'
+import { IService, IFormFieldItem } from '@/interface/common'
+import { OptionItem } from '@/service/ConstService'
 
 @Component
 export default class FormCheckbox extends Vue {
@@ -40,11 +40,11 @@ export default class FormCheckbox extends Vue {
   }
 
   private props = {
-    value: 'id',
+    value: 'value',
     label: 'display_name'
   }
 
-  private options = [] as IOptions[]
+  private options = [] as OptionItem[]
   private innerValue: string[] | number[] = []
 
   private setInnerValue (value: string | number[] | string[]) {
@@ -77,11 +77,7 @@ export default class FormCheckbox extends Vue {
     if (this.field.options) {
       this.options = this.field.options
     } else {
-      const modelName = this.fieldService ? this.fieldService.getModelName() : this.formService.getModelName()
-      this.options = ConstService.getOptions(modelName + ':' + this.field.prop)
-      if (this.options.length === 0) {
-        this.options = ConstService.getGlobalOptions(this.field.prop as string)
-      }
+      this.options = this.fieldService ? this.fieldService.getOptions(this.field.prop) : this.formService.getOptions(this.field.prop)
     }
   }
 }

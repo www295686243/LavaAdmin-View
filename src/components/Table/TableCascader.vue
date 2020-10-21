@@ -25,7 +25,7 @@ export default class TableImages extends Mixins(TableMixins) {
   @Prop({
     default: () => {
       return {
-        value: 'id',
+        value: 'value',
         label: 'display_name'
       }
     }

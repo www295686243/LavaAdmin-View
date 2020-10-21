@@ -2,14 +2,17 @@ import cache from '@/plugins/cache'
 import areaOptions from '@/assets/json/area'
 
 export interface OptionItem {
-  id: number;
+  id: string;
   config_id: number;
   display_name: string;
+  value: number;
+  name: string;
   disabled: boolean;
+  [key: string]: any;
 }
 
 export interface ConfigItem {
-  id: number;
+  id: string;
   name: string;
   display_name: string;
   guard_name: string;
@@ -23,23 +26,13 @@ class ConstService {
     return item ? item.value : ''
   }
 
-  getOptions (name: string) {
+  getOptions (className: string, field: string) {
     const configs: ConfigItem[] = cache.config.get('options') || []
-    const config = configs.find((res) => res.name === name)
+    let config = configs.find((res) => res.name === className + ':' + field)
+    if (!config) {
+      config = configs.find((res) => res.name === '_global:' + field)
+    }
     return config ? config.options : []
-  }
-
-  getGlobalOptions (name: string) {
-    const configs: ConfigItem[] = cache.config.get('options') || []
-    const config = configs.find((res) => res.name === '_global:' + name)
-    return config ? config.options : []
-  }
-
-  // eslint-disable-next-line
-  getOptionsValue (id: number, _displayName?: string) {
-    const configs: OptionItem[] = cache.config.get('options_list') || []
-    const item = configs.find((res) => res.id === id)
-    return item ? item.id : 0
   }
 
   getAreaOptions () {
@@ -68,11 +61,11 @@ class ConstService {
   getBoolOptions () {
     return [
       {
-        id: 0,
+        value: 0,
         display_name: '否'
       },
       {
-        id: 1,
+        value: 1,
         display_name: '是'
       }
     ]

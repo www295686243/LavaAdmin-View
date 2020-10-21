@@ -20,7 +20,6 @@ import HrJobForm from '@/views/hr/hr-job/innerForm.vue'
 import HrResumeForm from '@/views/hr/hr-resume/innerForm.vue'
 import PersonalDetailForm from '@/views/user/member/user/personal/innerDetailForm.vue'
 import RouterService from '@/service/RouterService'
-import ConstService from '@/service/ConstService'
 
 @Component({
   components: {
@@ -35,12 +34,12 @@ export default class ViewInfoCheckForm extends Vue {
     id: RouterService.query('id'),
     info_checkable_type: '',
     contents: {},
-    status: ConstService.getOptionsValue(48, '已审核'),
+    status: Service.getStatusValue(2, '已通过'),
     refuse_reason: ''
   }
 
   private validateReason (rule: any, value: string, callback: Function) {
-    if (this.form.status === ConstService.getOptionsValue(49, '未通过') && !value) {
+    if (this.form.status === Service.getStatusValue(3, '已拒绝') && !value) {
       callback(new Error('请输入拒绝原因'))
     }
     callback()

@@ -1,10 +1,11 @@
 <template>
   <TableRender :Service="Service">
-    <TableText prop="title" label="任务名" :width="160"></TableText>
-    <TableText prop="get_number" label="领取次数" :width="100"></TableText>
+    <TableOptions prop="task_rule_name" label="任务规则" :width="160"></TableOptions>
+    <TableText prop="operator" label="条件" :width="100"></TableText>
+    <TableText prop="target_number" label="目标数量" :width="100"></TableText>
     <TableAction :buttons="[
       { name: '编辑' }
-    ]" :minWidth="260" />
+    ]" :minWidth="120" />
   </TableRender>
 </template>
 

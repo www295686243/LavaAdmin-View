@@ -18,8 +18,8 @@ import Service from './Service'
 export default class ViewOperationTaskIndex extends Vue {
   private Service = Service
 
-  private handlePushRule (row: { id: string }) {
-    RouterService.push('rules', { task_id: row.id })
+  private handlePushRule (row: { id: string; task_type: number }) {
+    RouterService.push('rules', { task_id: row.id, task_type: row.task_type })
   }
 }
 </script>

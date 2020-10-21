@@ -48,7 +48,6 @@ import Service from './Service'
 import { IFormFields } from '@/interface/common'
 import ValidateService from '@/service/ValidateService'
 import RouterService from '@/service/RouterService'
-import ConstService from '@/service/ConstService'
 import SqlService from '@/service/SqlService'
 import { PromiseResult } from '@/plugins/axios'
 import TaskRewards from '@/views/components/TaskRewards.vue'
@@ -67,7 +66,7 @@ export default class ViewInfoProvideForm extends Vue {
   formElement!: any
 
   get isShowReward () {
-    return this.form.status !== ConstService.getOptionsValue(93, '待审核') && !!this.form.id && this.form.is_admin === 0 && this.form.is_reward === 0
+    return this.form.status !== Service.getStatusValue(1, '待审核') && !!this.form.id && this.form.is_admin === 0 && this.form.is_reward === 0
   }
 
   private Service = Service
@@ -77,7 +76,7 @@ export default class ViewInfoProvideForm extends Vue {
     user_id: 0,
     description: '',
     phone: '',
-    status: ConstService.getOptionsValue(93, '待审核'),
+    status: Service.getStatusValue(1, '待审核'),
     _model: RouterService.query('_model'),
     rewards: [],
     is_admin: 0,

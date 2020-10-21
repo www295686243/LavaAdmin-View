@@ -26,7 +26,7 @@ export default class FormMultipleCascader extends Mixins(FormMixins) {
   private props = {
     expandTrigger: 'hover',
     label: 'display_name',
-    value: 'id',
+    value: 'value',
     multiple: true,
     emitPath: false
   }

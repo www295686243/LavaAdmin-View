@@ -29,6 +29,7 @@ import FormMultipleGroupPopup from './components/Form/FormMultipleGroupPopup.vue
 import FormGroupPopup from './components/Form/FormGroupPopup.vue'
 import FormRangeDate from './components/Form/FormRangeDate.vue'
 import FormAutocomplete from './components/Form/FormAutocomplete.vue'
+import FormGiveCoupon from './components/Form/FormGiveCoupon.vue'
 
 import TableRender from './components/Table/TableRender.vue'
 import TableText from './components/Table/TableText.vue'
@@ -66,6 +67,7 @@ Vue.component('FormGroupRender', FormGroupRender)
 Vue.component('FormMultipleGroupPopup', FormMultipleGroupPopup)
 Vue.component('FormGroupPopup', FormGroupPopup)
 Vue.component('FormAutocomplete', FormAutocomplete)
+Vue.component('FormGiveCoupon', FormGiveCoupon)
 
 Vue.component('TableRender', TableRender)
 Vue.component('TableText', TableText)

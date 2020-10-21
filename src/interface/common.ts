@@ -1,3 +1,5 @@
+import { OptionItem } from '@/service/ConstService'
+
 export interface IPagination {
   page: number
   limit: number
@@ -87,14 +89,7 @@ export interface ISearchFields {
   name: string,
   display_name: string,
   type: string,
-  options?: IOptions[]
-}
-
-export interface IOptions {
-  display_name: string;
-  id: number;
-  children?: IOptions[];
-  [key: string]: any;
+  options?: OptionItem[]
 }
 
 export interface IService {
@@ -108,4 +103,7 @@ export interface IService {
   getPermissionName: Function;
   getModelName: Function;
   getControllerName: Function;
+  getOptions: Function;
+  getOptionsValue: Function;
+  getStatusValue: Function;
 }

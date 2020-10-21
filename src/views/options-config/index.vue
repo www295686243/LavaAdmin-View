@@ -1,13 +1,12 @@
 <template>
   <TableRender :Service="Service" :searchFields="searchFields">
-    <TableText prop="id" label="ID" :width="120"></TableText>
     <TableText prop="name" label="标识" :width="300"></TableText>
     <TableText prop="display_name" label="名称" :width="200"></TableText>
     <TableAction :buttons="[
       { name: '配置选项', onClick: (row) => RouterService.push('config-options', { config_id: row.id }) },
       { name: '编辑' },
       { name: '删除' }
-    ]" :minWidth="160" />
+    ]" :minWidth="240" />
   </TableRender>
 </template>
 

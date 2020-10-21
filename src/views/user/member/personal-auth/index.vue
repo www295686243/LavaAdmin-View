@@ -5,7 +5,7 @@
     <TableText prop="name" label="姓名" :width="120"></TableText>
     <TableText prop="company" label="公司名" :width="200"></TableText>
     <TableText prop="position" label="职位" :width="160"></TableText>
-    <TableOptions prop="auth_status" label="状态" :width="100"></TableOptions>
+    <TableOptions prop="status" label="状态" :width="100"></TableOptions>
     <TableAction :buttons="[
       { name: '编辑' }
     ]" :minWidth="160" />

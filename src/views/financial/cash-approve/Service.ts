@@ -1,6 +1,5 @@
 import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
-import ConstService from '@/service/ConstService'
 import SqlService from '@/service/SqlService'
 
 class Service extends BaseModalService {
@@ -12,7 +11,7 @@ class Service extends BaseModalService {
       _search: (new SqlService()).where({
         field: 'status',
         operator: '<>',
-        value: ConstService.getOptionsValue(84, '申请中')
+        value: this.getStatusValue(1, '申请中')
       }).get()
     })
   }

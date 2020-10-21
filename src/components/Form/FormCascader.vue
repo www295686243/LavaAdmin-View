@@ -26,7 +26,7 @@ export default class FormCascader extends Mixins(FormMixins) {
   private props = {
     expandTrigger: 'hover',
     label: 'display_name',
-    value: 'id',
+    value: 'value',
     emitPath: false
   }
 
@@ -43,7 +43,7 @@ export default class FormCascader extends Mixins(FormMixins) {
     if (this.type === 'city') {
       this.field.props = {
         label: 'name',
-        value: 'id'
+        value: 'value'
       }
       this.field.options = ConstService.getAreaOptions()
       const isRequired = (this.field.rule || []).find((res) => res.required)

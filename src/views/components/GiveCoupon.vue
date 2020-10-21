@@ -1,32 +1,41 @@
 <template>
   <FormRender :onLoad="handleLoad" :form="form" :onSubmit="handleSubmit" :disableSubmitAndBackBtn="true">
-    <FormSelect v-model="form.coupon_template_id" :field="formFields.coupon_template_id"></FormSelect>
-    <FormSelect v-model="form.amount" :field="formFields.amount"></FormSelect>
-    <FormCounter v-model="form.give_number" :field="formFields.give_number"></FormCounter>
-    <FormCounter v-model="form.expiry_day" :field="formFields.expiry_day"></FormCounter>
+    <FormGroupPopup
+      title="任务奖励"
+      v-model="form.rewards"
+      :initForm="rewardsForm"
+      :fields="rewardsFormFields">
+      <template v-slot="{ v }">
+        <FormSelect v-model="v.coupon_template_id" :field="rewardsFormFields.coupon_template_id"></FormSelect>
+        <FormSelect v-model="v.amount" :field="rewardsFormFields.amount"></FormSelect>
+        <FormCounter v-model="v.give_number" :field="rewardsFormFields.give_number"></FormCounter>
+        <FormCounter v-model="v.expiry_day" :field="rewardsFormFields.expiry_day"></FormCounter>
+      </template>
+    </FormGroupPopup>
   </FormRender>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { IFormFields } from '@/interface/common'
 import ValidateService from '@/service/ValidateService'
 import axios from '@/plugins/axios'
 
 @Component
 export default class TableAction extends Vue {
-  @Prop()
-  params!: { id: string }
-
   private form = {
-    user_id: this.params.id,
+    rewards: []
+  }
+
+  private rewardsForm = {
+    reward_name: 'coupon',
     coupon_template_id: '',
     amount: 3,
     give_number: 1,
     expiry_day: 30
   }
 
-  private formFields: IFormFields = ValidateService.genRules({
+  private rewardsFormFields: IFormFields = ValidateService.genRules({
     coupon_template_id: {
       prop: 'coupon_template_id',
       label: '优惠券',
@@ -57,15 +66,14 @@ export default class TableAction extends Vue {
   private handleLoad () {
     return axios.get('coupon_template/getAll')
       .then((res) => {
-        this.formFields.coupon_template_id.options = res.data
+        this.rewardsFormFields.coupon_template_id.options = res.data
       })
   }
 
   private handleSubmit () {
-    return axios.post('user_coupon', this.form)
-      .then((res) => {
-        this.$emit('done')
-        return res
+    return Promise.resolve()
+      .then(() => {
+        this.$emit('done', this.form.rewards)
       })
   }
 }

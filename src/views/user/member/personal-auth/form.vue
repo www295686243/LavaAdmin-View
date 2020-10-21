@@ -7,7 +7,7 @@
     <FormInput v-model="form.address" :field="formFields.address"></FormInput>
     <FormTextarea v-model="form.intro" :field="formFields.intro"></FormTextarea>
     <FormImages v-model="form.certificates" :field="formFields.certificates"></FormImages>
-    <FormRadio v-model="form.auth_status" :field="formFields.auth_status"></FormRadio>
+    <FormRadio v-model="form.status" :field="formFields.status"></FormRadio>
     <FormTextarea v-model="form.refuse_reason" :field="formFields.refuse_reason"></FormTextarea>
   </FormRender>
 </template>
@@ -32,7 +32,7 @@ export default class ViewUserMemberPersonalAuthForm extends Vue {
     address: '',
     intro: '',
     certificates: [],
-    auth_status: '',
+    status: '',
     refuse_reason: ''
   }
 
@@ -78,8 +78,8 @@ export default class ViewUserMemberPersonalAuthForm extends Vue {
       label: '证件',
       rule: [ValidateService.required({ type: 'array' })]
     },
-    auth_status: {
-      prop: 'auth_status',
+    status: {
+      prop: 'status',
       label: '状态',
       rule: [ValidateService.required({ type: 'number' })]
     },

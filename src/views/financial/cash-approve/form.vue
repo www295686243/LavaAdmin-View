@@ -10,7 +10,6 @@ import Service from './Service'
 import RouterService from '@/service/RouterService'
 import { IFormFields } from '@/interface/common'
 import ValidateService from '@/service/ValidateService'
-import ConstService from '@/service/ConstService'
 
 @Component
 export default class ViewOtherWeChatNotifyUserForm extends Vue {
@@ -24,8 +23,8 @@ export default class ViewOtherWeChatNotifyUserForm extends Vue {
     status: {
       prop: 'status',
       label: '状态',
-      options: ConstService.getOptions(Service.getModelName() + ':status').map((res) => {
-        res.disabled = ![ConstService.getOptionsValue(88, '已转款'), ConstService.getOptionsValue(86, '已拒绝')].includes(res.id)
+      options: Service.getOptions('status').map((res) => {
+        res.disabled = ![Service.getStatusValue(5, '已转款'), Service.getStatusValue(3, '已拒绝')].includes(res.value)
         return res
       })
     }
