@@ -11,13 +11,14 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
+import TaskService from '../Service'
 import RouterService from '@/service/RouterService'
 import { IFormFields } from '@/interface/common'
 import ValidateService from '@/service/ValidateService'
 
 @Component
 export default class ViewOperationTaskForm extends Vue {
-  private isShowRewards = RouterService.query('task_type') === '3'
+  private isShowRewards = Number(RouterService.query('task_type')) === TaskService.getOptionsValue('task_type', 3, '阶梯任务')
   private Service = Service
   private form = {
     id: RouterService.query('id'),

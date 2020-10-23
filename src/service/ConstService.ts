@@ -1,6 +1,12 @@
 import cache from '@/plugins/cache'
 import areaOptions from '@/assets/json/area'
 
+export interface OptionBoolItem {
+  display_name: string;
+  value: number;
+  [key: string]: any;
+}
+
 export interface OptionItem {
   id: string;
   config_id: number;
@@ -73,9 +79,9 @@ class ConstService {
 
   getModelNames () {
     return [
-      { id: 'App\\Models\\Info\\Hr\\HrJob', display_name: '招聘', color: '#409EFF' },
-      { id: 'App\\Models\\Info\\Hr\\HrResume', display_name: '简历', color: '#67C23A' },
-      { id: 'App\\Models\\User\\UserPersonal', display_name: '个人详情' }
+      { value: 'App\\Models\\Info\\Hr\\HrJob', display_name: '招聘', color: '#409EFF' },
+      { value: 'App\\Models\\Info\\Hr\\HrResume', display_name: '简历', color: '#67C23A' },
+      { value: 'App\\Models\\User\\UserPersonal', display_name: '个人详情' }
     ]
   }
 }

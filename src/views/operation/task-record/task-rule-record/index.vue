@@ -1,0 +1,38 @@
+<template>
+  <TableRender :Service="Service" :onLoad="handleLoad">
+    <TableOptions prop="task_rule_name" label="任务规则" :width="120"></TableOptions>
+    <TableText prop="operator" label="任务条件" :width="120"></TableText>
+    <TableText prop="target_number" label="目标数量" :width="120"></TableText>
+    <TableText prop="complete_number" label="完成数量" :width="120"></TableText>
+    <TableText prop="task_complete_time" label="完成时间" :width="180"></TableText>
+    <TableOptions prop="is_complete" label="是否完成" :minWidth="100" :bool="true"></TableOptions>
+    <TableAction :buttons="[
+      { name: '明细', onClick: handleViews }
+    ]" :minWidth="140" />
+  </TableRender>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import Service from './Service'
+import DialogService from '@/service/DialogService/Service'
+
+@Component
+export default class ViewOperationTaskRuleRecordIndex extends Vue {
+  @Prop()
+  params!: { task_recordable_id: string; task_recordable_type: string; task_record_id: string };
+
+  private Service = Service
+
+  private handleLoad (params: any) {
+    return Service.index({
+      ...params,
+      task_record_id: this.params.task_record_id
+    })
+  }
+
+  private handleViews ({ user_id = '' }) {
+    DialogService.show(require('@/views/components/InfoViews.vue').default, { id: this.params.task_recordable_id, _model: this.params.task_recordable_type, share_user_id: user_id })
+  }
+}
+</script>

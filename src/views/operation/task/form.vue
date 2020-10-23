@@ -1,6 +1,7 @@
 <template>
   <FormRender :form="form" :Service="Service" :onSubmit="handleSubmit">
     <FormSelect v-model="form.task_type" :field="formFields.task_type"></FormSelect>
+    <FormSelect v-model="form.task_name" :field="formFields.task_name"></FormSelect>
     <FormInput v-model="form.title" :field="formFields.title"></FormInput>
     <FormInput v-model="form.desc" :field="formFields.desc"></FormInput>
     <FormGiveCoupon v-model="form.rewards" :col="4" v-show="isShowRewards"></FormGiveCoupon>
@@ -18,13 +19,14 @@ import ValidateService from '@/service/ValidateService'
 export default class ViewOperationTaskForm extends Vue {
   @Watch('form.task_type')
   onTaskType (val: number) {
-    this.isShowRewards = val !== 3
+    this.isShowRewards = val !== Service.getOptionsValue('task_type', 3, '阶梯任务')
   }
 
   private isShowRewards = true
   private Service = Service
   private form = {
     id: RouterService.query('id'),
+    task_name: '',
     title: '',
     desc: '',
     task_type: 1,
@@ -32,6 +34,11 @@ export default class ViewOperationTaskForm extends Vue {
   }
 
   private formFields: IFormFields = ValidateService.genRules({
+    task_name: {
+      prop: 'task_name',
+      label: '任务标识',
+      rule: [ValidateService.required({ trigger: 'change', type: 'number' })]
+    },
     title: {
       prop: 'title',
       label: '任务名',
@@ -45,12 +52,7 @@ export default class ViewOperationTaskForm extends Vue {
     task_type: {
       prop: 'task_type',
       label: '任务类型',
-      rule: [ValidateService.required({ trigger: 'change', type: 'number' })],
-      options: [
-        { id: 1, display_name: '联合任务' },
-        { id: 2, display_name: '可选任务' },
-        { id: 3, display_name: '阶梯任务' }
-      ]
+      rule: [ValidateService.required({ trigger: 'change', type: 'number' })]
     }
   })
 
