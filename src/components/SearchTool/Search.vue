@@ -139,11 +139,12 @@ export default class SearchToolEntra extends Vue {
       .then(() => {
         const fieldItem = this.innerFields.find((res: SearchFields) => res.name === this.form.field) as SearchFields
         const operatorItem = getOperatorConfig(fieldItem.type).find((res) => res.value === this.form.operator) as WhereItem
-        let valueDisplayName: string[] = []
-        if ((fieldItem.options as SearchOptions[]).length > 0) {
+        let valueDisplayName = ''
+        if (fieldItem.options && (fieldItem.options as SearchOptions[]).length > 0) {
           valueDisplayName = (fieldItem.options as SearchOptions[])
             .filter((res) => (this.form.value as string[]).includes(res.id as string))
             .map((res) => res.display_name)
+            .join()
         }
         this.SqlService.where({
           field: this.form.field,
