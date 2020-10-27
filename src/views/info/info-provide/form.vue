@@ -5,7 +5,7 @@
         <FormTextarea v-model="form.description" :field="formFields.description"></FormTextarea>
         <FormInput v-model="form.phone" :field="formFields.phone"></FormInput>
         <FormSelect v-model="form.status" :field="formFields.status"></FormSelect>
-        <TaskRewards v-model="form.rewards" v-if="isShowReward"></TaskRewards>
+        <FormGiveCoupon v-model="form.rewards" v-if="isShowReward"></FormGiveCoupon>
         <FormAutocomplete v-model="form.push_text" :field="formFields.push_text" v-if="isShowReward"></FormAutocomplete>
       </el-col>
       <el-col :span="12">
@@ -50,14 +50,9 @@ import ValidateService from '@/service/ValidateService'
 import RouterService from '@/service/RouterService'
 import SqlService from '@/service/SqlService'
 import { PromiseResult } from '@/plugins/axios'
-import TaskRewards from '@/views/components/TaskRewards.vue'
 import HrJobService from '@/views/hr/hr-job/Service'
 
-@Component({
-  components: {
-    TaskRewards
-  }
-})
+@Component
 export default class ViewInfoProvideForm extends Vue {
   @Ref()
   provideTableElement!: any

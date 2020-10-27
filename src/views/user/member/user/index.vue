@@ -11,7 +11,7 @@
         { name: '账单记录', onClick: (row) => handlePopover(row, '/user/member/bill/index') },
         { name: '订单记录', onClick: (row) => handlePopover(row, '/user/member/order/index') }
       ] }
-    ]" :minWidth="280" />
+    ]" :minWidth="300" />
   </TableRender>
 </template>
 
@@ -34,7 +34,7 @@ export default class ViewUserMemberUserIndex extends Vue {
   ]
 
   private giveCoupon (row: { id: number }) {
-    return DialogService.show(require('@/views/components/GiveCoupon.vue').default, { id: row.id, hideCloseBtn: true })
+    return DialogService.show(require('@/views/components/GiveCoupon.vue').default, { user_id: row.id, hideCloseBtn: true })
   }
 
   private handlePopover (row: { id: number }, path: string) {

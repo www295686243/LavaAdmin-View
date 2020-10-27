@@ -86,8 +86,13 @@ export default class FormGroupPopup extends Vue {
       return value
     } else if (field.options) {
       const innerValue = row[field.prop as string]
-      const optionItem = field.options.find((res) => res.id === innerValue)
-      return optionItem.display_name
+      const props = {
+        value: 'value',
+        label: 'display_name'
+      }
+      Object.assign(props, field.props)
+      const optionItem = field.options.find((res) => res[props.value] === innerValue)
+      return optionItem[props.label]
     } else {
       const innerValue = row[field.prop as string]
       if (Array.isArray(innerValue) && (field.prop as string).includes('images')) {

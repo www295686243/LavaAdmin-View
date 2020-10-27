@@ -5,8 +5,8 @@
     <TableText prop="path" label="路径" :width="400"></TableText>
     <TableText prop="ip" label="IP" :width="120"></TableText>
     <TableOptions prop="status" label="结果" :width="80" :options="[
-      { id: 'success', display_name: '成功', color: 'success' },
-      { id: 'success', display_name: '失败', color: 'error' }
+      { value: 'success', display_name: '成功', color: 'success' },
+      { value: 'success', display_name: '失败', color: 'error' }
     ]"></TableOptions>
     <TableText prop="code" label="状态码" :width="80"></TableText>
     <TableText prop="created_at" label="操作时间" :width="180"></TableText>

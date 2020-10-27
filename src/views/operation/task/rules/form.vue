@@ -40,11 +40,11 @@ export default class ViewOperationTaskForm extends Vue {
       prop: 'operator',
       label: '任务条件',
       options: [
-        { id: '>', display_name: '大于' },
-        { id: '>=', display_name: '大于等于' },
-        { id: '=', display_name: '等于' },
-        { id: '<', display_name: '小于' },
-        { id: '<=', display_name: '小于等于' }
+        { value: '>', display_name: '大于' },
+        { value: '>=', display_name: '大于等于' },
+        { value: '=', display_name: '等于' },
+        { value: '<', display_name: '小于' },
+        { value: '<=', display_name: '小于等于' }
       ],
       rule: [ValidateService.required({ trigger: 'change' })]
     },

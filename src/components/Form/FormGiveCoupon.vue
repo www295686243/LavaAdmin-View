@@ -59,14 +59,17 @@ export default class FormGiveCoupon extends Vue {
       prop: 'coupon_template_id',
       label: '优惠券模板',
       options: [],
+      props: {
+        value: 'id'
+      },
       rule: [ValidateService.required({ trigger: 'change' })]
     },
     amount: {
       prop: 'amount',
       label: '金额',
       options: [
-        { display_name: '3元', id: 3 },
-        { display_name: '5元', id: 5 }
+        { display_name: '3元', value: 3 },
+        { display_name: '5元', value: 5 }
       ],
       rule: [ValidateService.required({ trigger: 'change', type: 'number' })]
     },
