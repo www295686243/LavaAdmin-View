@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { IFormFields } from '@/interface/common'
+import { IFormFields, ISearchFields } from '@/interface/common'
 import ValidateService from '@/service/ValidateService'
 import { Component, Vue, Prop, Ref } from 'vue-property-decorator'
 import getOperatorConfig from './config'
@@ -61,17 +61,6 @@ import stringValue from './stringValue.vue'
 import RouterService from '@/service/RouterService'
 import QueryString from 'qs'
 import SqlService, { ListItem } from '@/service/SqlService'
-
-interface SearchFields {
-  name: string;
-  display_name: string;
-  type: string;
-  options?: SearchOptions[];
-  props?: {
-    label: string;
-    value: string;
-  };
-}
 
 interface SearchOptions {
   display_name: string;
@@ -98,10 +87,10 @@ export default class SearchToolEntra extends Vue {
   FormElement!: any
 
   @Prop()
-  fields!: SearchFields[]
+  fields!: ISearchFields[]
 
   private valueComponent = ''
-  private innerFields: SearchFields[] = []
+  private innerFields: ISearchFields[] = []
   private innerOptions: SearchOptions[] = []
   private innerOptionsProps: { label: string; value: string } = { label: 'display_name', value: 'value' }
   private innerWheres: WhereItem[] = []
@@ -126,7 +115,7 @@ export default class SearchToolEntra extends Vue {
   })
 
   private createForm (field: string, row?: ListItem) {
-    const fieldItem = this.innerFields.find((res: SearchFields) => res.name === field) as SearchFields
+    const fieldItem = this.innerFields.find((res: ISearchFields) => res.name === field) as ISearchFields
     this.innerWheres = getOperatorConfig(fieldItem.type)
     this.innerOptions = JSON.parse(JSON.stringify(fieldItem.options || []))
     this.form.field = field
@@ -150,7 +139,7 @@ export default class SearchToolEntra extends Vue {
   private addWhere () {
     return this.FormElement.validate()
       .then(() => {
-        const fieldItem = this.innerFields.find((res: SearchFields) => res.name === this.form.field) as SearchFields
+        const fieldItem = this.innerFields.find((res: ISearchFields) => res.name === this.form.field) as ISearchFields
         const operatorItem = getOperatorConfig(fieldItem.type).find((res) => res.value === this.form.operator) as WhereItem
         let valueDisplayName = ''
         if (fieldItem.options && (fieldItem.options as SearchOptions[]).length > 0) {
@@ -187,20 +176,20 @@ export default class SearchToolEntra extends Vue {
 
   private resetFields () {
     const fields: string[] = this.SqlService.getFields()
-    this.innerFields = this.getFields().filter((res: SearchFields) => !fields.includes(res.name))
+    this.innerFields = this.getFields().filter((res: ISearchFields) => !fields.includes(res.name))
   }
 
   private handleSubmit () {
     RouterService.replace(RouterService.getPath(), { _search: QueryString.stringify(this.SqlService.get()) || undefined })
   }
 
-  private getFields (): SearchFields[] {
+  private getFields (): ISearchFields[] {
     return this.fields ? JSON.parse(JSON.stringify(this.fields)) : []
   }
 
   private handleEditTag (index: number) {
     const item = this.SqlService.getItem(index) as ListItem
-    const fieldItem = this.getFields().find((res: SearchFields) => res.name === item.field) as SearchFields
+    const fieldItem = this.getFields().find((res: ISearchFields) => res.name === item.field) as ISearchFields
     Object.assign(this.form, {
       field: item.field,
       operator: item.operator,

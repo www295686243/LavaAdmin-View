@@ -89,7 +89,11 @@ export interface ISearchFields {
   name: string,
   display_name: string,
   type: string,
-  options?: OptionItem[]
+  options?: OptionItem[];
+  props?: {
+    label: string;
+    value: string;
+  };
 }
 
 export interface IService {

@@ -1,5 +1,5 @@
 <template>
-  <TableRender :Service="Service">
+  <TableRender :Service="Service" :searchFields="searchFields">
     <TableText prop="title" label="任务名" :width="160"></TableText>
     <TableText prop="user.nickname" label="领取人" :width="160"></TableText>
     <TableText prop="task_recordable.title" label="任务信息" :minWidth="220"></TableText>
@@ -19,11 +19,25 @@ import ConstService from '@/service/ConstService'
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
 import DialogService from '@/service/DialogService/Service'
+import { ISearchFields } from '@/interface/common'
 
 @Component
 export default class ViewOperationTaskRecordIndex extends Vue {
   private Service = Service
   private ConstService = ConstService
+
+  private searchFields: ISearchFields[] = [
+    {
+      name: 'task_id',
+      display_name: '任务类型',
+      type: 'intOptions',
+      options: [],
+      props: {
+        label: 'title',
+        value: 'id'
+      }
+    }
+  ]
 
   private handleTaskRecord (row: { id: string; task_recordable_id: string; task_recordable_type: string }) {
     DialogService.show(require('./task-rule-record/index.vue').default, { task_recordable_id: row.task_recordable_id, task_recordable_type: row.task_recordable_type, task_record_id: row.id })
