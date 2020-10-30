@@ -17,7 +17,7 @@ import { ISearchFields } from '@/interface/common'
 import ConstService from '@/service/ConstService'
 
 @Component
-export default class ViewSystemConfigIndex extends Vue {
+export default class ViewOperationCouponIndex extends Vue {
   private Service = Service
   private ConstService = ConstService
 

@@ -18,9 +18,9 @@
       <el-popover
         placement="right"
         trigger="click"
-        v-else-if="prop === 'user.nickname'">
-        <p>id: {{scope.row.user.id}}</p>
-        <p>昵称: {{scope.row.user.nickname}}</p>
+        v-else-if="prop.indexOf('.nickname') > -1">
+        <p>id: {{ getValue(scope.row, prop.replace('.nickname', '.id')) || '--' }}</p>
+        <p>昵称: {{ getValue(scope.row) || '--' }}</p>
         <el-button size="mini" slot="reference" type="text">{{ getValue(scope.row) || '--' }}</el-button>
       </el-popover>
       <span :style="{ color: getColor(scope.row) }" v-else>{{ getValue(scope.row) || '--' }}</span>
@@ -41,8 +41,8 @@ export default class TableText extends Mixins(TableMixins) {
 
   private ConstService = ConstService
 
-  private getValue (row: any) {
-    const field = this.prop as string
+  private getValue (row: any, prop?: string) {
+    const field = prop || this.prop as string
     if (Array.isArray(row[field])) {
       return this.getArrayValue(row)
     } else if (row[field] && row[field].text && row[field].color) {

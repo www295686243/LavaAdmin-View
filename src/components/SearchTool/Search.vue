@@ -21,7 +21,14 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <component :is="valueComponent" :operator="form.operator" :type="form.type" v-model="form.value" :options="innerOptions"></component>
+      <component
+        :is="valueComponent"
+        :operator="form.operator"
+        :type="form.type"
+        v-model="form.value"
+        :optionsProps="innerOptionsProps"
+        :options="innerOptions">
+      </component>
       <el-form-item>
         <ButtonSubmit :onClick="addWhere" type="primary" plain>添加条件</ButtonSubmit>
       </el-form-item>
@@ -60,6 +67,10 @@ interface SearchFields {
   display_name: string;
   type: string;
   options?: SearchOptions[];
+  props?: {
+    label: string;
+    value: string;
+  };
 }
 
 interface SearchOptions {
@@ -92,6 +103,7 @@ export default class SearchToolEntra extends Vue {
   private valueComponent = ''
   private innerFields: SearchFields[] = []
   private innerOptions: SearchOptions[] = []
+  private innerOptionsProps: { label: string; value: string } = { label: 'display_name', value: 'value' }
   private innerWheres: WhereItem[] = []
   private SqlService = new SqlService()
   private form: ListItem = {
@@ -132,6 +144,7 @@ export default class SearchToolEntra extends Vue {
     }
     this.form.type = fieldItem.type
     this.valueComponent = this.form.type + 'Value'
+    Object.assign(this.innerOptionsProps, fieldItem.props)
   }
 
   private addWhere () {
@@ -142,8 +155,8 @@ export default class SearchToolEntra extends Vue {
         let valueDisplayName = ''
         if (fieldItem.options && (fieldItem.options as SearchOptions[]).length > 0) {
           valueDisplayName = (fieldItem.options as SearchOptions[])
-            .filter((res) => (this.form.value as string[]).includes(res.id as string))
-            .map((res) => res.display_name)
+            .filter((res) => (this.form.value as string[]).includes(res[this.innerOptionsProps.value] as string))
+            .map((res) => res[this.innerOptionsProps.label])
             .join()
         }
         this.SqlService.where({

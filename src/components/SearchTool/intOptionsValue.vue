@@ -7,8 +7,8 @@
       <el-option
         v-for="(v, key) in options"
         :key="key"
-        :label="v.display_name"
-        :value="v.id">
+        :label="v[optionsProps.label]"
+        :value="v[optionsProps.value]">
       </el-option>
     </el-select>
   </el-form-item>
@@ -24,6 +24,9 @@ import SearchMixins from './SearchMixins'
 export default class SearchIntOptionsValue extends Mixins(SearchMixins) {
   @Prop()
   options!: any[]
+
+  @Prop()
+  optionsProps!: { label: string; value: string }
 
   private field: IFormFieldItem = ValidateService.genRule({
     prop: 'value',

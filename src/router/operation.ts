@@ -10,6 +10,9 @@ import taskRuleForm from '@/views/operation/task/rules/form.vue'
 
 import taskRecord from '@/views/operation/task-record/index.vue'
 
+import CouponMarket from '@/views/operation/coupon-market/index.vue'
+import CouponOrder from '@/views/operation/coupon-order/index.vue'
+
 export default [
   {
     path: '/operation/coupon-template',
@@ -48,5 +51,13 @@ export default [
   {
     path: '/operation/task-record',
     component: taskRecord
+  },
+  {
+    path: '/operation/coupon-market',
+    component: CouponMarket
+  },
+  {
+    path: '/operation/coupon-order',
+    component: CouponOrder
   }
 ]
