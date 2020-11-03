@@ -12,14 +12,15 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 @Component
 export default class InfoViews extends Vue {
   @Prop()
-  params!: { id: string; _model: string; share_user_id: string };
+  params!: { id: string; _model: string; share_user_id: string; is_new_user: number };
 
   private handleLoad (params: any) {
     return axios.get('info_view', {
       ...params,
       id: this.params.id,
       _model: this.params._model,
-      share_user_id: this.params.share_user_id
+      share_user_id: this.params.share_user_id,
+      is_new_user: this.params.is_new_user
     })
   }
 }

@@ -81,7 +81,8 @@ class ConstService {
     return [
       { value: 'App\\Models\\Info\\Hr\\HrJob', display_name: '招聘', color: '#409EFF' },
       { value: 'App\\Models\\Info\\Hr\\HrResume', display_name: '简历', color: '#67C23A' },
-      { value: 'App\\Models\\User\\UserPersonal', display_name: '个人详情' }
+      { value: 'App\\Models\\User\\UserPersonal', display_name: '个人详情' },
+      { value: 'App\\Models\\Api\\User', display_name: '用户' }
     ]
   }
 }

@@ -20,6 +20,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
 import DialogService from '@/service/DialogService/Service'
 import { ISearchFields } from '@/interface/common'
+import cache from '@/plugins/cache'
 
 @Component
 export default class ViewOperationTaskRecordIndex extends Vue {
@@ -31,7 +32,7 @@ export default class ViewOperationTaskRecordIndex extends Vue {
       name: 'task_id',
       display_name: '任务类型',
       type: 'intOptions',
-      options: [],
+      options: cache.config.get('task') || [],
       props: {
         label: 'title',
         value: 'id'

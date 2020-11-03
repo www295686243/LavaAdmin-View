@@ -14,7 +14,7 @@
           type="danger"
           :size="v.size || 'small'"
           :onClick="() => handleDestroy(scope, v)"
-          v-if="v.name === '删除'">
+          v-if="v.name === '删除' && handleOnShow(scope, v)">
           {{v.name}}
         </ButtonDelete>
         <ButtonSubmit
@@ -22,7 +22,7 @@
           :type="v.type || 'primary'"
           :size="v.size || 'small'"
           :onClick="() => handleEdit(scope, v)"
-          v-else-if="v.name === '编辑'">
+          v-else-if="v.name === '编辑' && handleOnShow(scope, v)">
           {{v.name}}
         </ButtonSubmit>
         <ButtonSubmit
@@ -30,7 +30,7 @@
           :type="v.type || 'warning'"
           :size="v.size || 'small'"
           :onClick="() => handleShow(scope, v)"
-          v-else-if="v.name === '查看详情'">
+          v-else-if="v.name === '查看详情' && handleOnShow(scope, v)">
           {{v.name}}
         </ButtonSubmit>
         <el-popover
@@ -43,14 +43,14 @@
               type="text"
               :size="item.size || 'small'"
               :onClick="() => handleDestroy(scope, item)"
-              v-if="item.name === '删除'">
+              v-if="item.name === '删除' && handleOnShow(scope, item)">
               {{item.name}}
             </ButtonDelete>
             <ButtonSubmit
               v-else
               type="text"
               :onClick="() => item.onClick(scope.row, scope.$index)"
-              :size="item.size || 'small'">
+              :size="item.size || 'small' && handleOnShow(scope, item)">
               {{item.name}}
             </ButtonSubmit>
           </div>
@@ -66,7 +66,7 @@
           :type="v.type || 'warning'"
           :size="v.size || 'small'"
           :onClick="() => v.onClick(scope.row, scope.$index)"
-          v-else>
+          v-else-if="handleOnShow(scope, v)">
           {{v.name}}
         </ButtonSubmit>
       </template>
@@ -126,6 +126,14 @@ export default class TableAction extends Mixins(TableMixins) {
           return DialogService.show(require('@/views' + RouterService.getPath() + '/show.vue').default, { id: scope.row.id })
         }
       })
+  }
+
+  private handleOnShow (scope: any, v: { onShow: Function }) {
+    if (v.onShow) {
+      return v.onShow(scope.row)
+    } else {
+      return true
+    }
   }
 
   created () {
