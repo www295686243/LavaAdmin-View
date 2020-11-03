@@ -18,9 +18,6 @@ class DialogService {
       }
     }).$mount(el)
     return (instance as any).open()
-      .catch(() => {
-        console.log('关闭弹窗')
-      })
   }
 }
 

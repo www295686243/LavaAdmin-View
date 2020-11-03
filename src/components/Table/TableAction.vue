@@ -47,10 +47,10 @@
               {{item.name}}
             </ButtonDelete>
             <ButtonSubmit
-              v-else
+              v-else-if="handleOnShow(scope, item)"
               type="text"
               :onClick="() => item.onClick(scope.row, scope.$index)"
-              :size="item.size || 'small' && handleOnShow(scope, item)">
+              :size="item.size || 'small'">
               {{item.name}}
             </ButtonSubmit>
           </div>

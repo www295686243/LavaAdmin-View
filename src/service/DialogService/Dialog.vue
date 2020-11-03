@@ -39,7 +39,7 @@ export default class ServiceDialog extends Vue {
 
   close () {
     this.isShowModal = false
-    this.reject()
+    this.reject('关闭弹窗')
   }
 
   handleDone (data: any) {
