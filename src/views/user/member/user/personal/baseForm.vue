@@ -109,7 +109,10 @@ export default class ViewUserMemberUserPersonalForm extends Vue {
     },
     industry: {
       prop: 'industry',
-      label: '行业'
+      label: '行业',
+      props: {
+        value: 'id'
+      }
     }
   })
 }

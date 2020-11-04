@@ -44,7 +44,7 @@ export default class FormMultipleCascader extends Mixins(FormMixins) {
   created () {
     this.setInnerValue()
     if (this.type === 'industry') {
-      this.field.options = cache.config.get('industry') || []
+      this.field.options = JSON.parse(JSON.stringify(cache.config.get('industry') || []))
     }
     Object.assign(this.props, this.field.props)
   }

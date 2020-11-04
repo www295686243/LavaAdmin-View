@@ -98,7 +98,10 @@ export default class ViewUserMemberUserEnterpriseForm extends Vue {
     },
     industry: {
       prop: 'industry',
-      label: '行业'
+      label: '行业',
+      props: {
+        value: 'id'
+      }
     },
     email: {
       prop: 'email',
