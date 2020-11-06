@@ -62,7 +62,7 @@ export default class FormGiveCoupon extends Vue {
       props: {
         value: 'id'
       },
-      rule: [ValidateService.required({ trigger: 'change' })]
+      rule: [ValidateService.required({ trigger: 'change', type: 'number' })]
     },
     amount: {
       prop: 'amount',
