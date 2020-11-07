@@ -57,7 +57,7 @@ export default class ButtonSubmit extends Vue {
                 message: '<div style="line-height: 1.4">' + messageHTML + '</div>',
                 type: 'error'
               })
-            } else {
+            } else if (res.message) {
               this.$message({
                 showClose: true,
                 message: res.message,

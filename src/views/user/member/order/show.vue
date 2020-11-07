@@ -21,11 +21,11 @@ import { IFormFields } from '@/interface/common'
 @Component
 export default class ViewUserMemberOrderShow extends Vue {
   @Prop()
-  id!: string
+  params!: { id: string }
 
   private Service = Service
   private info = {
-    id: this.id,
+    id: this.params.id,
     user: {
       nickname: ''
     },
