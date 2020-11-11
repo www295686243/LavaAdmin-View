@@ -6,8 +6,8 @@
       <FormTextarea v-model="form.description" :field="formFields.description"></FormTextarea>
       <FormSalary
         v-model="form.monthly_range"
-        :minValue.sync="form.monthly_pay_min"
-        :maxValue.sync="form.monthly_pay_max"
+        :minValue.sync="form.monthly_salary_min"
+        :maxValue.sync="form.monthly_salary_max"
         :isNegotiable.sync="form.is_negotiate"
         :field="formFields.monthly_range">
       </FormSalary>

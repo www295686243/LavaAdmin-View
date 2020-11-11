@@ -22,8 +22,8 @@ export default class ViewHrResumeForm extends Vue {
   private form = {
     id: RouterService.query('id'),
     title: '',
-    monthly_pay_min: '',
-    monthly_pay_max: '',
+    monthly_salary_min: '',
+    monthly_salary_max: '',
     monthly_range: '1',
     is_negotiate: 0,
     education: '',
