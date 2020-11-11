@@ -4,21 +4,19 @@
     <FormSelect v-model="form.operator" :field="formFields.operator"></FormSelect>
     <FormCounter v-model="form.target_number" :field="formFields.target_number"></FormCounter>
     <FormInput v-model="form.task_interface" :field="formFields.task_interface"></FormInput>
-    <FormGiveCoupon v-model="form.rewards" :col="4" v-if="isShowRewards"></FormGiveCoupon>
+    <FormGiveCoupon v-model="form.rewards" :col="4"></FormGiveCoupon>
   </FormRender>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
-import TaskService from '../Service'
 import RouterService from '@/service/RouterService'
 import { IFormFields } from '@/interface/common'
 import ValidateService from '@/service/ValidateService'
 
 @Component
 export default class ViewOperationTaskForm extends Vue {
-  private isShowRewards = Number(RouterService.query('task_type')) === TaskService.getOptionsValue('task_type', 3, '阶梯任务')
   private Service = Service
   private form = {
     id: RouterService.query('id'),

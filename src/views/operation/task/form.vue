@@ -1,15 +1,16 @@
 <template>
   <FormRender :form="form" :Service="Service" :onSubmit="handleSubmit">
+    <FormSelect v-model="form.task_mode" :field="formFields.task_mode"></FormSelect>
     <FormSelect v-model="form.task_type" :field="formFields.task_type"></FormSelect>
     <FormSelect v-model="form.task_name" :field="formFields.task_name"></FormSelect>
     <FormInput v-model="form.title" :field="formFields.title"></FormInput>
     <FormInput v-model="form.desc" :field="formFields.desc"></FormInput>
-    <FormGiveCoupon v-model="form.rewards" :col="4" v-show="isShowRewards"></FormGiveCoupon>
+    <FormGiveCoupon v-model="form.rewards" :col="4"></FormGiveCoupon>
   </FormRender>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
 import RouterService from '@/service/RouterService'
 import { IFormFields } from '@/interface/common'
@@ -17,18 +18,13 @@ import ValidateService from '@/service/ValidateService'
 
 @Component
 export default class ViewOperationTaskForm extends Vue {
-  @Watch('form.task_type')
-  onTaskType (val: number) {
-    this.isShowRewards = val !== Service.getOptionsValue('task_type', 3, '阶梯任务')
-  }
-
-  private isShowRewards = true
   private Service = Service
   private form = {
     id: RouterService.query('id'),
     task_name: '',
     title: '',
     desc: '',
+    task_mode: 1,
     task_type: 1,
     rewards: []
   }
@@ -49,6 +45,11 @@ export default class ViewOperationTaskForm extends Vue {
       label: '任务描述',
       rule: [ValidateService.required, ValidateService.max(255)]
     },
+    task_mode: {
+      prop: 'task_mode',
+      label: '任务模式',
+      rule: [ValidateService.required({ trigger: 'change', type: 'number' })]
+    },
     task_type: {
       prop: 'task_type',
       label: '任务类型',
@@ -58,11 +59,6 @@ export default class ViewOperationTaskForm extends Vue {
 
   private handleSubmit () {
     return Promise.resolve()
-      .then(() => {
-        if (this.isShowRewards === false) {
-          this.form.rewards = []
-        }
-      })
       .then(() => {
         if (this.form.id) {
           return Service.update(this.form)
