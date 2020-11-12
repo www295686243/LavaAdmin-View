@@ -1,5 +1,6 @@
 <template>
   <FormRender :form="form" :Service="Service">
+    <FormInput v-model="form.title" :field="formFields.title"></FormInput>
     <FormSelect v-model="form.task_rule_name" :field="formFields.task_rule_name"></FormSelect>
     <FormSelect v-model="form.operator" :field="formFields.operator"></FormSelect>
     <FormCounter v-model="form.target_number" :field="formFields.target_number"></FormCounter>
@@ -21,6 +22,7 @@ export default class ViewOperationTaskForm extends Vue {
   private form = {
     id: RouterService.query('id'),
     task_id: RouterService.query('task_id'),
+    title: '',
     task_rule_name: '',
     operator: '',
     target_number: 1,
@@ -29,6 +31,11 @@ export default class ViewOperationTaskForm extends Vue {
   }
 
   private formFields: IFormFields = ValidateService.genRules({
+    title: {
+      prop: 'title',
+      label: '子任务名',
+      rule: [ValidateService.max(60)]
+    },
     task_rule_name: {
       prop: 'task_rule_name',
       label: '任务规则',
