@@ -3,9 +3,10 @@
     <el-row :gutter="20">
       <el-col :span="12">
         <FormTextarea v-model="form.description" :field="formFields.description"></FormTextarea>
+        <FormInput v-model="form.contacts" :field="formFields.contacts"></FormInput>
         <FormInput v-model="form.phone" :field="formFields.phone"></FormInput>
         <FormSelect v-model="form.status" :field="formFields.status"></FormSelect>
-        <FormGiveCoupon v-model="form.rewards" v-if="isShowReward"></FormGiveCoupon>
+        <!-- <FormGiveCoupon v-model="form.rewards" v-if="isShowReward"></FormGiveCoupon> -->
         <FormAutocomplete v-model="form.push_text" :field="formFields.push_text" v-if="isShowReward"></FormAutocomplete>
       </el-col>
       <el-col :span="12">
@@ -70,6 +71,7 @@ export default class ViewInfoProvideForm extends Vue {
     id: RouterService.query('id'),
     user_id: 0,
     description: '',
+    contacts: '',
     phone: '',
     status: Service.getStatusValue(1, '待审核'),
     _model: RouterService.query('_model'),
@@ -86,6 +88,11 @@ export default class ViewInfoProvideForm extends Vue {
       prop: 'description',
       label: '描述',
       rule: [ValidateService.required, ValidateService.max(255)]
+    },
+    contacts: {
+      prop: 'contacts',
+      label: '联系人',
+      rule: [ValidateService.required, ValidateService.max(20)]
     },
     phone: {
       prop: 'phone',
@@ -146,14 +153,18 @@ export default class ViewInfoProvideForm extends Vue {
     return this.formElement.handleSubmit()
       .then((res: PromiseResult) => {
         this.form.user_id = res.data.user_id || this.form.user_id
-        if (this.form._model === 'Info/Hr/HrJob') {
-          RouterService.push('/hr/job/form', {
-            provide_user_id: this.form.user_id,
-            description: this.form.description,
-            phone: this.form.phone,
-            info_provide_id: res.data.id,
-            id: this.form.info_provideable_id
-          })
+        const params = {
+          provide_user_id: this.form.user_id,
+          description: this.form.description,
+          phone: this.form.phone,
+          contacts: this.form.contacts,
+          info_provide_id: res.data.id,
+          id: this.form.info_provideable_id || ''
+        }
+        if (this.form.info_provideable_type.includes('HrJob')) {
+          RouterService.push('/hr/job/form', params)
+        } else if (this.form.info_provideable_type.includes('HrResume')) {
+          RouterService.push('/hr/resume/form', params)
         }
       })
   }

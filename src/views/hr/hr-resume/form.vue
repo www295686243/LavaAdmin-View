@@ -32,14 +32,12 @@ export default class ViewHrResumeForm extends Vue {
     treatment_input: '',
     city: '',
     end_time: '',
-    contacts: '',
+    contacts: RouterService.query('contacts'),
     phone: RouterService.query('phone'),
     status: Service.getStatusValue(1, '已发布'),
-    is_other_user: 0,
     provide_user_id: RouterService.query('provide_user_id'),
     description: RouterService.query('description'),
-    industry: [],
-    is_force_show_user_info: 0
+    industry: []
   }
 }
 </script>

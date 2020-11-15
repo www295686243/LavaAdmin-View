@@ -14,7 +14,6 @@
       </FormSalary>
       <FormCascader v-model="form.city" :field="formFields.city" type="city"></FormCascader>
       <FormInput v-model="form.address" :field="formFields.address"></FormInput>
-      <FormRadio v-model="form.is_other_user" :field="formFields.is_other_user" :fieldService="Service"></FormRadio>
       <FormRadio v-model="form.status" :field="formFields.status" :fieldService="Service"></FormRadio>
       <FormSwitch v-model="form.is_push" :field="formFields.is_push"></FormSwitch>
     </el-col>
@@ -36,7 +35,6 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 import Service from './Service'
 import { IFormFields } from '@/interface/common'
 import ValidateService from '@/service/ValidateService'
-import ConstService from '@/service/ConstService'
 import FormSalary from '@/components/Form/FormSalary.vue'
 
 @Component({
@@ -123,11 +121,6 @@ export default class ViewHrJobInnerForm extends Vue {
       prop: 'phone',
       label: '联系电话',
       rule: [ValidateService.required, ValidateService.phone]
-    },
-    is_other_user: {
-      prop: 'is_other_user',
-      label: '代发',
-      options: ConstService.getBoolOptions()
     },
     status: {
       prop: 'status',
