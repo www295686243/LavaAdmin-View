@@ -1,5 +1,5 @@
 <template>
-  <TableRender :Service="Service" ref="table">
+  <TableRender :Service="Service" ref="table" :searchFields="searchFields">
     <TableText prop="user.nickname" label="发布者" :width="100"></TableText>
     <TableText prop="title" label="标题" :minWidth="200"></TableText>
     <TableCascader
@@ -32,6 +32,7 @@ import ConstService from '@/service/ConstService'
 import { Component, Vue, Ref } from 'vue-property-decorator'
 import Service from './Service'
 import DialogService from '@/service/DialogService/Service'
+import { ISearchFields } from '@/interface/common'
 
 @Component
 export default class ViewHrIndex extends Vue {
@@ -42,12 +43,20 @@ export default class ViewHrIndex extends Vue {
   private ConstService = ConstService
 
   private handleTransfer (row: { id: string }) {
-    DialogService.show(require('@/views/components/TransferInfo.vue').default, { id: row.id, hideCloseBtn: true, type: 'hr_resume' })
+    DialogService.show(require('@/views/components/TransferInfo.vue').default, { id: row.id, Service })
       .then(() => this.table.reload())
   }
 
   private handleViews (row: { id: string }) {
-    DialogService.show(require('@/views/components/InfoViews.vue').default, { id: row.id, _model: Service.modelName })
+    DialogService.show(require('@/views/components/InfoViews.vue').default, { id: row.id, _model: Service.name })
   }
+
+  private searchFields: ISearchFields[] = [
+    {
+      name: 'user_id',
+      display_name: '发布人ID',
+      type: 'bigInt'
+    }
+  ]
 }
 </script>

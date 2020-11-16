@@ -2,8 +2,8 @@ import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  name = '任务'
-  modelName = 'Task/Task'
+  displayName = '任务'
+  name = 'Task/Task'
   index (params: { page: number }) {
     return axios.get('task', params)
   }

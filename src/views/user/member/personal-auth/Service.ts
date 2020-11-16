@@ -2,8 +2,8 @@ import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  name = '个人认证'
-  modelName = 'User/UserPersonalAuth'
+  displayName = '个人认证'
+  name = 'User/UserPersonalAuth'
   index () {
     return axios.get('user_personal_auth')
   }

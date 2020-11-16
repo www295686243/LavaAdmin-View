@@ -2,8 +2,8 @@ import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  name = '优惠券模板'
-  modelName = 'CouponTemplate'
+  displayName = '优惠券模板'
+  name = 'CouponTemplate'
   index (params: { page: number }) {
     return axios.get('coupon_template', params)
   }

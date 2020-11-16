@@ -79,7 +79,7 @@ export default class ImageManage extends Vue {
   type!: string
 
   @Prop()
-  modelName!: string
+  _model!: string
 
   private isDisableDeleteBtn = true
   private isShowModal = true
@@ -91,7 +91,7 @@ export default class ImageManage extends Vue {
   }
 
   private uploadParams: IUploadParams = {
-    _model: this.modelName,
+    _model: this._model,
     info_id: RouterService.query('id'),
     marking: RouterService.query('marking')
   }

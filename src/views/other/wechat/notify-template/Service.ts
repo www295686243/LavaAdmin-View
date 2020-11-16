@@ -2,8 +2,8 @@ import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  name = '通知模板'
-  modelName = 'Notify/NotifyTemplate'
+  displayName = '通知模板'
+  name = 'Notify/NotifyTemplate'
   index (params: { page: number }) {
     return axios.get('notify_template', params)
   }

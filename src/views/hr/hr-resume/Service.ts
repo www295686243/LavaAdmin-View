@@ -2,8 +2,8 @@ import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  modelName = 'Info/Hr/HrResume'
-  name = '求职'
+  name = 'Info/Hr/HrResume'
+  displayName = '求职'
   index (params: { page: number }) {
     return axios.get('hr_resume', params)
   }
@@ -22,6 +22,10 @@ class Service extends BaseModalService {
 
   destroy (id: string) {
     return axios.delete(`hr_resume/${id}`)
+  }
+
+  transfer (params: { id: string; transfer_user_id: string }) {
+    return axios.post('hr_job/transfer', params)
   }
 }
 

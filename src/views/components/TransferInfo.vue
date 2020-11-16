@@ -6,14 +6,18 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { IFormFields } from '@/interface/common'
-import axios from '@/plugins/axios'
+import { IFormFields, IService } from '@/interface/common'
+import { PromiseResult } from '@/plugins/axios'
 import ValidateService from '@/service/ValidateService'
+
+interface Service extends IService {
+  transfer: Function;
+}
 
 @Component
 export default class TransferInfo extends Vue {
   @Prop()
-  params!: { id: string; type: string }
+  params!: { id: string; Service: Service }
 
   private form = {
     transfer_user_id: ''
@@ -28,11 +32,11 @@ export default class TransferInfo extends Vue {
   })
 
   private handleSubmit () {
-    return axios.post(`${this.params.type}/transfer`, {
-      info_id: this.params.id,
+    return this.params.Service.transfer({
+      id: this.params.id,
       ...this.form
     })
-      .then((res) => {
+      .then((res: PromiseResult) => {
         this.$emit('done')
         return res
       })

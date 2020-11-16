@@ -3,8 +3,8 @@ import RouterService from '@/service/RouterService'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  name = '配置'
-  modelName = 'Config'
+  displayName = '配置'
+  name = 'Config'
   index (params: object) {
     return axios.get('config', {
       ...params,

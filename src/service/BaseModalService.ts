@@ -1,16 +1,16 @@
 import ConstService from './ConstService'
 
 export default abstract class BaseModalService {
-  abstract modelName: string
-  name!: string
+  abstract name: string
+  displayName!: string
   controllerName!: string
 
   public getModelName () {
-    return this.modelName
+    return this.name
   }
 
   public getControllerName () {
-    return this.controllerName || this.modelName
+    return this.controllerName || this.name
   }
 
   public getPermissionName (name: string) {
@@ -18,12 +18,12 @@ export default abstract class BaseModalService {
   }
 
   public getOptions (fieldName: string) {
-    return ConstService.getOptions(this.modelName, fieldName)
+    return ConstService.getOptions(this.name, fieldName)
   }
 
   // eslint-disable-next-line
   public getOptionsValue (fieldName: string, value: number, _display_name?: string) {
-    const options = ConstService.getOptions(this.modelName, fieldName)
+    const options = ConstService.getOptions(this.name, fieldName)
     const item = options.find((res) => res.value === value)
     return item ? item.value : 0
   }

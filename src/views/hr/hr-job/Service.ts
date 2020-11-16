@@ -3,8 +3,8 @@ import BaseModalService from '@/service/BaseModalService'
 import { ListItem } from '@/service/SqlService'
 
 class Service extends BaseModalService {
-  modelName = 'Info/Hr/HrJob'
-  name = '招聘'
+  name = 'Info/Hr/HrJob'
+  displayName = '招聘'
   index (params: { page: number; _search?: (ListItem | ListItem[])[] }) {
     return axios.get('hr_job', params)
   }
@@ -23,6 +23,10 @@ class Service extends BaseModalService {
 
   destroy (id: string) {
     return axios.delete(`hr_job/${id}`)
+  }
+
+  transfer (params: { id: string; transfer_user_id: string }) {
+    return axios.post('hr_job/transfer', params)
   }
 }
 
