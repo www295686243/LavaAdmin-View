@@ -1,6 +1,6 @@
 <template>
   <el-form-item :label="field.label" :prop="field.prop" :rules="field.rule">
-    <el-radio-group v-model="innerValue">
+    <el-radio-group v-model="innerValue" @change="onChange">
       <el-radio :label="v[props.value]" v-for="v in options" :key="v[props.value]" :disabled="field.disabled">{{v[props.label]}}</el-radio>
     </el-radio-group>
   </el-form-item>
@@ -23,6 +23,10 @@ export default class FormRadio extends Mixins(FormMixins) {
   private props = {
     value: 'value',
     label: 'display_name'
+  }
+
+  private onChange (value: number) {
+    this.$emit('change', value)
   }
 
   private options = [] as OptionItem[]

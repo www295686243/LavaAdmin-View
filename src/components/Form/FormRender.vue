@@ -43,6 +43,9 @@ export default class FormRender extends Vue {
   onLoad!: Function
 
   @Prop()
+  onLoadAfter!: Function
+
+  @Prop()
   Service!: IService
 
   @Provide()
@@ -65,6 +68,11 @@ export default class FormRender extends Vue {
                 })
               })
           }
+        }
+      })
+      .then(() => {
+        if (this.onLoadAfter) {
+          return this.onLoadAfter()
         }
       })
   }

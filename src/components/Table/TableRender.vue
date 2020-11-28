@@ -2,7 +2,7 @@
   <div class="TableRender">
     <div class="function-container" v-if="searchFields || (Service && !!Service.store && disableCreate === false)">
       <div v-permission="tableService.getPermissionName('store')" v-if="Service && !!Service.store && disableCreate === false" class="store-btn">
-        <ButtonSubmit :onClick="() => RouterService.pushForm()">添加{{Service.name}}</ButtonSubmit>
+        <ButtonSubmit :onClick="() => RouterService.pushForm()">添加{{Service.displayName}}</ButtonSubmit>
       </div>
       <SearchTool
         :fields="searchFields"

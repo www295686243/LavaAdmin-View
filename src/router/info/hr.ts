@@ -44,11 +44,19 @@ export default [
     component: infoComplaintForm
   },
   {
-    path: '/hr/info-provide',
+    path: '/hr/job-provide',
     component: infoProvide
   },
   {
-    path: '/hr/info-provide/form',
+    path: '/hr/job-provide/form',
+    component: infoProvideForm
+  },
+  {
+    path: '/hr/resume-provide',
+    component: infoProvide
+  },
+  {
+    path: '/hr/resume-provide/form',
     component: infoProvideForm
   },
   {
