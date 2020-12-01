@@ -26,7 +26,7 @@ export default class FormMultipleCascader extends Mixins(FormMixins) {
   private props = {
     expandTrigger: 'hover',
     label: 'display_name',
-    value: 'value',
+    value: 'id',
     multiple: true,
     emitPath: false
   }
@@ -46,6 +46,7 @@ export default class FormMultipleCascader extends Mixins(FormMixins) {
     if (this.type === 'industry') {
       this.field.options = JSON.parse(JSON.stringify(cache.config.get('industry') || []))
     }
+    console.log(this.field.options)
     Object.assign(this.props, this.field.props)
   }
 }
