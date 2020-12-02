@@ -2,7 +2,6 @@
   <TableRender :Service="Service">
     <TableText prop="title" label="任务名" :width="160"></TableText>
     <TableText prop="desc" label="任务描述" :width="360"></TableText>
-    <TableOptions prop="task_mode" label="任务模式" :width="120"></TableOptions>
     <TableOptions prop="task_type" label="任务类型" :width="120"></TableOptions>
     <TableAction :buttons="[
       { name: '规则与奖励', onClick: handlePushRule },

@@ -1,10 +1,8 @@
 <template>
   <FormRender :form="form" :Service="Service">
     <FormInput v-model="form.title" :field="formFields.title"></FormInput>
-    <FormSelect v-model="form.task_rule_name" :field="formFields.task_rule_name"></FormSelect>
     <FormSelect v-model="form.operator" :field="formFields.operator"></FormSelect>
     <FormCounter v-model="form.target_number" :field="formFields.target_number"></FormCounter>
-    <FormInput v-model="form.task_interface" :field="formFields.task_interface"></FormInput>
     <FormGiveCoupon v-model="form.rewards" :col="4"></FormGiveCoupon>
   </FormRender>
 </template>
@@ -23,10 +21,8 @@ export default class ViewOperationTaskForm extends Vue {
     id: RouterService.query('id'),
     task_id: RouterService.query('task_id'),
     title: '',
-    task_rule_name: '',
     operator: '',
     target_number: 1,
-    task_interface: '',
     rewards: []
   }
 
@@ -35,11 +31,6 @@ export default class ViewOperationTaskForm extends Vue {
       prop: 'title',
       label: '子任务名',
       rule: [ValidateService.max(60)]
-    },
-    task_rule_name: {
-      prop: 'task_rule_name',
-      label: '任务规则',
-      rule: [ValidateService.required({ trigger: 'change', type: 'number' })]
     },
     operator: {
       prop: 'operator',
@@ -58,11 +49,6 @@ export default class ViewOperationTaskForm extends Vue {
       label: '目标数量',
       rule: [ValidateService.required({ type: 'number' }), ValidateService.minNum(1)],
       min: 1
-    },
-    task_interface: {
-      prop: 'task_interface',
-      label: '任务接口',
-      rule: [ValidateService.required, ValidateService.max(255)]
     }
   })
 }
