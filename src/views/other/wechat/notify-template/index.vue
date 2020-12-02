@@ -1,6 +1,6 @@
 <template>
   <TableRender :Service="Service" :searchFields="searchFields">
-    <TableText prop="template_id" label="微信模板ID" :width="400"></TableText>
+    <TableText prop="template_id" label="微信模板ID" :width="420"></TableText>
     <TableText prop="title" label="通知标题" :width="260"></TableText>
     <TableText prop="content" label="通知内容" :width="300"></TableText>
     <TableText prop="remark" label="通知备注" :width="360"></TableText>
