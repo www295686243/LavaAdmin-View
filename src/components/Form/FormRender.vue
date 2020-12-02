@@ -64,7 +64,9 @@ export default class FormRender extends Vue {
             return this.Service.show(this.form.id)
               .then((res: IResult) => {
                 Object.keys(this.form).forEach((key: string) => {
-                  this.form[key] = res.data[key] || this.form[key]
+                  if (!(res.data[key] === null || res.data[key] === undefined)) {
+                    this.form[key] = res.data[key]
+                  }
                 })
               })
           }
