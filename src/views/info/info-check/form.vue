@@ -3,7 +3,6 @@
     <el-form :model="form.contents" label-width="100px">
       <HrJobForm :form="form.contents" v-if="form.info_checkable_type === 'App\\Models\\Info\\Hr\\HrJob'"></HrJobForm>
       <HrResumeForm :form="form.contents" v-else-if="form.info_checkable_type === 'App\\Models\\Info\\Hr\\HrResume'"></HrResumeForm>
-      <PersonalDetailForm :form="form.contents" v-else-if="form.info_checkable_type === 'App\\Models\\User\\UserPersonal'"></PersonalDetailForm>
     </el-form>
     <el-divider>信息审核</el-divider>
     <FormRadio v-model="form.status" :field="formFields.status"></FormRadio>
@@ -18,14 +17,12 @@ import { IFormFields } from '@/interface/common'
 import ValidateService from '@/service/ValidateService'
 import HrJobForm from '@/views/hr/hr-job/innerForm.vue'
 import HrResumeForm from '@/views/hr/hr-resume/innerForm.vue'
-import PersonalDetailForm from '@/views/user/member/user/personal/innerDetailForm.vue'
 import RouterService from '@/service/RouterService'
 
 @Component({
   components: {
     HrJobForm,
-    HrResumeForm,
-    PersonalDetailForm
+    HrResumeForm
   }
 })
 export default class ViewInfoCheckForm extends Vue {
