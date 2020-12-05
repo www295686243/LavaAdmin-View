@@ -1,4 +1,5 @@
 import ConstService from './ConstService'
+import DialogService, { DialogParams } from './DialogService/Service'
 
 export default abstract class BaseModalService {
   abstract name: string
@@ -31,5 +32,9 @@ export default abstract class BaseModalService {
   // eslint-disable-next-line
   public getStatusValue (value: number, _display_name?: string) {
     return this.getOptionsValue('status', value, _display_name)
+  }
+
+  public dialog (component: any, params: DialogParams) {
+    return DialogService.show.call(this, component, params)
   }
 }

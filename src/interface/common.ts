@@ -110,4 +110,6 @@ export interface IService {
   getOptions: Function;
   getOptionsValue: Function;
   getStatusValue: Function;
+  dialog: Function;
+  [key: string]: any;
 }

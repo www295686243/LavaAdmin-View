@@ -6,7 +6,7 @@
     custom-class="ServiceDialog"
     :append-to-body="true"
     :width="params.width || '800px'">
-    <component :is="this.component" :params="params" @done="handleDone"></component>
+    <component :is="this.component" :params="params" @done="handleDone" :Service="Service"></component>
     <span slot="footer" v-if="params.hideCloseBtn === false">
       <el-button type="primary" @click="close">关 闭</el-button>
     </span>
@@ -14,6 +14,7 @@
 </template>
 
 <script lang="ts">
+import { IService } from '@/interface/common'
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { DialogParams } from './Service'
 
@@ -24,6 +25,9 @@ export default class ServiceDialog extends Vue {
 
   @Prop()
   params!: DialogParams
+
+  @Prop()
+  Service!: IService
 
   private isShowModal = false
   private resolve!: Function
@@ -39,11 +43,13 @@ export default class ServiceDialog extends Vue {
 
   close () {
     this.isShowModal = false
+    this.$destroy()
     this.reject('关闭弹窗')
   }
 
   handleDone (data: any) {
     this.isShowModal = false
+    this.$destroy()
     this.resolve(data)
   }
 }

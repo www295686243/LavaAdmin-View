@@ -28,6 +28,10 @@ class Service extends BaseModalService {
   transfer (params: { id: string; transfer_user_id: string }) {
     return axios.post('hr_job/transfer', params)
   }
+
+  push (params: { industries: number[]; cities: number[] }) {
+    return axios.post('hr_job/push', params)
+  }
 }
 
 export default new Service()

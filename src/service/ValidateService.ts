@@ -1,4 +1,4 @@
-import { IFormFieldItem } from '@/interface/common'
+import { IFormFieldItem, IFormFields } from '@/interface/common'
 
 function checkIdcard (e: any) {
   /* eslint-disable */
@@ -172,7 +172,7 @@ class ValidateService {
     return field
   }
 
-  genRules (fields: { [key: string]: IFormFieldItem }) {
+  genRules (fields: { [key: string]: IFormFieldItem }): IFormFields {
     Object.keys(fields).forEach((key) => {
       fields[key] = this.genRule(fields[key])
     })

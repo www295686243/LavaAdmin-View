@@ -43,7 +43,7 @@ export default class FormCascader extends Mixins(FormMixins) {
     if (this.type === 'city') {
       this.field.props = {
         label: 'name',
-        value: 'value'
+        value: 'id'
       }
       this.field.options = ConstService.getAreaOptions()
       const isRequired = (this.field.rule || []).find((res) => res.required)

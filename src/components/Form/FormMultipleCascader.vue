@@ -15,6 +15,7 @@
 import FormMixins from './FormMixins'
 import { Component, Mixins, Prop } from 'vue-property-decorator'
 import cache from '@/plugins/cache'
+import ConstService from '@/service/ConstService'
 
 @Component
 export default class FormMultipleCascader extends Mixins(FormMixins) {
@@ -45,8 +46,13 @@ export default class FormMultipleCascader extends Mixins(FormMixins) {
     this.setInnerValue()
     if (this.type === 'industry') {
       this.field.options = JSON.parse(JSON.stringify(cache.config.get('industry') || []))
+    } else if (this.type === 'city') {
+      this.field.props = {
+        label: 'name',
+        value: 'id'
+      }
+      this.field.options = ConstService.getAreaOptions()
     }
-    console.log(this.field.options)
     Object.assign(this.props, this.field.props)
   }
 }

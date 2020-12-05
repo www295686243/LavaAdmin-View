@@ -14,7 +14,8 @@ class DialogService {
     const instance = new Constructor({
       propsData: {
         component,
-        params
+        params,
+        Service: this
       }
     }).$mount(el)
     return (instance as any).open()

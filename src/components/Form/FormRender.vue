@@ -60,7 +60,7 @@ export default class FormRender extends Vue {
         if (this.onLoad) {
           return this.onLoad()
         } else {
-          if (this.form.id && this.Service.show) {
+          if (this.form.id && this.Service && this.Service.show) {
             return this.Service.show(this.form.id)
               .then((res: IResult) => {
                 Object.keys(this.form).forEach((key: string) => {
@@ -87,7 +87,7 @@ export default class FormRender extends Vue {
         } else {
           return Promise.resolve()
             .then(() => {
-              if (this.form.id) {
+              if (this.form.id && this.Service) {
                 return this.Service.update(this.form)
               } else {
                 return this.Service.store(this.form)
