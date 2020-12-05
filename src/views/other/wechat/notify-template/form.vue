@@ -4,6 +4,7 @@
     <FormInput v-model="form.title" :field="formFields.title"></FormInput>
     <FormInput v-model="form.content" :field="formFields.content"></FormInput>
     <FormInput v-model="form.remark" :field="formFields.remark"></FormInput>
+    <FormCounter v-model="form.queue" :field="formFields.queue"></FormCounter>
     <FormInput v-model="form.url" :field="formFields.url"></FormInput>
     <FormInput v-model="form.url_params" :field="formFields.url_params"></FormInput>
     <FormInput v-model="form.keyword_names" :field="formFields.keyword_names"></FormInput>
@@ -29,6 +30,7 @@ export default class ViewOtherWeChatNotifyTemplateForm extends Vue {
     title: '',
     content: '',
     remark: '',
+    queue: 5,
     url: '',
     url_params: '',
     keyword_names: '',
@@ -56,6 +58,11 @@ export default class ViewOtherWeChatNotifyTemplateForm extends Vue {
       prop: 'remark',
       label: '通知备注',
       rule: [ValidateService.required, ValidateService.max(120)]
+    },
+    queue: {
+      prop: 'queue',
+      label: '优先级',
+      rule: [ValidateService.required({ type: 'number' }), ValidateService.minNum(1), ValidateService.maxNum(9)]
     },
     url: {
       prop: 'url',

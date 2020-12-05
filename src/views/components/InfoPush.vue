@@ -39,6 +39,10 @@ export default class InfoViews extends Vue {
 
   private handleSubmit () {
     return this.Service.push(this.form)
+      .then((res: any) => {
+        this.$emit('done')
+        return res
+      })
   }
 }
 </script>

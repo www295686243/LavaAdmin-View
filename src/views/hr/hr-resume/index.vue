@@ -17,13 +17,14 @@
     <TableText prop="admin_user.nickname" label="归属人" :width="100"></TableText>
 
     <TableAction :buttons="[
+      { name: '推送', onClick: handlePush },
       { name: '编辑' },
       { name: '删除' },
       { name: '更多', children: [
         { name: '信息转让', onClick: handleTransfer },
         { name: '访问记录', onClick: handleViews }
       ] }
-    ]" :minWidth="230" />
+    ]" :minWidth="320" />
   </TableRender>
 </template>
 
@@ -58,5 +59,9 @@ export default class ViewHrIndex extends Vue {
       type: 'bigInt'
     }
   ]
+
+  private handlePush (row: { id: string }) {
+    return Service.dialog(require('@/views/components/InfoPush.vue').default, { id: row.id })
+  }
 }
 </script>
