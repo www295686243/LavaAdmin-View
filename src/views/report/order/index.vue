@@ -6,8 +6,10 @@
     <el-row :gutter="40">
       <el-col :span="12"><ChartRender type="line" title="总订单" code="order_total"></ChartRender></el-col>
       <el-col :span="12"><ChartRender type="line" title="首次支付" code="order_first_pay"></ChartRender></el-col>
-      <el-col :span="12"><ChartRender type="line" title="新闻订单" code="news_order"></ChartRender></el-col>
-      <el-col :span="12"><ChartRender type="line" title="新闻首次支付" code="news_first_order_pay"></ChartRender></el-col>
+      <el-col :span="12"><ChartRender type="line" title="职位订单" code="hr_job_order"></ChartRender></el-col>
+      <el-col :span="12"><ChartRender type="line" title="职位首次支付" code="hr_job_first_order_pay"></ChartRender></el-col>
+      <el-col :span="12"><ChartRender type="line" title="简历订单" code="hr_resume_order"></ChartRender></el-col>
+      <el-col :span="12"><ChartRender type="line" title="简历首次支付" code="hr_resume_first_order_pay"></ChartRender></el-col>
     </el-row>
   </div>
 </template>

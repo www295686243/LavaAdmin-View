@@ -23,14 +23,11 @@ import ConstService from '@/service/ConstService'
 @Component
 export default class ViewUserMemberNotifyShow extends Vue {
   @Prop()
-  id!: string
-
-  @Prop({ default: false })
-  dialog!: boolean
+  params!: { id: string }
 
   private Service = Service
   private info = {
-    id: this.id,
+    id: this.params.id,
     title: '',
     user_id: '',
     url: '',
