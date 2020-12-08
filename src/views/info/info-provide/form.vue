@@ -158,13 +158,13 @@ export default class ViewInfoProvideForm extends Vue {
           description: this.form.description,
           phone: this.form.phone,
           contacts: this.form.contacts,
-          info_provide_id: res.data.id,
+          info_provide_id: this.form.id,
           id: this.form.info_provideable_id || ''
         }
         if (this.form.info_provideable_type.includes('HrJob')) {
-          RouterService.push('/hr/job/form', params)
+          RouterService.replace('/hr/job/form', params)
         } else if (this.form.info_provideable_type.includes('HrResume')) {
-          RouterService.push('/hr/resume/form', params)
+          RouterService.replace('/hr/resume/form', params)
         }
       })
   }

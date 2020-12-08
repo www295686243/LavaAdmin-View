@@ -8,12 +8,10 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Service from './Service'
 import RouterService from '@/service/RouterService'
-import FormSalary from '@/components/Form/FormSalary.vue'
 import InnerForm from './innerForm.vue'
 
 @Component({
   components: {
-    FormSalary,
     InnerForm
   }
 })
@@ -37,7 +35,8 @@ export default class ViewHrResumeForm extends Vue {
     status: Service.getStatusValue(1, '已发布'),
     provide_user_id: RouterService.query('provide_user_id'),
     description: RouterService.query('description'),
-    industry: []
+    industry: [],
+    info_provide_id: RouterService.query('info_provide_id')
   }
 }
 </script>
