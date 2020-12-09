@@ -5,18 +5,19 @@
     @select="handleSelect"
     class="SiderContainer">
     <template v-for="v in list">
-      <el-submenu :key="v.id" :index="v.route" v-if="v.children.length > 0">
+      <el-menu-item-group :key="v.id" v-if="v.children.length > 0">
         <template slot="title">
-          <i :class="v.icon"></i>
+          <i :class="v.icon" class="menu-item-group-icon"></i>
           <span>{{v.display_name}}</span>
         </template>
         <el-menu-item
           :index="item.route"
           v-for="item in v.children"
           :key="item.id">
+            <i :class="item.icon"></i>
             {{item.display_name}}
         </el-menu-item>
-      </el-submenu>
+      </el-menu-item-group>
       <el-menu-item :key="v.id" :index="v.route" v-else>
         <i :class="v.icon"></i>
         {{v.display_name}}
@@ -79,5 +80,8 @@ export default class SiderContainer extends Vue {
 <style lang="scss">
 .SiderContainer {
   height: 100%;
+  .menu-item-group-icon {
+    margin-right: 5px;
+  }
 }
 </style>

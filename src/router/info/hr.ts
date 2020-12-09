@@ -11,56 +11,78 @@ import infoProvideForm from '@/views/info/info-provide/form.vue'
 import infoDelivery from '@/views/info/info-delivery/index.vue'
 
 export default [
+  // 职位
   {
-    path: '/hr/job',
-    component: job
-  },
-  {
-    path: '/hr/job/form',
-    component: jobForm
-  },
-  {
-    path: '/hr/resume',
-    component: resume
-  },
-  {
-    path: '/hr/resume/form',
-    component: resumeForm
-  },
-  {
-    path: '/hr/info-check',
+    path: '/hr/job/info-check',
     component: infoCheck
   },
   {
-    path: '/hr/info-check/form',
+    path: '/hr/job/info-check/form',
     component: infoCheckForm
   },
   {
-    path: '/hr/info-complaint',
+    path: '/hr/job/list',
+    component: job
+  },
+  {
+    path: '/hr/job/list/form',
+    component: jobForm
+  },
+  {
+    path: '/hr/job/info-provide',
+    component: infoProvide
+  },
+  {
+    path: '/hr/job/info-provide/form',
+    component: infoProvideForm
+  },
+  {
+    path: '/hr/job/info-complaint',
     component: infoComplaint
   },
   {
-    path: '/hr/info-complaint/form',
+    path: '/hr/job/info-complaint/form',
     component: infoComplaintForm
   },
   {
-    path: '/hr/job-provide',
+    path: '/hr/job/info-delivery',
+    component: infoDelivery
+  },
+  // 简历
+  {
+    path: '/hr/resume/info-check',
+    component: infoCheck
+  },
+  {
+    path: '/hr/resume/info-check/form',
+    component: infoCheckForm
+  },
+  {
+    path: '/hr/resume/list',
+    component: resume
+  },
+  {
+    path: '/hr/resume/list/form',
+    component: resumeForm
+  },
+  {
+    path: '/hr/resume/info-provide',
     component: infoProvide
   },
   {
-    path: '/hr/job-provide/form',
+    path: '/hr/resume/info-provide/form',
     component: infoProvideForm
   },
   {
-    path: '/hr/resume-provide',
-    component: infoProvide
+    path: '/hr/resume/info-complaint',
+    component: infoComplaint
   },
   {
-    path: '/hr/resume-provide/form',
-    component: infoProvideForm
+    path: '/hr/resume/info-complaint/form',
+    component: infoComplaintForm
   },
   {
-    path: '/hr/info-delivery',
+    path: '/hr/resume/info-delivery',
     component: infoDelivery
   }
 ]
