@@ -3,7 +3,7 @@ import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
   displayName = '任务'
-  name = 'Task/Task'
+  name = 'Task'
   index (params: { page: number }) {
     return axios.get('task', params)
   }

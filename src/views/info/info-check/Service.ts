@@ -3,7 +3,7 @@ import BaseModalService from '@/service/BaseModalService'
 import RouterService from '@/service/RouterService'
 
 class Service extends BaseModalService {
-  name = 'Info/InfoCheck'
+  name = 'InfoCheck'
   index (params: { page: number }) {
     return axios.get('info_check', {
       ...params,

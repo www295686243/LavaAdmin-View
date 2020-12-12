@@ -4,7 +4,7 @@ import SqlService from '@/service/SqlService'
 
 class Service extends BaseModalService {
   displayName = '提现'
-  name = 'User/UserCash'
+  name = 'UserCash'
   index (params: { page: number }) {
     return axios.get('user_cash', {
       ...params,

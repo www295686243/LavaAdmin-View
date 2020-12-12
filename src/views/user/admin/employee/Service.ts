@@ -4,7 +4,7 @@ import BaseModalService from '@/service/BaseModalService'
 class Service extends BaseModalService {
   displayName = '员工'
   name = 'Employee'
-  controllerName = 'User/User'
+  controllerName = 'User'
   index (params: { page: number; guard_name: string }) {
     return axios.get('employee', params)
   }

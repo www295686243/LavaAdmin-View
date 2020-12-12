@@ -3,7 +3,7 @@ import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
   displayName = '会员'
-  name = 'User/User'
+  name = 'User'
   store (params: object) {
     return axios.post('user', params)
   }

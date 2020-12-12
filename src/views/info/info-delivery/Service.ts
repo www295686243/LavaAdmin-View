@@ -13,7 +13,7 @@ interface DataItem {
 }
 
 class Service extends BaseModalService {
-  name = 'Info/InfoDelivery'
+  name = 'InfoDelivery'
   index (params: { page: number }) {
     return axios.get('info_delivery', {
       ...params,

@@ -2,7 +2,7 @@ import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  name = 'Info/Industry'
+  name = 'Industry'
   displayName = '行业'
   index () {
     return axios.get('industry')

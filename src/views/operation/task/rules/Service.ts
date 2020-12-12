@@ -4,7 +4,7 @@ import RouterService from '@/service/RouterService'
 
 class Service extends BaseModalService {
   displayName = '任务规则'
-  name = 'Task/TaskRule'
+  name = 'TaskRule'
   index (params: { page: number }) {
     return axios.get('task_rule', {
       ...params,

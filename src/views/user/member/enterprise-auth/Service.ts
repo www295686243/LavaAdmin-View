@@ -3,7 +3,7 @@ import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
   displayName = '个人认证'
-  name = 'User/UserEnterpriseAuth'
+  name = 'UserEnterpriseAuth'
   index () {
     return axios.get('user_enterprise_auth')
   }

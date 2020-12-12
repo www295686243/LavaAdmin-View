@@ -3,7 +3,7 @@ import RouterService from '@/service/RouterService'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  name = 'User/UserControl'
+  name = 'UserControl'
   show (id: number | string) {
     return axios.get(`user_control/${id}`)
   }

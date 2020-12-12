@@ -2,7 +2,7 @@ import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  name = 'Task/TaskRecord'
+  name = 'TaskRecord'
   index (params: { page: number }) {
     return axios.get('task_record', params)
       .then((res) => {

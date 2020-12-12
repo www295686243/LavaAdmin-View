@@ -2,7 +2,7 @@ import axios from '@/plugins/axios'
 import BaseModalService from '@/service/BaseModalService'
 
 class Service extends BaseModalService {
-  name = 'Info/Hr/HrResume'
+  name = 'HrResume'
   displayName = '求职'
   index (params: { page: number }) {
     return axios.get('hr_resume', params)

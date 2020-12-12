@@ -4,7 +4,7 @@ import RouterService from '@/service/RouterService'
 import { ListItem } from '@/service/SqlService'
 
 class Service extends BaseModalService {
-  name = 'Info/InfoProvide'
+  name = 'InfoProvide'
   index (params: { page: number; _search: (ListItem | ListItem[])[] }) {
     return axios.get('info_provide', {
       ...params,

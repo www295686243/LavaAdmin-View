@@ -4,7 +4,7 @@ import RouterService from '@/service/RouterService'
 
 class Service extends BaseModalService {
   displayName = '通知用户'
-  name = 'Notify/NotifyUser'
+  name = 'NotifyUser'
   index (params: { page: number }) {
     return axios.get('notify_user', {
       notify_template_id: RouterService.query('notify_template_id'),

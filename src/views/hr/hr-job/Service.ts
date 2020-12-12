@@ -3,7 +3,7 @@ import BaseModalService from '@/service/BaseModalService'
 import { ListItem } from '@/service/SqlService'
 
 class Service extends BaseModalService {
-  name = 'Info/Hr/HrJob'
+  name = 'HrJob'
   displayName = '招聘'
   index (params: { page: number; _search?: (ListItem | ListItem[])[] }) {
     return axios.get('hr_job', params)
