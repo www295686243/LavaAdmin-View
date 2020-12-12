@@ -1,8 +1,8 @@
 import axios from '@/plugins/axios'
 import RouterService from '@/service/RouterService'
-import BaseModalService from '@/service/BaseModalService'
+import BaseAbstract from '@/abstract/BaseAbstract'
 
-class Service extends BaseModalService {
+class Service extends BaseAbstract {
   name = 'UserEnterprise'
   show (id: number | string) {
     return axios.get(`user_enterprise/${id}`)

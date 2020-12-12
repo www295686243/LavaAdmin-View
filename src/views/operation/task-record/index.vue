@@ -4,7 +4,6 @@
     <TableText prop="user.nickname" label="领取人" :width="160"></TableText>
     <TableText prop="task_recordable.title" label="任务信息" :minWidth="220"></TableText>
     <TableOptions prop="task_recordable_type" label="任务类型" :options="ConstService.getModelNames()" :width="100"></TableOptions>
-    <TableOptions prop="task_mode" label="任务模式" :width="140"></TableOptions>
     <TableText prop="created_at" label="领取时间" :width="180"></TableText>
     <TableText prop="task_complete_time" label="完成时间" :width="180"></TableText>
     <TableOptions prop="is_complete" label="是否完成" :minWidth="100" :bool="true"></TableOptions>

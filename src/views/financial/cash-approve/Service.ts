@@ -1,8 +1,8 @@
+import BaseAbstract from '@/abstract/BaseAbstract'
 import axios from '@/plugins/axios'
-import BaseModalService from '@/service/BaseModalService'
 import SqlService from '@/service/SqlService'
 
-class Service extends BaseModalService {
+class Service extends BaseAbstract {
   displayName = '提现'
   name = 'UserCash'
   index (params: { page: number }) {

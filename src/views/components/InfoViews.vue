@@ -6,22 +6,33 @@
 </template>
 
 <script lang="ts">
+import HrAbstract from '@/abstract/HrAbstract'
 import axios from '@/plugins/axios'
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
 export default class InfoViews extends Vue {
   @Prop()
-  params!: { id: string; _model: string; share_user_id: string; is_new_user: number };
+  params!: { id: string; _model: string; share_user_id: string; is_new_user: number; Service: HrAbstract };
 
   private handleLoad (params: any) {
-    return axios.get('info_view', {
-      ...params,
-      id: this.params.id,
-      _model: this.params._model,
-      share_user_id: this.params.share_user_id,
-      is_new_user: this.params.is_new_user
-    })
+    return Promise.resolve()
+      .then(() => {
+        if (this.params.Service) {
+          return this.params.Service.getInfoViews({
+            id: this.params.id,
+            ...params
+          })
+        } else {
+          return axios.get('info_view', {
+            ...params,
+            id: this.params.id,
+            _model: this.params._model,
+            share_user_id: this.params.share_user_id,
+            is_new_user: this.params.is_new_user
+          })
+        }
+      })
   }
 }
 </script>

@@ -1,7 +1,7 @@
+import BaseAbstract from '@/abstract/BaseAbstract'
 import axios from '@/plugins/axios'
-import BaseModalService from '@/service/BaseModalService'
 
-class Service extends BaseModalService {
+class Service extends BaseAbstract {
   name = 'ApiLog'
   index (params: { page: number; user_id: string }) {
     return axios.get('api_log', params)

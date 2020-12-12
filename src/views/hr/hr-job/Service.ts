@@ -1,8 +1,8 @@
+import HrAbstract from '@/abstract/HrAbstract'
 import axios from '@/plugins/axios'
-import BaseModalService from '@/service/BaseModalService'
 import { ListItem } from '@/service/SqlService'
 
-class Service extends BaseModalService {
+class Service extends HrAbstract {
   name = 'HrJob'
   displayName = '招聘'
   index (params: { page: number; _search?: (ListItem | ListItem[])[] }) {
@@ -17,7 +17,7 @@ class Service extends BaseModalService {
     return axios.get(`hr_job/${id}`)
   }
 
-  update (params: { id: number }) {
+  update (params: { id: string }) {
     return axios.put(`hr_job/${params.id}`, params)
   }
 
@@ -31,6 +31,10 @@ class Service extends BaseModalService {
 
   push (params: { industries: number[]; cities: number[] }) {
     return axios.post('hr_job/push', params)
+  }
+
+  getInfoViews (params: { id: string; page: number }) {
+    return axios.get('hr_job/getInfoViews', params)
   }
 }
 

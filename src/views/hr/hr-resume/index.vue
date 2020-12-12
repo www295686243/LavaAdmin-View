@@ -49,7 +49,7 @@ export default class ViewHrIndex extends Vue {
   }
 
   private handleViews (row: { id: string }) {
-    DialogService.show(require('@/views/components/InfoViews.vue').default, { id: row.id, _model: Service.name })
+    DialogService.show(require('@/views/components/InfoViews.vue').default, { id: row.id, Service })
   }
 
   private searchFields: ISearchFields[] = [

@@ -1,8 +1,8 @@
+import BaseAbstract from '@/abstract/BaseAbstract'
 import axios from '@/plugins/axios'
-import BaseModalService from '@/service/BaseModalService'
 import RouterService from '@/service/RouterService'
 
-class Service extends BaseModalService {
+class Service extends BaseAbstract {
   displayName = '通知用户'
   name = 'NotifyUser'
   index (params: { page: number }) {

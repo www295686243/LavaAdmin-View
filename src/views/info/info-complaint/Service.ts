@@ -1,8 +1,8 @@
+import BaseAbstract from '@/abstract/BaseAbstract'
 import axios from '@/plugins/axios'
-import BaseModalService from '@/service/BaseModalService'
 import RouterService from '@/service/RouterService'
 
-class Service extends BaseModalService {
+class Service extends BaseAbstract {
   name = 'InfoComplaint'
   index (params: { page: number }) {
     return axios.get('info_complaint', {

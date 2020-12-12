@@ -1,8 +1,8 @@
 import axios from '@/plugins/axios'
 import RouterService from '@/service/RouterService'
-import BaseModalService from '@/service/BaseModalService'
+import BaseAbstract from '@/abstract/BaseAbstract'
 
-class Service extends BaseModalService {
+class Service extends BaseAbstract {
   displayName = '选项'
   name = 'ConfigOption'
   index (params: { page: number }) {

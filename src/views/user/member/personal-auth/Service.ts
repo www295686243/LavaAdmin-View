@@ -1,7 +1,7 @@
+import BaseAbstract from '@/abstract/BaseAbstract'
 import axios from '@/plugins/axios'
-import BaseModalService from '@/service/BaseModalService'
 
-class Service extends BaseModalService {
+class Service extends BaseAbstract {
   displayName = '个人认证'
   name = 'UserPersonalAuth'
   index () {

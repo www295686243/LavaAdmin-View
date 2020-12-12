@@ -1,5 +1,5 @@
+import BaseAbstract from '@/abstract/BaseAbstract'
 import axios from '@/plugins/axios'
-import BaseModalService from '@/service/BaseModalService'
 import ConstService from '@/service/ConstService'
 import RouterService from '@/service/RouterService'
 
@@ -12,7 +12,7 @@ interface DataItem {
   };
 }
 
-class Service extends BaseModalService {
+class Service extends BaseAbstract {
   name = 'InfoDelivery'
   index (params: { page: number }) {
     return axios.get('info_delivery', {
