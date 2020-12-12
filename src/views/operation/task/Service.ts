@@ -8,10 +8,6 @@ class Service extends BaseAbstract {
     return axios.get('task', params)
   }
 
-  store (params: object) {
-    return axios.post('task', params)
-  }
-
   show (id: string) {
     return axios.get(`task/${id}`)
   }
