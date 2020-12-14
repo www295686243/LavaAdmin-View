@@ -57,6 +57,41 @@ export default class ViewHrIndex extends Vue {
       name: 'user_id',
       display_name: '发布人ID',
       type: 'bigInt'
+    },
+    {
+      name: 'admin_user_id',
+      display_name: '归属人ID',
+      type: 'bigInt'
+    },
+    {
+      name: 'provide_user_id',
+      display_name: '提供人ID',
+      type: 'bigInt'
+    },
+    {
+      name: 'title',
+      display_name: '标题',
+      type: 'string'
+    },
+    {
+      name: 'created_at',
+      display_name: '发布日期',
+      type: 'datetime'
+    },
+    {
+      name: 'end_time',
+      display_name: '截止日期',
+      type: 'date'
+    },
+    {
+      name: 'status',
+      display_name: '状态',
+      type: 'intOptions'
+    },
+    {
+      name: 'contacts',
+      display_name: '联系人',
+      type: 'string'
     }
   ]
 

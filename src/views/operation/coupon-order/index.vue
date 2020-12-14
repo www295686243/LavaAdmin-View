@@ -28,6 +28,22 @@ export default class ViewOperationCouponMarketIndex extends Vue {
       name: 'user_id',
       display_name: '购买人ID',
       type: 'bigInt'
+    },
+    {
+      name: 'pay_status',
+      display_name: '支付状态',
+      type: 'intOptions',
+      options: Service.getOptions('pay_status')
+    },
+    {
+      name: 'paid_at',
+      display_name: '支付时间',
+      type: 'datetime'
+    },
+    {
+      name: 'created_at',
+      display_name: '下单时间',
+      type: 'datetime'
     }
   ]
 

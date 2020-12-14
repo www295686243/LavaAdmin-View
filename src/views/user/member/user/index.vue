@@ -31,6 +31,26 @@ export default class ViewUserMemberUserIndex extends Vue {
       name: 'nickname',
       display_name: '昵称',
       type: 'string'
+    },
+    {
+      name: 'phone',
+      display_name: '手机号',
+      type: 'string'
+    },
+    {
+      name: 'is_follow_official_account',
+      display_name: '是否关注公众号',
+      type: 'int'
+    },
+    {
+      name: 'last_login_at',
+      display_name: '最后登录时间',
+      type: 'datetime'
+    },
+    {
+      name: 'register_at',
+      display_name: '注册时间',
+      type: 'datetime'
     }
   ]
 

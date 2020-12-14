@@ -26,6 +26,22 @@ export default class ViewOperationCouponIndex extends Vue {
       name: 'user_id',
       display_name: '用户ID',
       type: 'string'
+    },
+    {
+      name: 'coupon_status',
+      display_name: '优惠券状态',
+      type: 'intOptions',
+      options: Service.getOptions('coupon_status')
+    },
+    {
+      name: 'start_at',
+      display_name: '开始时间',
+      type: 'datetime'
+    },
+    {
+      name: 'end_at',
+      display_name: '过期时间',
+      type: 'datetime'
     }
   ]
 }

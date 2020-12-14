@@ -36,6 +36,16 @@ export default class ViewOperationTaskRecordIndex extends Vue {
         label: 'title',
         value: 'id'
       }
+    },
+    {
+      name: 'is_complete',
+      display_name: '是否完成',
+      type: 'int'
+    },
+    {
+      name: 'task_complete_time',
+      display_name: '完成时间',
+      type: 'datetime'
     }
   ]
 

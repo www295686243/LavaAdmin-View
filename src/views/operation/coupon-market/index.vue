@@ -34,6 +34,11 @@ export default class ViewOperationCouponMarketIndex extends Vue {
       display_name: '状态',
       type: 'intOptions',
       options: Service.getOptions('status')
+    },
+    {
+      name: 'created_at',
+      display_name: '出售时间',
+      type: 'datetime'
     }
   ]
 }
