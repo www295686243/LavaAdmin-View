@@ -15,7 +15,7 @@ export default abstract class BaseAbstract {
   }
 
   public getPermissionName (name: string) {
-    return this.getControllerName() + 'Controller@' + name
+    return name.includes('@') ? name : this.getControllerName() + 'Controller@' + name
   }
 
   public getOptions (fieldName: string) {

@@ -35,12 +35,19 @@ export interface IResult {
   status: string
 }
 
+export interface ITableActionChildren {
+  name: string;
+  permission?: string;
+  onClick: Function;
+}
+
 export interface ITableColumnAction {
   name: string
   type?: string
   size?: string
   permission?: string
   onClick: Function
+  children?: ITableActionChildren[]
 }
 
 export interface ITableIndexParams {

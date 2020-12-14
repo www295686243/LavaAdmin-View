@@ -6,11 +6,11 @@
     <TableText prop="roles" label="角色" :width="200" :props="{label: 'display_name'}"></TableText>
     <TableText prop="created_at" label="注册时间" :width="180"></TableText>
     <TableAction :buttons="[
-      { name: '赠送优惠券', onClick: giveCoupon },
+      { name: '赠送优惠券', onClick: giveCoupon, permission: 'UserCouponController@store' },
       { name: '编辑' },
       { name: '更多', children: [
-        { name: '账单记录', onClick: (row) => handlePopover(row, '/user/member/bill/index') },
-        { name: '订单记录', onClick: (row) => handlePopover(row, '/user/member/order/index') }
+        { name: '账单记录', onClick: (row) => handlePopover(row, '/user/member/bill/index'), permission: 'UserBillController@index' },
+        { name: '订单记录', onClick: (row) => handlePopover(row, '/user/member/order/index'), permission: 'UserOrderController@index' }
       ] }
     ]" :minWidth="300" />
   </TableRender>

@@ -136,21 +136,34 @@ export default class TableAction extends Mixins(TableMixins) {
     }
   }
 
+  private hasPermission (res: ITableColumnAction) {
+    if (res.name === '编辑') {
+      res.permission = 'update'
+    } else if (res.name === '删除') {
+      res.permission = 'destroy'
+    } else if (res.name === '查看详情') {
+      res.permission = 'show'
+    }
+    if (res.permission) {
+      return UserService.hasPermission(this.tableService.getPermissionName(res.permission))
+    } else {
+      return true
+    }
+  }
+
   created () {
-    this.innerButtons = this.buttons.filter((res) => {
-      if (res.name === '编辑') {
-        res.permission = 'update'
-      } else if (res.name === '删除') {
-        res.permission = 'destroy'
-      } else if (res.name === '查看详情') {
-        res.permission = 'show'
-      }
-      if (res.permission) {
-        return UserService.hasPermission(this.tableService.getPermissionName(res.permission))
-      } else {
-        return true
-      }
-    })
+    this.innerButtons = this.buttons
+      .map((res) => {
+        if (res.children) {
+          res.children = res.children.filter((row) => {
+            return this.hasPermission(row)
+          })
+        }
+        return res
+      })
+      .filter((res) => {
+        return this.hasPermission(res)
+      })
   }
 }
 </script>
