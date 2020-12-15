@@ -5,7 +5,7 @@
         :maxDeep="4"
         ref="interfaceTreeElement"
         :treeList="interface"
-        node-key="name"
+        node-key="id"
         :defaultCheckedKeys="interfacePermissions">
       </FormTree>
     </el-card>
