@@ -1,7 +1,6 @@
 <template>
   <TableRender :Service="Service">
-    <TableText prop="id" label="ID" :width="180"></TableText>
-    <TableText prop="name" label="标识" :width="240"></TableText>
+    <TableText prop="name" label="标识" :width="300"></TableText>
     <TableText prop="display_name" label="名称" :width="200"></TableText>
     <TableAction :buttons="[
       { name: '权限管理', onClick: (row) => RouterService.push('/user/admin/position/permissions', { id: row.id }), permission: 'updatePermissions' },
