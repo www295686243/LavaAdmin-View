@@ -12,10 +12,19 @@ interface DataItem {
   };
 }
 
-class Service extends BaseAbstract {
+export default class Service extends BaseAbstract {
   name = 'InfoDelivery'
+  path = ''
+  controllerName = ''
+
+  constructor () {
+    super()
+    this.controllerName = this.getHrInterfaceService(this.name)
+    this.path = this.getHrInterfacePath('info_delivery')
+  }
+
   index (params: { page: number }) {
-    return axios.get('info_delivery', {
+    return axios.get(this.path, {
       ...params,
       _model: RouterService.query('_model')
     })
@@ -35,5 +44,3 @@ class Service extends BaseAbstract {
       })
   }
 }
-
-export default new Service()

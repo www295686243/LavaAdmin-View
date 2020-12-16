@@ -2,22 +2,29 @@ import BaseAbstract from '@/abstract/BaseAbstract'
 import axios from '@/plugins/axios'
 import RouterService from '@/service/RouterService'
 
-class Service extends BaseAbstract {
+export default class Service extends BaseAbstract {
   name = 'InfoComplaint'
+  path = ''
+  controllerName = ''
+
+  constructor () {
+    super()
+    this.controllerName = this.getHrInterfaceService(this.name)
+    this.path = this.getHrInterfacePath('info_complaint')
+  }
+
   index (params: { page: number }) {
-    return axios.get('info_complaint', {
+    return axios.get(this.path, {
       ...params,
       _model: RouterService.query('_model')
     })
   }
 
   show (id: number | string) {
-    return axios.get(`info_complaint/${id}`)
+    return axios.get(`${this.path}/${id}`)
   }
 
   update (params: { id: number }) {
-    return axios.put(`info_complaint/${params.id}`, params)
+    return axios.put(`${this.path}/${params.id}`, params)
   }
 }
-
-export default new Service()

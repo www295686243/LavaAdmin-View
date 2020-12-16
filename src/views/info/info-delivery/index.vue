@@ -15,6 +15,6 @@ import Service from './Service'
 
 @Component
 export default class ViewInfoDeliveryIndex extends Vue {
-  private Service = Service
+  private Service = new Service()
 }
 </script>

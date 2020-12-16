@@ -14,7 +14,7 @@ import RouterService from '@/service/RouterService'
 
 @Component
 export default class ViewInfoComplaintForm extends Vue {
-  private Service = Service
+  private Service = new Service()
   private form = {
     id: RouterService.query('id'),
     handle_content: '',

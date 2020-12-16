@@ -19,14 +19,14 @@ import Service from './Service'
 
 @Component
 export default class ViewInfoProvideIndex extends Vue {
-  private Service = Service
+  private Service = new Service()
 
   private searchFields: ISearchFields[] = [
     {
       name: 'status',
       display_name: '状态',
       type: 'intOptions',
-      options: Service.getOptions('status')
+      options: this.Service.getOptions('status')
     }
   ]
 }

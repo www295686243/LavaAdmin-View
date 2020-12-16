@@ -21,7 +21,7 @@ import Service from './Service'
 
 @Component
 export default class ViewInfoComplaintIndex extends Vue {
-  private Service = Service
+  private Service = new Service()
   private ConstService = ConstService
 }
 </script>

@@ -1,5 +1,6 @@
 import ConstService from '@/service/ConstService'
 import DialogService, { DialogParams } from '@/service/DialogService/Service'
+import RouterService from '@/service/RouterService'
 
 export default abstract class BaseAbstract {
   abstract name: string
@@ -36,5 +37,26 @@ export default abstract class BaseAbstract {
 
   public dialog (component: any, params: DialogParams) {
     return DialogService.show.call(this, component, params)
+  }
+
+  // 获取Hr接口路径
+  public getHrInterfacePath (path: string) {
+    const prefix = this.toLowerLine(RouterService.query('_model'))
+    return `${prefix}_${path}`
+  }
+
+  public getHrInterfaceService (service: string) {
+    const prefix = RouterService.query('_model')
+    return `${prefix}${service}`
+  }
+
+  private toLowerLine (str: string) {
+    let temp = str.replace(/[A-Z]/g, function (match) {
+      return '_' + match.toLowerCase()
+    })
+    if (temp.slice(0, 1) === '_') { // 如果首字母是大写，执行replace时会多一个_，这里需要去掉
+      temp = temp.slice(1)
+    }
+    return temp
   }
 }

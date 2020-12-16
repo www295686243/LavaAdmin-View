@@ -62,10 +62,10 @@ export default class ViewInfoProvideForm extends Vue {
   formElement!: any
 
   get isShowReward () {
-    return this.form.status !== Service.getStatusValue(1, '待审核') && !!this.form.id && this.form.is_admin === 0 && this.form.is_reward === 0
+    return this.form.status !== this.Service.getStatusValue(1, '待审核') && !!this.form.id && this.form.is_admin === 0 && this.form.is_reward === 0
   }
 
-  private Service = Service
+  private Service = new Service()
   private HrJobService = HrJobService
   private form = {
     id: RouterService.query('id'),
@@ -73,7 +73,7 @@ export default class ViewInfoProvideForm extends Vue {
     description: '',
     contacts: '',
     phone: '',
-    status: Service.getStatusValue(1, '待审核'),
+    status: this.Service.getStatusValue(1, '待审核'),
     _model: RouterService.query('_model'),
     rewards: [],
     is_admin: 0,
@@ -125,7 +125,7 @@ export default class ViewInfoProvideForm extends Vue {
       ])
       .where({ field: 'id', operator: '<>', value: this.form.id })
       .get()
-    return Service.index({
+    return this.Service.index({
       ...params,
       _search
     })

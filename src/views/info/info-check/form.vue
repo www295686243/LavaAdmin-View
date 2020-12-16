@@ -26,17 +26,17 @@ import RouterService from '@/service/RouterService'
   }
 })
 export default class ViewInfoCheckForm extends Vue {
-  private Service = Service
+  private Service = new Service()
   private form = {
     id: RouterService.query('id'),
     info_checkable_type: '',
     contents: {},
-    status: Service.getStatusValue(2, '已通过'),
+    status: this.Service.getStatusValue(2, '已通过'),
     refuse_reason: ''
   }
 
   private validateReason (rule: any, value: string, callback: Function) {
-    if (this.form.status === Service.getStatusValue(3, '已拒绝') && !value) {
+    if (this.form.status === this.Service.getStatusValue(3, '已拒绝') && !value) {
       callback(new Error('请输入拒绝原因'))
     }
     callback()

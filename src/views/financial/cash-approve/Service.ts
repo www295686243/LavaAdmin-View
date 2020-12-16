@@ -5,8 +5,9 @@ import SqlService from '@/service/SqlService'
 class Service extends BaseAbstract {
   displayName = '提现'
   name = 'UserCash'
+  controllerName = 'UserCashApprovalController'
   index (params: { page: number }) {
-    return axios.get('user_cash', {
+    return axios.get('user_cash_approval', {
       ...params,
       _search: (new SqlService()).where({
         field: 'status',
@@ -17,11 +18,11 @@ class Service extends BaseAbstract {
   }
 
   update (form: { id: string; status: number }) {
-    return axios.put(`user_cash/${form.id}`, form)
+    return axios.put(`user_cash_approval/${form.id}`, form)
   }
 
   show (id: string) {
-    return axios.get(`user_cash/${id}`)
+    return axios.get(`user_cash_approval/${id}`)
   }
 }
 
