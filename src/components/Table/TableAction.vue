@@ -36,7 +36,7 @@
         <el-popover
           popper-class="TableAction-popper"
           :key="key"
-          v-else-if="v.name === '更多' && v.children.length > 0"
+          v-else-if="v.name === '更多'"
           placement="bottom">
           <div class="more-btns" v-for="(item, itemKey) in v.children" :key="itemKey">
             <ButtonDelete
@@ -162,7 +162,11 @@ export default class TableAction extends Mixins(TableMixins) {
         return res
       })
       .filter((res) => {
-        return this.hasPermission(res)
+        if (res.name === '更多' && res.children) {
+          return res.children.length > 0
+        } else {
+          return this.hasPermission(res)
+        }
       })
   }
 }
