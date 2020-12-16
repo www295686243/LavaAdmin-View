@@ -3,8 +3,8 @@ import axios from '@/plugins/axios'
 
 class Service extends BaseAbstract {
   displayName = '员工'
-  name = 'Employee'
-  controllerName = 'User'
+  name = 'User'
+  controllerName = 'Employee'
   index (params: { page: number; guard_name: string }) {
     return axios.get('employee', params)
   }

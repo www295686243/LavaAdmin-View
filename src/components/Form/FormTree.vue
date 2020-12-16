@@ -6,7 +6,7 @@
     ref="tree"
     :props="{ label: 'display_name' }"
     class="FormTree"
-    check-strictly
+    :check-strictly="checkStrictly"
     :class="[maxDeep > 3 ? 'deep4' : 'deep3']"
   ></el-tree>
 </template>
@@ -31,6 +31,9 @@ export default class FormTree extends Vue {
 
   @Prop({ default: 3 })
   maxDeep!: number
+
+  @Prop({ default: false })
+  checkStrictly!: boolean
 
   public getCheckedNodeIds () {
     const checkedKeys = this.$refs.tree.getCheckedKeys()

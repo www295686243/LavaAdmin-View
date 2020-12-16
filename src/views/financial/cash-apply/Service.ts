@@ -5,7 +5,7 @@ import SqlService from '@/service/SqlService'
 class Service extends BaseAbstract {
   displayName = '提现'
   name = 'UserCash'
-  controllerName = 'UserCashApplyController'
+  controllerName = 'UserCashApply'
   index (params: { page: number }) {
     return axios.get('user_cash_apply', {
       ...params,

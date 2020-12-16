@@ -32,7 +32,6 @@ class UserService {
         cache.user.setAll(res.data)
         this.updateData(res.data)
       })
-      .then(() => axios.post('auth/loginStat', {}))
       .then(() => this.getUserConfig())
   }
 

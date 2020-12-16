@@ -5,27 +5,28 @@ import BaseAbstract from '@/abstract/BaseAbstract'
 class Service extends BaseAbstract {
   displayName = '配置'
   name = 'Config'
+  controllerName = 'ParamsConfig'
   index (params: object) {
-    return axios.get('config', {
+    return axios.get('params_config', {
       ...params,
       guard_name: RouterService.query('guard_name')
     })
   }
 
   store (params: object) {
-    return axios.post('config', params)
+    return axios.post('params_config', params)
   }
 
   show (id: number | string) {
-    return axios.get(`config/${id}`)
+    return axios.get(`params_config/${id}`)
   }
 
   update (params: { id: number }) {
-    return axios.put(`config/${params.id}`, params)
+    return axios.put(`params_config/${params.id}`, params)
   }
 
   destroy (id: number | string) {
-    return axios.delete(`config/${id}`)
+    return axios.delete(`params_config/${id}`)
   }
 }
 
