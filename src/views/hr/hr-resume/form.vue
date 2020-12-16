@@ -35,6 +35,7 @@ export default class ViewHrResumeForm extends Vue {
     status: Service.getStatusValue(1, '已发布'),
     provide_user_id: RouterService.query('provide_user_id'),
     description: RouterService.query('description'),
+    is_push: 0,
     industry: [],
     info_provide_id: RouterService.query('info_provide_id')
   }

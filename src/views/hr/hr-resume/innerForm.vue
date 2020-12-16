@@ -13,6 +13,7 @@
       </FormSalary>
       <FormCascader v-model="form.city" :field="formFields.city" type="city"></FormCascader>
       <FormRadio v-model="form.status" :field="formFields.status" :fieldService="Service"></FormRadio>
+      <FormSwitch v-model="form.is_push" :field="formFields.is_push" v-if="!form.id"></FormSwitch>
     </el-col>
     <el-col :span="10">
       <FormSelect v-model="form.education" :field="formFields.education" :fieldService="Service"></FormSelect>

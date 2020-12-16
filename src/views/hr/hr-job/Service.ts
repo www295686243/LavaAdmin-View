@@ -9,8 +9,20 @@ class Service extends HrAbstract {
     return axios.get('hr_job', params)
   }
 
-  store (params: object) {
+  store (params: { is_push: number; industry: number[]; city: number }) {
     return axios.post('hr_job', params)
+      .then((res) => {
+        if (params.is_push) {
+          return this.push({
+            id: res.data.id,
+            industries: params.industry,
+            cities: [params.city]
+          })
+            .then(() => res)
+        } else {
+          return res
+        }
+      })
   }
 
   show (id: number | string) {
@@ -29,7 +41,7 @@ class Service extends HrAbstract {
     return axios.post('hr_job/transfer', params)
   }
 
-  push (params: { industries: number[]; cities: number[] }) {
+  push (params: { id: string; industries: number[]; cities: number[] }) {
     return axios.post('hr_job/push', params)
   }
 

@@ -15,7 +15,7 @@
       <FormCascader v-model="form.city" :field="formFields.city" type="city"></FormCascader>
       <FormInput v-model="form.address" :field="formFields.address"></FormInput>
       <FormRadio v-model="form.status" :field="formFields.status" :fieldService="Service"></FormRadio>
-      <FormSwitch v-model="form.is_push" :field="formFields.is_push"></FormSwitch>
+      <FormSwitch v-model="form.is_push" :field="formFields.is_push" v-if="!form.id"></FormSwitch>
     </el-col>
     <el-col :span="10">
       <FormCounter v-model="form.recruiter_number" :field="formFields.recruiter_number"></FormCounter>
