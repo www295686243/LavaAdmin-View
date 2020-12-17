@@ -35,13 +35,6 @@ export default class ViewInfoCheckForm extends Vue {
     refuse_reason: ''
   }
 
-  private validateReason (rule: any, value: string, callback: Function) {
-    if (this.form.status === this.Service.getStatusValue(3, '已拒绝') && !value) {
-      callback(new Error('请输入拒绝原因'))
-    }
-    callback()
-  }
-
   private formFields: IFormFields = ValidateService.genRules({
     status: {
       prop: 'status',
@@ -50,7 +43,20 @@ export default class ViewInfoCheckForm extends Vue {
     refuse_reason: {
       prop: 'refuse_reason',
       label: '拒绝原因',
-      rule: [ValidateService.validator(this.validateReason), ValidateService.max(255)]
+      rule: [ValidateService.max(255), () => {
+        return {
+          refuse_reason: {
+            required: this.form.status === this.Service.getStatusValue(3, '已拒绝'),
+            validator: (rule: any, value: string, callback: Function) => {
+              if (this.form.status === this.Service.getStatusValue(3, '已拒绝') && !value) {
+                callback(new Error('请输入拒绝原因'))
+              }
+              callback()
+            },
+            trigger: 'blur'
+          }
+        }
+      }]
     }
   })
 }

@@ -30,7 +30,7 @@ export default class ViewUserMemberEnterpriseAuthForm extends Vue {
     address: '',
     intro: '',
     certificates: [],
-    status: '',
+    status: Service.getStatusValue(1, '待审核'),
     refuse_reason: ''
   }
 
@@ -79,7 +79,20 @@ export default class ViewUserMemberEnterpriseAuthForm extends Vue {
     refuse_reason: {
       prop: 'refuse_reason',
       label: '拒绝原因',
-      rule: [ValidateService.max(255)]
+      rule: [ValidateService.max(255), () => {
+        return {
+          refuse_reason: {
+            required: this.form.status === Service.getStatusValue(3, '已拒绝'),
+            validator: (rule: any, value: string, callback: Function) => {
+              if (this.form.status === Service.getStatusValue(3, '已拒绝') && !value) {
+                callback(new Error('请输入拒绝原因'))
+              }
+              callback()
+            },
+            trigger: 'blur'
+          }
+        }
+      }]
     }
   })
 }
