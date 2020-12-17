@@ -1,11 +1,11 @@
 <template>
-  <FormRender :form="form" :Service="Service">
+  <FormRender :form="form" :onLoadAfter="handleChange" :Service="Service">
     <el-form :model="form.contents" label-width="100px">
       <HrJobForm :form="form.contents" v-if="form.info_checkable_type === 'App\\Models\\Info\\Hr\\HrJob'"></HrJobForm>
       <HrResumeForm :form="form.contents" v-else-if="form.info_checkable_type === 'App\\Models\\Info\\Hr\\HrResume'"></HrResumeForm>
     </el-form>
     <el-divider>信息审核</el-divider>
-    <FormRadio v-model="form.status" :field="formFields.status"></FormRadio>
+    <FormRadio v-model="form.status" :field="formFields.status" @change="handleChange"></FormRadio>
     <FormInput v-model="form.refuse_reason" :field="formFields.refuse_reason"></FormInput>
   </FormRender>
 </template>
@@ -35,29 +35,41 @@ export default class ViewInfoCheckForm extends Vue {
     refuse_reason: ''
   }
 
-  private formFields: IFormFields = ValidateService.genRules({
-    status: {
-      prop: 'status',
-      label: '状态'
-    },
-    refuse_reason: {
-      prop: 'refuse_reason',
-      label: '拒绝原因',
-      rule: [ValidateService.max(255), () => {
-        return {
-          refuse_reason: {
-            required: this.form.status === this.Service.getStatusValue(3, '已拒绝'),
-            validator: (rule: any, value: string, callback: Function) => {
-              if (this.form.status === this.Service.getStatusValue(3, '已拒绝') && !value) {
-                callback(new Error('请输入拒绝原因'))
-              }
-              callback()
-            },
-            trigger: 'blur'
+  private formFields: IFormFields = {}
+
+  private initFormFields () {
+    return ValidateService.genRules({
+      status: {
+        prop: 'status',
+        label: '状态'
+      },
+      refuse_reason: {
+        prop: 'refuse_reason',
+        label: '拒绝原因',
+        rule: [ValidateService.max(255), () => {
+          return {
+            refuse_reason: {
+              required: this.form.status === this.Service.getStatusValue(3, '已拒绝'),
+              validator: (rule: any, value: string, callback: Function) => {
+                console.log(value)
+                if (this.form.status === this.Service.getStatusValue(3, '已拒绝') && !value) {
+                  callback(new Error('请输入拒绝原因'))
+                }
+                callback()
+              },
+              trigger: 'blur'
+            }
           }
-        }
-      }]
-    }
-  })
+        }]
+      }
+    })
+  }
+
+  private handleChange () {
+    return Promise.resolve()
+      .then(() => {
+        this.formFields = this.initFormFields()
+      })
+  }
 }
 </script>
