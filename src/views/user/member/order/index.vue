@@ -22,7 +22,7 @@ import DialogService from '@/service/DialogService/Service'
 @Component
 export default class ViewUserMemberOrderIndex extends Vue {
   @Prop()
-  id!: string
+  params!: { id: string }
 
   private Service = Service
 
@@ -41,11 +41,11 @@ export default class ViewUserMemberOrderIndex extends Vue {
 
   private handleLoad (params: any) {
     let _search
-    if (this.id) {
+    if (this.params.id) {
       _search = [{
         field: 'user_id',
         where: '等于',
-        value: this.id,
+        value: this.params.id,
         type: 'string'
       }]
     }
@@ -60,7 +60,7 @@ export default class ViewUserMemberOrderIndex extends Vue {
   }
 
   created () {
-    if (this.id) {
+    if (this.params.id) {
       this.searchFields = null
     }
   }

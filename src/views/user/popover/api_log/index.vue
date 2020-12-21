@@ -20,14 +20,14 @@ import DialogService from '@/service/DialogService/Service'
 @Component
 export default class ViewUserPopoverApiLog extends Vue {
   @Prop()
-  id!: string
+  params!: { id: string }
 
   private Service = Service
 
   private handleLoad (params: any) {
     return Service.index({
       ...params,
-      user_id: this.id
+      user_id: this.params.id
     })
   }
 

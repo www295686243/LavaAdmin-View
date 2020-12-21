@@ -16,17 +16,17 @@ import Service from './Service'
 @Component
 export default class ViewUserMemberBillIndex extends Vue {
   @Prop()
-  id!: string
+  params!: { id: string }
 
   private Service = Service
 
   private handleLoad (params: any) {
     let _search
-    if (this.id) {
+    if (this.params.id) {
       _search = [{
         field: 'user_id',
         where: '等于',
-        value: this.id,
+        value: this.params.id,
         type: 'string'
       }]
     }
