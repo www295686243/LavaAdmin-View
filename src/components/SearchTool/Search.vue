@@ -180,7 +180,7 @@ export default class SearchToolEntra extends Vue {
   }
 
   private handleSubmit () {
-    RouterService.replace(RouterService.getPath(), { _search: QueryString.stringify(this.SqlService.get()) || undefined })
+    RouterService.replace(RouterService.getPath(), { page: 1, _search: QueryString.stringify(this.SqlService.get()) || undefined })
   }
 
   private getFields (): ISearchFields[] {
