@@ -22,7 +22,7 @@ export default class ViewUserMemberBillIndex extends Vue {
 
   private handleLoad (params: any) {
     let _search
-    if (this.params.id) {
+    if (this.params && this.params.id) {
       _search = [{
         field: 'user_id',
         where: '等于',

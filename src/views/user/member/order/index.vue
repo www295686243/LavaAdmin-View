@@ -41,7 +41,7 @@ export default class ViewUserMemberOrderIndex extends Vue {
 
   private handleLoad (params: any) {
     let _search
-    if (this.params.id) {
+    if (this.params && this.params.id) {
       _search = [{
         field: 'user_id',
         where: '等于',
@@ -60,7 +60,7 @@ export default class ViewUserMemberOrderIndex extends Vue {
   }
 
   created () {
-    if (this.params.id) {
+    if (this.params && this.params.id) {
       this.searchFields = null
     }
   }
