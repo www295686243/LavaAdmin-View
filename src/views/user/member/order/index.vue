@@ -3,6 +3,7 @@
     <TableText prop="user.nickname" label="支付人" :width="160"></TableText>
     <TableText prop="user_orderable.title" label="订单信息" :width="220"></TableText>
     <TableText prop="total_amount" label="总金额" :width="100" align="right"></TableText>
+    <TableText prop="cash_amount" label="现金" :width="100" align="right"></TableText>
     <TableText prop="user_coupon.display_name" label="优惠券" :width="100"></TableText>
     <TableText prop="coupon_amount" label="优惠券金额" :width="100" align="right"></TableText>
     <TableOptions prop="pay_status" label="支付状态" :width="100"></TableOptions>

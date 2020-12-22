@@ -3,7 +3,7 @@
     <TableText prop="nickname" label="操作人" :width="120"></TableText>
     <TableText prop="method" label="模式" :width="100"></TableText>
     <TableText prop="path" label="路径" :width="400"></TableText>
-    <TableText prop="ip" label="IP" :width="120"></TableText>
+    <TableText prop="ip" label="IP" :width="140"></TableText>
     <TableOptions prop="status" label="结果" :width="80" :options="[
       { value: 'success', display_name: '成功', color: 'success' },
       { value: 'success', display_name: '失败', color: 'error' }
