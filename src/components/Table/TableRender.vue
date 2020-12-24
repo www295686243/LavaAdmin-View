@@ -58,6 +58,9 @@ export default class TableRender extends Vue {
   @Prop({ default: false })
   disableCreate!: boolean
 
+  @Prop({ default: false })
+  inDialog!: boolean
+
   @Provide()
   tableService = this.Service
 
@@ -114,7 +117,11 @@ export default class TableRender extends Vue {
   }
 
   private pageLoad () {
-    RouterService.replace(RouterService.getPath(), { page: this.pagination.page, limit: this.pagination.limit })
+    if (this.inDialog) {
+      this.reload()
+    } else {
+      RouterService.replace(RouterService.getPath(), { page: this.pagination.page, limit: this.pagination.limit })
+    }
   }
 
   private removeReload () {
@@ -137,7 +144,11 @@ export default class TableRender extends Vue {
   }
 
   created () {
-    this.maxHeight = document.body.clientHeight - 280
+    if (this.inDialog) {
+      this.maxHeight = document.body.clientHeight * 0.6 - 40
+    } else {
+      this.maxHeight = document.body.clientHeight - 280
+    }
     this.initLoad()
     if (this.Service) {
       this.tableService.refresh = this.removeReload

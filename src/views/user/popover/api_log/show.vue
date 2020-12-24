@@ -23,9 +23,6 @@
         <FormInput v-model="info.desc" :field="formFields.desc"></FormInput>
       </el-col>
       <el-col :span="24">
-        <FormInput v-model="info.input._env.ua" :field="formFields.input._env.ua"></FormInput>
-      </el-col>
-      <el-col :span="24">
         <FormInput v-model="info.input._env.device" :field="formFields.input._env.device"></FormInput>
       </el-col>
       <el-col :span="24">
@@ -59,11 +56,11 @@ import { IFormFields } from '@/interface/common'
 @Component
 export default class ViewPopoverApiLogShow extends Vue {
   @Prop()
-  id!: string
+  params!: { id: string }
 
   private Service = Service
   private info = {
-    id: this.id,
+    id: this.params.id,
     method: '',
     name: '',
     path: '',
@@ -143,11 +140,6 @@ export default class ViewPopoverApiLogShow extends Vue {
         os: {
           prop: 'os',
           label: '操作系统',
-          readonly: true
-        },
-        ua: {
-          prop: 'ua',
-          label: 'UA',
           readonly: true
         },
         device: {

@@ -1,5 +1,5 @@
 <template>
-  <TableRender :onLoad="handleLoad" :Service="Service">
+  <TableRender :onLoad="handleLoad" :Service="Service" :inDialog="!!params">
     <TableText prop="total_amount" label="总金额" :width="100" align="right"></TableText>
     <TableText prop="cash_amount" label="现金" :width="100" align="right"></TableText>
     <TableText prop="balance_amount" label="余额" :width="100" align="right"></TableText>
@@ -10,6 +10,7 @@
 </template>
 
 <script lang="ts">
+import SqlService from '@/service/SqlService'
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import Service from './Service'
 
@@ -23,12 +24,9 @@ export default class ViewUserMemberBillIndex extends Vue {
   private handleLoad (params: any) {
     let _search
     if (this.params && this.params.id) {
-      _search = [{
-        field: 'user_id',
-        where: '等于',
-        value: this.params.id,
-        type: 'string'
-      }]
+      _search = (new SqlService())
+        .where({ field: 'user_id', operator: '=', value: this.params.id })
+        .get()
     }
     return Service.index({
       ...params,

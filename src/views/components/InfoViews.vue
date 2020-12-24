@@ -1,5 +1,5 @@
 <template>
-  <TableRender :onLoad="handleLoad">
+  <TableRender :onLoad="handleLoad" :inDialog="!!params">
     <TableText prop="user.nickname" label="访问者" :minWidth="120"></TableText>
     <TableText prop="created_at" label="访问时间" :width="200"></TableText>
   </TableRender>

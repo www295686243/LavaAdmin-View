@@ -1,5 +1,5 @@
 <template>
-  <TableRender :onLoad="handleLoad" :Service="Service" :searchFields="searchFields">
+  <TableRender :onLoad="handleLoad" :Service="Service" :searchFields="searchFields" :inDialog="!!params">
     <TableText prop="user.nickname" label="支付人" :width="160"></TableText>
     <TableText prop="user_orderable.title" label="订单信息" :width="220"></TableText>
     <TableText prop="total_amount" label="总金额" :width="100" align="right"></TableText>
@@ -19,6 +19,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 import Service from './Service'
 import { ISearchFields } from '@/interface/common'
 import DialogService from '@/service/DialogService/Service'
+import SqlService from '@/service/SqlService'
 
 @Component
 export default class ViewUserMemberOrderIndex extends Vue {
@@ -43,12 +44,9 @@ export default class ViewUserMemberOrderIndex extends Vue {
   private handleLoad (params: any) {
     let _search
     if (this.params && this.params.id) {
-      _search = [{
-        field: 'user_id',
-        where: '等于',
-        value: this.params.id,
-        type: 'string'
-      }]
+      _search = (new SqlService())
+        .where({ field: 'user_id', operator: '=', value: this.params.id })
+        .get()
     }
     return Service.index({
       ...params,

@@ -1,5 +1,5 @@
 <template>
-  <TableRender :Service="Service" :onLoad="handleLoad">
+  <TableRender :Service="Service" :onLoad="handleLoad" :inDialog="!!params">
     <TableText prop="sell_user.nickname" label="出售人" :width="160"></TableText>
     <TableText prop="buy_user.nickname" label="购买人" :width="160"></TableText>
     <TableText prop="user_coupon.display_name" label="优惠券" :width="140"></TableText>

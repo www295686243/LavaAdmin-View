@@ -55,6 +55,11 @@ export default class ViewHrIndex extends Vue {
 
   private searchFields: ISearchFields[] = [
     {
+      name: 'id',
+      display_name: 'ID',
+      type: 'bigInt'
+    },
+    {
       name: 'user_id',
       display_name: '发布人ID',
       type: 'bigInt'
