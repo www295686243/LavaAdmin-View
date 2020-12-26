@@ -8,7 +8,7 @@
     <TableOptions prop="is_complete" label="是否完成" :width="100" :bool="true"></TableOptions>
     <TableAction :buttons="[
       { name: '任务详情', onClick: handleTaskRecord }
-    ]" :width="140" />
+    ]" :minWidth="140" />
   </TableRender>
 </template>
 

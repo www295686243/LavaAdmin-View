@@ -21,7 +21,7 @@ export default class ViewOperationTaskRecordIndex extends Vue {
   created () {
     this.taskList = (cache.config.get('task') || []).map((res: any) => {
       res.name = res.id.toString()
-      res.isShowInfo = res.id === 1
+      res.isShowInfo = [1, 8, 9].includes(res.id)
       return res
     })
     this.activeName = this.taskList[0].name
