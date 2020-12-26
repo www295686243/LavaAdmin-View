@@ -32,14 +32,6 @@ class Service extends BaseAbstract {
   getPermissions (id: number | string) {
     return axios.get(`position/getPermissions/${id}`)
   }
-
-  getAssignPermissions (id: number | string) {
-    return axios.get(`position/getAssignPermissions/${id}`)
-  }
-
-  updateAssignPermissions (id: number | string, params: { permissions: string[]; menus: number[] }) {
-    return axios.post(`position/updateAssignPermissions/${id}`, params)
-  }
 }
 
 export default new Service()

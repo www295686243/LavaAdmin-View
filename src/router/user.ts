@@ -2,7 +2,6 @@
 import position from '@/views/user/admin/position/index.vue'
 import positionForm from '@/views/user/admin/position/form.vue'
 import positionPermissions from '@/views/user/admin/position/permissions.vue'
-import positionAssignPermissions from '@/views/user/admin/position/assign_permissions.vue'
 // 员工
 import employee from '@/views/user/admin/employee/index.vue'
 import employeeForm from '@/views/user/admin/employee/form.vue'
@@ -13,7 +12,6 @@ import userForm from '@/views/user/member/user/form.vue'
 import role from '@/views/user/member/role/index.vue'
 import roleForm from '@/views/user/member/role/form.vue'
 import rolePermissions from '@/views/user/member/role/permissions.vue'
-import roleAssignPermissions from '@/views/user/member/role/assign_permissions.vue'
 // 通知记录
 import Notify from '@/views/user/member/notify/index.vue'
 // 订单
@@ -43,13 +41,6 @@ export default [
     component: positionPermissions,
     meta: {
       title: '权限管理'
-    }
-  },
-  {
-    path: '/user/admin/position/assign_permissions',
-    component: positionAssignPermissions,
-    meta: {
-      title: '权限分配'
     }
   },
   // 员工
@@ -84,13 +75,6 @@ export default [
     component: rolePermissions,
     meta: {
       title: '权限管理'
-    }
-  },
-  {
-    path: '/user/member/role/assign_permissions',
-    component: roleAssignPermissions,
-    meta: {
-      title: '权限分配'
     }
   },
   // 通知记录
