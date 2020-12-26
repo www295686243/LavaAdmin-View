@@ -37,6 +37,7 @@ import UserService from '@/service/UserService'
 import cache from '@/plugins/cache'
 import { IMenu } from '@/interface/common'
 import SearchMember from './SearchMember.vue'
+import AppService from '@/service/AppService'
 
 @Component({
   components: {
@@ -58,6 +59,9 @@ export default class HeaderContainer extends Vue {
 
   private handleChangeMenu (path: string) {
     RouterService.push(path)
+    if (path === '/hr') {
+      AppService.getMenuInfoStat()
+    }
   }
 
   private handleClickDropdown (name: string) {

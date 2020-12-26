@@ -13,9 +13,11 @@
         <el-menu-item
           :index="item.route"
           v-for="item in v.children"
+          class="sub-class"
           :key="item.id">
             <i :class="item.icon"></i>
             {{item.display_name}}
+            <el-badge :value="AppService.menuInfoStat[item.route]" class="badge" v-if="AppService.menuInfoStat[item.route]"></el-badge>
         </el-menu-item>
       </el-menu-item-group>
       <el-menu-item :key="v.id" :index="v.route" v-else>
@@ -31,11 +33,13 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import cache from '@/plugins/cache'
 import RouterService from '@/service/RouterService'
 import { IMenu } from '@/interface/common'
+import AppService from '@/service/AppService'
 
 @Component
 export default class SiderContainer extends Vue {
   private list: IMenu[] = []
   private routeActive = ''
+  private AppService = AppService
 
   @Prop()
   routePaths!: IMenu[]
@@ -82,6 +86,13 @@ export default class SiderContainer extends Vue {
   height: 100%;
   .menu-item-group-icon {
     margin-right: 5px;
+  }
+  .sub-class {
+    display: flex;
+    align-items: center;
+    .badge {
+      margin-left: 5px;
+    }
   }
 }
 </style>
