@@ -1,7 +1,6 @@
 <template>
   <TableRender :Service="Service" :onLoad="handleLoad" :inDialog="!!params">
-    <TableOptions prop="task_rule_name" label="任务规则" :width="160"></TableOptions>
-    <TableText prop="operator" label="任务条件" :width="120"></TableText>
+    <TableText prop="title" label="任务名" :width="120"></TableText>
     <TableText prop="target_number" label="目标数量" :width="120"></TableText>
     <TableText prop="complete_number" label="完成数量" :width="120"></TableText>
     <TableText prop="task_complete_time" label="完成时间" :width="180"></TableText>

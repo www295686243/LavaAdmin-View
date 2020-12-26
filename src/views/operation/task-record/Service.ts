@@ -3,7 +3,7 @@ import axios from '@/plugins/axios'
 
 class Service extends BaseAbstract {
   name = 'TaskRecord'
-  index (params: { page: number }) {
+  index (params: { page: number; task_id: number }) {
     return axios.get('task_record', params)
       .then((res) => {
         res.data.data = res.data.data.map((item: any) => {

@@ -147,7 +147,7 @@ export default class TableRender extends Vue {
     if (this.inDialog) {
       this.maxHeight = document.body.clientHeight * 0.6 - 40
     } else {
-      this.maxHeight = document.body.clientHeight - 280
+      this.maxHeight = document.body.clientHeight - 300
     }
     this.initLoad()
     if (this.Service) {
